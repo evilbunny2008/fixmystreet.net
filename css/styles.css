@@ -16,6 +16,25 @@
       format("svg"); /* Legacy iOS */
 }
 
+/* bree-serif-regular - latin */
+@font-face {
+  font-family: "Bree Serif";
+  font-style: normal;
+  font-weight: 400;
+  src: url("../fonts/bree-serif-v10-latin-regular.eot"); /* IE9 Compat Modes */
+  src: local(""),
+    url("../fonts/bree-serif-v10-latin-regular.eot?#iefix")
+      format("embedded-opentype"),
+    /* IE6-IE8 */ url("../fonts/bree-serif-v10-latin-regular.woff2")
+      format("woff2"),
+    /* Super Modern Browsers */
+      url("../fonts/bree-serif-v10-latin-regular.woff") format("woff"),
+    /* Modern Browsers */ url("../fonts/bree-serif-v10-latin-regular.ttf")
+      format("truetype"),
+    /* Safari, Android, iOS */
+      url("../fonts/bree-serif-v10-latin-regular.svg#BreeSerif") format("svg"); /* Legacy iOS */
+}
+
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -28,7 +47,7 @@
  */
 body {
   line-height: 1.7em;
-  color: #7f8c8d;
+  color: black;
   font-size: 13px;
 }
 
@@ -160,6 +179,7 @@ a.pure-button-primary {
   top: 0;
   left: 0;
   position: fixed !important;
+  font-family: "Bree Serif";
 }
 
 .splash {
@@ -173,26 +193,27 @@ a.pure-button-primary {
   bottom: 0;
   right: 0;
   text-align: center;
-  text-transform: uppercase;
 }
 
 /* This is the main heading that appears on the blue section */
 .splash-head {
   font-size: 20px;
   font-weight: bold;
-  color: white;
-  border: 3px solid #ffd000;
+  color: black;
+  margin-top: -50px;
+  /* border: 3px solid #ffd000; */
   padding: 1em 1.6em;
   font-weight: 100;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   line-height: 1em;
 }
 
 /* This is the subheading that appears on the blue section */
 .splash-subhead {
-  color: white;
+  color: black;
   letter-spacing: 0.05em;
   opacity: 0.8;
+  font-size: x-large;
 }
 
 /*
@@ -217,8 +238,9 @@ a.pure-button-primary {
 /* This is the class used for the main content headers (<h2>) */
 .content-head {
   font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-family: "Bree Serif";
+  /* text-transform: uppercase; */
+  /* letter-spacing: 0.1em; */
   margin: 2em 0 1em;
 }
 
@@ -229,10 +251,15 @@ a.pure-button-primary {
 
 /* This is the class used for the content sub-headers (<h3>) */
 .content-subhead {
-  color: #1f8dd6;
+  color: #039741;
+  text-align: center;
 }
 .content-subhead i {
   margin-right: 7px;
+}
+
+.content-subhead svg {
+  color: black;
 }
 
 /* This is the class used for the dark-background areas. */
