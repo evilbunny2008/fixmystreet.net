@@ -145,6 +145,7 @@ a.pure-button-primary {
   color: #ffd000;
   font-weight: 400;
   font-size: 120%;
+  text-transform: none;
 }
 
 .home-menu .pure-menu-selected a {
@@ -158,14 +159,22 @@ a.pure-button-primary {
   color: white;
   transition: transform 0.5s;
 }
-.home-menu li a:hover,
-.home-menu li a:focus {
+
+.home-menu a:focus {
+  background-color: transparent;
+}
+
+.home-menu li a:hover {
   background: none;
   border: none;
   color: #aecfe5;
   /* padding: 5px; */
   transform: scale(1.5);
   text-decoration: underline;
+}
+
+.home-menu li a:focus {
+  color: #ffd000;
 }
 
 /*
@@ -227,7 +236,7 @@ a.pure-button-primary {
 .content-wrapper {
   /* These styles are required for the "scroll-over" effect */
   position: absolute;
-  top: 87%;
+  top: 72%;
   width: 100%;
   min-height: 12%;
   z-index: 2;
@@ -243,6 +252,7 @@ a.pure-button-primary {
 .content-head {
   font-weight: 400;
   font-family: "Bree Serif";
+  text-transform: none;
   /* text-transform: uppercase; */
   /* letter-spacing: 0.1em; */
   margin: 2em 0 1em;
