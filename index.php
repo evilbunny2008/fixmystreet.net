@@ -8,38 +8,37 @@
       content="Report problems in your area so they can be fixed."
     />
     <title>FixMyStreet.net</title>
-    <link rel="stylesheet" href="/css/pure/pure-min.css" />
-    <link rel="stylesheet" href="/css/pure/grids-responsive-min.css" />
-    <script defer src="/fontawesome-free-5.15.2-web/js/all.min.js"></script>
+    <link rel="stylesheet" href="./css/pure/pure-min.css" />
+    <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
+    <script defer src="./fontawesome-free-5.15.2-web/js/all.min.js"></script>
     <link
       rel="stylesheet"
-      href="/fontawesome-free-5.15.2-web/css/all.min.css"
+      href="./fontawesome-free-5.15.2-web/css/all.min.css"
     />
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
     <div class="header">
       <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="">FixMyStreet.net</a>
-
         <ul class="pure-menu-list">
           <li class="pure-menu-item pure-menu-selected">
-            <a href="#" class="pure-menu-link">Report a problem</a>
+            <a href="./index.php" class="pure-menu-link">Report a problem</a>
           </li>
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link">Help</a>
           </li>
           <li class="pure-menu-item">
-            <a href="reports.html" class="pure-menu-link">All reports</a>
+            <a href="./reports.php" class="pure-menu-link">All reports</a>
           </li>
           <li class="pure-menu-item">
             <a href="#" class="pure-menu-link">Local alerts</a>
           </li>
           <li class="pure-menu-item">
-            <a href="#" class="pure-menu-link">Sign in</a>
+            <a href="./login.php" class="pure-menu-link">Sign in</a>
           </li>
           <li class="pure-menu-item">
-            <a href="#signup" class="pure-menu-link">Sign up</a>
+            <a href="./signup.php" class="pure-menu-link">Sign up</a>
           </li>
         </ul>
       </div>
@@ -62,7 +61,6 @@
         </div>
       </div>
     </div>
-
     <div class="content-wrapper">
       <div class="content">
         <h2 class="content-head is-center">How to report a problem</h2>
@@ -101,7 +99,7 @@
           </div>
         </div>
       </div>
-
+      <hr />
       <div class="content">
         <h2 class="content-head is-center">FixMyStreet.net</h2>
         <p class="is-center">
