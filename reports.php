@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="./css/pure/pure-min.css" />
     <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
     <!-- <script defer src="/js/Chart.bundle.min.js"></script> -->
-    <script defer src="/fontawesome-free-5.15.2-web/js/all.min.js"></script>
+    <script defer src="./fontawesome-free-5.15.2-web/js/all.min.js"></script>
     <link
       rel="stylesheet"
-      href="/fontawesome-free-5.15.2-web/css/all.min.css"
+      href="./fontawesome-free-5.15.2-web/css/all.min.css"
     />
     <link rel="stylesheet" href="./css/styles.css" />
   </head>
@@ -22,25 +22,25 @@
     <div class="flex-wrapper">
       <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-          <a class="pure-menu-heading" href="./index.html">FixMyStreet</a>
+          <a class="pure-menu-heading" href="./index.php">FixMyStreet</a>
           <ul class="pure-menu-list">
-            <li class="pure-menu-item pure-menu-selected">
-              <a href="#" class="pure-menu-link">Report a problem</a>
+            <li class="pure-menu-item">
+              <a href="./index.php" class="pure-menu-link">Report a problem</a>
             </li>
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Help</a>
             </li>
-            <li class="pure-menu-item">
-              <a href="reports.html" class="pure-menu-link">All reports</a>
+            <li class="pure-menu-item pure-menu-selected">
+              <a href="./reports.php" class="pure-menu-link">All reports</a>
             </li>
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Local alerts</a>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Sign in</a>
+              <a href="./login.php" class="pure-menu-link">Sign in</a>
             </li>
             <li class="pure-menu-item">
-              <a href="#signup" class="pure-menu-link">Sign up</a>
+              <a href="./signup.php" class="pure-menu-link">Sign up</a>
             </li>
           </ul>
         </div>
@@ -68,6 +68,7 @@
         </div>
       </div>
     </div>
+    <hr />
     <div class="content">
       <h2 class="content-head is-center">FixMyStreet</h2>
       <p class="is-center">
@@ -87,45 +88,6 @@
           >github</a
         >
       </p>
-      <div class="pure-g">
-        <div class="l-box-lrg pure-u-1 pure-u-md-2-5">
-          <a id="signup"></a>
-          <form class="pure-form pure-form-stacked">
-            <fieldset>
-              <label for="name">Your Name</label>
-              <input id="name" type="text" placeholder="Your Name" />
-
-              <label for="email">Your Email</label>
-              <input id="email" type="email" placeholder="Your Email" />
-
-              <label for="password">Your Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Your Password"
-              />
-
-              <button type="submit" class="pure-button">Sign Up</button>
-            </fieldset>
-          </form>
-        </div>
-
-        <div class="l-box-lrg pure-u-1 pure-u-md-3-5">
-          <h4>Contact Us</h4>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-
-          <h4>More Information</h4>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-        </div>
-      </div>
     </div>
   </body>
 </html>
