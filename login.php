@@ -45,7 +45,7 @@
 
       <div class="dash-header">
         <div class="splash">
-          <h1 class="splash-head">Sign up</h1>
+          <h1 class="splash-head">Login</h1>
         </div>
       </div>
       <div class="dash-content-wrapper">
