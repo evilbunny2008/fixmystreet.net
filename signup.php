@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="dash-content-wrapper">
-        <div class="content">
+        <div id="signup-content" class="content">
           <div class="pure-g" id="signup-form">
             <div class="pure-u-1-3"></div>
             <div class="pure-u-1-3">
