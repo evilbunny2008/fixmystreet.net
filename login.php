@@ -42,7 +42,6 @@
           </ul>
         </div>
       </div>
-
       <div class="dash-header">
         <div class="splash">
           <h1 class="splash-head">Login</h1>
@@ -64,10 +63,6 @@
                     <input type="password" id="aligned-password" placeholder="Password" />
                   </div>
                   <div class="pure-controls">
-                    <!-- <label for="aligned-cb" class="pure-checkbox">
-                        <input type="checkbox" id="aligned-cb" /> I&#x27;ve read
-                        the terms and conditions</label
-                      > -->
                     <button type="submit" class="pure-button pure-button-primary">
                       Submit
                     </button>
