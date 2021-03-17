@@ -418,3 +418,9 @@ fieldset {
   font-family: "Bree Serif";
   color: #000;
 }
+
+@media screen and (min-width: 1200px) {
+  .splash {
+    top: -28%;
+  }
+}
