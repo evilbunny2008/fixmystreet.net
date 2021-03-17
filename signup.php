@@ -68,12 +68,16 @@
                     <label for="aligned-password">Password</label>
                     <input type="password" id="aligned-password" placeholder="Password" />
                   </div>
+                  <div class="pure-control-group">
+                    <label for="aligned-password">Confirm Password</label>
+                    <input type="password" id="aligned-cpassword" onkeyup="validate()" placeholder="Confirm password" />
+                  </div>
                   <div class="pure-controls">
                     <!-- <label for="aligned-cb" class="pure-checkbox">
                         <input type="checkbox" id="aligned-cb" /> I&#x27;ve read
                         the terms and conditions</label
                       > -->
-                    <button type="submit" class="pure-button pure-button-primary">
+                    <button type="submit" id="btn-submit" class="pure-button pure-button-primary">
                       Submit
                     </button>
                   </div>
@@ -102,5 +106,19 @@
     </div>
   </body>
 </body>
+<script>
+  function validate() {
+    const pass = document.getElementById("aligned-password");
+    const cpass = document.getElementById("aligned-cpassword");
+    if (cpass.value !== pass.value) {
+      cpass.style.borderColor = "red";
+      document.getElementById("btn-submit").setAttribute("disabled", "");
+    } else {
+      cpass.style.borderColor = "greenyellow";
+      document.getElementById("btn-submit").removeAttribute("disabled");
+    }
+  }
+</script>
+
 
 </html>
