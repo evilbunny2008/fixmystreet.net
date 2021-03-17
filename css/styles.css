@@ -398,7 +398,7 @@ hr {
 
 @media screen and (max-width: 768px) {
   .splash {
-    top: -17%;
+    top: 100%;
   }
   /* .splash-head {
     position: relative;
@@ -420,7 +420,7 @@ fieldset {
 }
 
 @media screen and (min-width: 1200px) {
-  .splash {
+  #main-message {
     top: -28%;
   }
 }
