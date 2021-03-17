@@ -400,10 +400,10 @@ hr {
   .splash {
     top: -17%;
   }
-  .splash-head {
+  /* .splash-head {
     position: relative;
     top: 120%;
-  }
+  } */
 }
 
 #signup-form {
