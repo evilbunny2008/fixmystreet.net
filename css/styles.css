@@ -58,7 +58,7 @@ h4,
 h5,
 h6,
 label {
-  color: #34495e;
+  color: #000;
 }
 
 .pure-img-responsive {
@@ -406,10 +406,15 @@ hr {
   } */
 }
 
+#signup-content {
+  background-color: #039741;
+}
+
 #signup-form {
   margin: 10%;
 }
 
 fieldset {
   font-family: "Bree Serif";
+  color: #000;
 }
