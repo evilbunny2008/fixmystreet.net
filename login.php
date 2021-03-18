@@ -1,3 +1,38 @@
+<?php
+    require_once('mysql.php');
+    global $link;
+
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
+    {
+        $url = $_SERVER['SERVER_PROTOCOL'].$_SERVER['HTTP_HOST'];
+        header("Location: $url");
+    } 
+    if (isset($_POST['submit']))
+    {
+        if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
+        {
+            $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['password']));
+            $password = empty($_POST['password']) ? NULL : password_hash(mysqli_real_escape_string($link, htmlentities($_POST['password'])), PASSWORD_BCRYPT);
+            if ($email == NULL || $password == NULL)
+            {
+                $msg = _("An error occurred");
+            } 
+            else
+            {
+                $result = mysqli_query($link, "SELECT 1 FROM `users` WHERE `email`= '$email' AND `password` = '$password'");
+                if (mysqli_num_rows($result) > 0)
+                {
+                    $_SESSION['loggedin'] = 1;
+                    $_SESSION['email'] = $email;
+                }
+                else
+                {
+                    $msg = _("Authorization failed");
+                }
+            }
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,18 +87,19 @@
           <div class="pure-g" id="signup-form">
             <div class="pure-u-1-3"></div>
             <div class="pure-u-1-3">
-              <form class="pure-form pure-form-stacked">
+              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
+                  <input type="hidden" value="1" name="hiddenval">
                   <div class="pure-control-group">
                     <label for="aligned-email">Email Address</label>
-                    <input type="email" id="aligned-email" placeholder="Email Address" />
+                    <input type="email" name="email" id="aligned-email" placeholder="Email Address" />
                   </div>
                   <div class="pure-control-group">
                     <label for="aligned-password">Password</label>
-                    <input type="password" id="aligned-password" placeholder="Password" />
+                    <input type="password" name="password" id="aligned-password" placeholder="Password" />
                   </div>
                   <div class="pure-controls">
-                    <button type="submit" class="pure-button pure-button-primary">
+                    <button type="submit" name="submit" class="pure-button pure-button-primary">
                       Submit
                     </button>
                   </div>
