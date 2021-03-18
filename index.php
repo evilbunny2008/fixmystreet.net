@@ -103,7 +103,7 @@
         database!
         <br />
         It is inspired by
-        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet</a>
+        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet.com</a>
         <br />
         Would you like to contribute to FixMyStreet.net? Our code is open
         source and available on

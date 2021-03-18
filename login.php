@@ -19,7 +19,7 @@
     <div class="flex-wrapper">
       <div class="header">
         <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-          <a class="pure-menu-heading" href="./index.php">FixMyStreet</a>
+          <a class="pure-menu-heading" href="./index.php">FixMyStreet.net</a>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
               <a href="./index.php" class="pure-menu-link">Report a problem</a>
@@ -83,7 +83,7 @@
         database!
         <br />
         It is inspired by
-        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet</a>
+        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet.com</a>
         <br />
         Would you like to contribute to FixMyStreet.net? Our code is open
         source and available on
