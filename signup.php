@@ -89,8 +89,9 @@
         </div>
       </div>
     </div>
-    <hr />
     <div class="content">
+      <hr />
+
       <h2 class="content-head is-center">FixMyStreet.net</h2>
       <p class="is-center">
         This version of FixMyStreet is written in PHP and runs on a MySQL
@@ -114,11 +115,10 @@
       cpass.style.borderColor = "red";
       document.getElementById("btn-submit").setAttribute("disabled", "");
     } else {
-      cpass.style.borderColor = "greenyellow";
+      cpass.style.borderColor = "#66ff00";
       document.getElementById("btn-submit").removeAttribute("disabled");
     }
   }
 </script>
-
 
 </html>
