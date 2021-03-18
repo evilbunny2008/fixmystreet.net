@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$database = "database";
 	$username = "username";
 	$password = "password";
