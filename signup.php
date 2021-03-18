@@ -91,7 +91,7 @@
     </div>
     <hr />
     <div class="content">
-      <h2 class="content-head is-center">FixMyStreet</h2>
+      <h2 class="content-head is-center">FixMyStreet.net</h2>
       <p class="is-center">
         This version of FixMyStreet is written in PHP and runs on a MySQL
         database!
