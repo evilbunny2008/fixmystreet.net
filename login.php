@@ -13,7 +13,7 @@
         {
             $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['password']));
             $password = empty($_POST['password']) ? NULL : password_hash(mysqli_real_escape_string($link, htmlentities($_POST['password'])), PASSWORD_BCRYPT);
-            if ($email == NULL || $password == NULL)
+            if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
                 $msg = _("An error occurred");
             } 
