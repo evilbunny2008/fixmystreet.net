@@ -47,3 +47,15 @@
 			return true;
 		return false;
 	}
+
+	function isEmailInDB($email)
+	{
+		global $link;
+
+		$email = mysqli_real_escape_string($link, $email);
+		$query = "SELECT 1 FROM `users` WHERE `email`='$email'";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) >= 1)
+			return true;
+		return false;
+	}
