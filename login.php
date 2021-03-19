@@ -5,17 +5,17 @@
     {
         $url = $_SERVER['SERVER_PROTOCOL'].$_SERVER['HTTP_HOST'];
         header("Location: $url");
-    }
+    } 
     if (isset($_POST['submit']))
     {
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-            $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['password']));
-            $password = empty($_POST['password']) ? NULL : password_hash(mysqli_real_escape_string($link, strip_tags(trim(($_POST['password'])) + $secret), PASSWORD_ARGON2ID);
+            $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['email']));
+            $password = empty($_POST['password']) ? NULL : getPasswordHash(htmlentities($_POST['password']));
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
                 $msg = _("An error occurred");
-            }
+            } 
             else
             {
                 $result = mysqli_query($link, "SELECT 1 FROM `users` WHERE `email`= '$email' AND `password` = '$password'");
