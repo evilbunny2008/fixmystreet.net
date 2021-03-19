@@ -24,6 +24,26 @@
 
 	function getPasswordHash($password)
 	{
-		global $secret;
-		return password_hash(strip_tags(trim($password)) + $secret, PASSWORD_ARGON2ID);
+		global $link;
+
+		$password = password_hash(strip_tags(trim($password)), PASSWORD_ARGON2ID);
+		return mysqli_real_escape_string($link, $password);
+	}
+
+	function comparePasswordHash($email, $password)
+	{
+		global $link;
+
+		$email = mysqli_real_escape_string($link, $email);
+		$password = strip_tags(trim($password));
+
+		$query = "select `password` from `users` where `email`='$email'";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) <= 0)
+			return false;
+
+		$row = mysqli_fetch_assoc($res);
+		if(password_verify($password, $row['password']))
+			return true;
+		return false;
 	}

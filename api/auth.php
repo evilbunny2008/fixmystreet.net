@@ -1,19 +1,16 @@
 <?php
 	require_once('../common.php');
 
-	$email = mysqli_real_escape_string($link, strip_tags(trim($_GET['email'])));
-	$password = getPasswordHash($_GET['password']);
-	$password = mysqli_real_escape_string($link, $password);
+	$email = strip_tags(trim($_GET['email']));
+	$password = strip_tags(trim($_GET['password']));
 
-	$query = "select `id` from `users` where `email`='$email' and `password`='$password'";
-	$res = mysqli_query($link, $query);
-	if(mysqli_num_rows($res) == 1)
+	if(!comparePasswordHash($email, $password))
 	{
-		$arr['status'] = 'OK';
+		$arr['status'] = 'Fail';
 		echo json_encode($arr);
 		exit;
 	}
 
-	$arr['status'] = 'Fail';
+	$arr['status'] = 'OK';
 	echo json_encode($arr);
 	exit;
