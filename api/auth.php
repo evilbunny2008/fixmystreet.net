@@ -1,8 +1,8 @@
 <?php
-	require_once('../mysql.php');
+	require_once('../common.php');
 
 	$email = mysqli_real_escape_string($link, strip_tags(trim($_GET['email'])));
-	$password = password_hash(strip_tags(trim($_GET['password'])) + $secret, PASSWORD_ARGON2ID);
+	$password = getPasswordHash($_GET['password']);
 	$password = mysqli_real_escape_string($link, $password);
 
 	$query = "select `id` from `users` where `email`='$email' and `password`='$password'";
