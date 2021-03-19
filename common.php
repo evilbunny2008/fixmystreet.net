@@ -21,3 +21,9 @@
 		echo "Invalid latitude or longitude";
 		return false;
 	}
+
+	function getPasswordHash($password)
+	{
+		global $secret;
+		return password_hash(strip_tags(trim(($_POST['password'])) + $secret, PASSWORD_ARGON2ID);
+	}
