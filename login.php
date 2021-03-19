@@ -1,6 +1,5 @@
 <?php
     require_once('mysql.php');
-    global $link;
 
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
@@ -12,7 +11,7 @@
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
             $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['password']));
-            $password = empty($_POST['password']) ? NULL : password_hash(mysqli_real_escape_string($link, htmlentities($_POST['password'])), PASSWORD_BCRYPT);
+            $password = empty($_POST['password']) ? NULL : password_hash(mysqli_real_escape_string($link, htmlentities($_POST['password'])), $secret + PASSWORD_ARGON2ID);
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
                 $msg = _("An error occurred");
