@@ -1,3 +1,43 @@
+<?php 
+    if(isset($_SESSION['loggedin']) === 1)
+    {
+        $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
+        header("Location: $url");
+    }
+    else
+    {
+        $email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
+        $password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
+        $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
+        $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
+        $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
+
+        if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
+        {
+            $msg = _("An error ocurred.");
+        }
+        if(isEmailInDB($_POST['email']))
+        {
+            $msg = _("This email is already present in our database!");
+        }
+        else if($password === $cpassword && !isEmailInDB($email)) //SECOND CONDITION NOT NECESSARY (?)
+        {
+            if(!is_null($phoneNo) && isNumberInDB($phoneNo))
+            {
+                $msg = _("Phone number already exists in our database");
+            }
+            else
+            {
+                $password = getPasswordHash($_POST['cpassword']);
+                registerUser($email, $password, $phoneNo, $name);
+            }
+        }
+        else
+        {
+            $msg = _("The passwords you entered didn't match");
+        }        
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,24 +93,28 @@
           <div class="pure-g" id="signup-form">
             <div class="pure-u-1-3"></div>
             <div class="pure-u-1-3">
-              <form class="pure-form pure-form-stacked">
+              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <div class="pure-control-group">
-                    <label for="aligned-name">Phone number</label>
-                    <input type="text" id="aligned-name" placeholder="Phone number" />
+                    <label for="aligned-number">Phone number</label>
+                    <input type="tel" name="number" id="aligned-number" placeholder="Phone number" />
                     <span class="pure-form-message-inline">This is an optional field.</span>
                   </div>
                   <div class="pure-control-group">
+                    <label for="aligned-name">Name</label>
+                    <input type="text" name="name" id="aligned-name" placeholder="Your name" />
+                  </div>
+                  <div class="pure-control-group">
                     <label for="aligned-email">Email Address</label>
-                    <input type="email" id="aligned-email" placeholder="Email Address" />
+                    <input type="email" name="email" id="aligned-email" placeholder="Email Address" />
                   </div>
                   <div class="pure-control-group">
                     <label for="aligned-password">Password</label>
-                    <input type="password" id="aligned-password" placeholder="Password" />
+                    <input type="password" name="password" id="aligned-password" placeholder="Password" />
                   </div>
                   <div class="pure-control-group">
                     <label for="aligned-password">Confirm Password</label>
-                    <input type="password" id="aligned-cpassword" onkeyup="validate()" placeholder="Confirm password" />
+                    <input type="password" name="cpassword" id="aligned-cpassword" onkeyup="validate()" placeholder="Confirm password" />
                   </div>
                   <div class="pure-controls">
                     <!-- <label for="aligned-cb" class="pure-checkbox">
