@@ -59,3 +59,23 @@
 			return true;
 		return false;
 	}
+
+	function isNumberInDB($phoneNo)
+	{
+		global $link;
+		$number = mysqli_real_escape_string($link, $phoneNo);
+		$query = "SELECT 1 FROM `users` WHERE `phone` = '$phoneNo'";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) >= 1)
+			return true;
+		return false;
+	}
+
+	function registerUser($email, $password, $phoneNo, $name)
+	{
+		global $link;
+		$email = mysqli_real_escape_string($link, $email);
+		$password = mysqli_real_escape_string($link, $password);
+		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, $phoneNo);
+		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
+	}
