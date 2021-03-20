@@ -52,7 +52,7 @@
 	{
 		global $link;
 
-		$email = mysqli_real_escape_string($link, $email);
+		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
 		$query = "SELECT 1 FROM `users` WHERE `email`='$email'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
@@ -63,7 +63,7 @@
 	function isNumberInDB($phoneNo)
 	{
 		global $link;
-		$number = mysqli_real_escape_string($link, $phoneNo);
+		$number = mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
 		$query = "SELECT 1 FROM `users` WHERE `phone` = '$phoneNo'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
@@ -74,8 +74,8 @@
 	function registerUser($email, $password, $phoneNo, $name)
 	{
 		global $link;
-		$email = mysqli_real_escape_string($link, $email);
-		$password = mysqli_real_escape_string($link, $password);
-		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, $phoneNo);
+		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
+		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
+		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
 	}
