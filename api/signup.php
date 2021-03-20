@@ -15,7 +15,7 @@
 	$name = mysqli_real_escape_string($link, strip_tags(trim($_GET['name'])));
 	$mobile = mysqli_real_escape_string($link, strip_tags(trim($_GET['mobile'])));
 
-	if($email == "" || strlen($email) < 8)
+	if($email == "" || strlen($email) < 8 || !filter_var($email, FILTER_VALIDATE_EMAIL))
 	{
 		$arr['status'] = 'Fail';
 		$arr['errmsg'] = "Invalid email.";
