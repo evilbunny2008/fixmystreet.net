@@ -10,7 +10,7 @@
     {
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-            $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, htmlentities($_POST['email']));
+            $email = empty($_POST['email']) ? NULL : htmlentities($_POST['email']);
             $password = empty($_POST['password']) ? NULL : getPasswordHash(htmlentities($_POST['password']));
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
