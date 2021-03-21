@@ -1,4 +1,5 @@
-<?php 
+<?php
+
     if(isset($_SESSION['loggedin']) === 1)
     {
         $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
@@ -35,7 +36,7 @@
         else
         {
             $msg = _("The passwords you entered didn't match");
-        }        
+        }
     }
 ?>
 <!DOCTYPE html>
