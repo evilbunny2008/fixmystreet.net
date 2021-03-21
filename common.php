@@ -78,4 +78,10 @@
 		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
 		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
+		mysqli_query($link, $query);
+		$query = "SELECT `id` FROM `users` WHERE `email`='$email'";
+		$hash = genHash();
+		$id = mysqli_query($link, $query);
+		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id";
+		header("Location: signedup.html");
 	}

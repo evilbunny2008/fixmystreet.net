@@ -1,42 +1,45 @@
-<?php
-
-    if(isset($_SESSION['loggedin']) === 1)
+<?php 
+    require_once('mysql.php');
+    if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
         $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
         header("Location: $url");
     }
-    else
+    if (isset($_POST['submit']))
     {
-        $email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
-        $password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
-        $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
-        $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
-        $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
-
-        if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
+        if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-            $msg = _("An error ocurred.");
-        }
-        if(isEmailInDB($_POST['email']))
-        {
-            $msg = _("This email is already present in our database!");
-        }
-        else if($password === $cpassword && !isEmailInDB($email)) //SECOND CONDITION NOT NECESSARY (?)
-        {
-            if(!is_null($phoneNo) && isNumberInDB($phoneNo))
-            {
-                $msg = _("Phone number already exists in our database");
-            }
-            else
-            {
-                $password = getPasswordHash($_POST['cpassword']);
-                registerUser($email, $password, $phoneNo, $name);
-            }
-        }
-        else
-        {
-            $msg = _("The passwords you entered didn't match");
-        }
+          $email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
+          $password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
+          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
+          $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
+          $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
+  
+          if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
+          {
+              $msg = _("An error ocurred.");
+          }
+          if(isEmailInDB($_POST['email']))
+          {
+              $msg = _("This email is already present in our database!");
+          }
+          else if($password === $cpassword && !isEmailInDB($email)) //SECOND CONDITION NOT NECESSARY (?)
+          {
+              if(!is_null($phoneNo) && isNumberInDB($phoneNo))
+              {
+                  $msg = _("Phone number already exists in our database");
+              }
+              else
+              {
+                  $password = getPasswordHash($_POST['cpassword']);
+                  registerUser($email, $password, $phoneNo, $name);
+              }
+          }
+          else
+          {
+              $msg = _("The passwords you entered didn't match");
+          } 
+        }       
     }
 ?>
 <!DOCTYPE html>
@@ -96,6 +99,11 @@
             <div class="pure-u-1-3">
               <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
+                  <?php
+                  if ($msg != '')
+                  { 
+                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
+            <?php } ?>
                   <div class="pure-control-group">
                     <label for="aligned-number">Phone number</label>
                     <input type="tel" name="number" id="aligned-number" placeholder="Phone number" />

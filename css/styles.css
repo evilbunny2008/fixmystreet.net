@@ -414,6 +414,11 @@ hr {
   margin: 10%;
 }
 
+#signup-form form {
+  position: relative;
+  top: -16%;
+}
+
 fieldset {
   font-family: "Bree Serif";
   color: #000;
@@ -423,4 +428,9 @@ fieldset {
   #main-message {
     top: -28%;
   }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
