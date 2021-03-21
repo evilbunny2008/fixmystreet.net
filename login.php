@@ -88,6 +88,11 @@
             <div class="pure-u-1-3">
               <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
+                <?php
+                  if ($msg != '')
+                  { 
+                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
+            <?php } ?>
                   <input type="hidden" value="1" name="hiddenval">
                   <div class="pure-control-group">
                     <label for="aligned-email">Email Address</label>
