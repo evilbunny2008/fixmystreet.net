@@ -81,8 +81,8 @@
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
 		mysqli_query($link, $query);
 		$query = "SELECT `id` FROM `users` WHERE `email`='$email'";
-		$hash = genHash();
 		$id = mysqli_query($link, $query);
+		$hash = genHash();
 		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id";
 		mysqli_query($link, $query);
 		sendMail(1, $hash, $id, $email);
