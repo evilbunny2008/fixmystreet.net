@@ -1,5 +1,5 @@
 <?php 
-    require_once('mysql.php');
+    require_once('common.php');
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
         $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
@@ -14,7 +14,7 @@
           $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
           $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
           $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
-  
+
           if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
           {
               $msg = _("An error ocurred.");
@@ -38,8 +38,8 @@
           else
           {
               $msg = _("The passwords you entered didn't match");
-          } 
-        }       
+          }
+        }
     }
 ?>
 <!DOCTYPE html>
