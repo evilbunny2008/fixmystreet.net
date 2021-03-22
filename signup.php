@@ -19,7 +19,7 @@
           {
               $msg = _("An error ocurred.");
           }
-          if(isEmailInDB($_POST['email']))
+          if(isEmailInDB($email))
           {
               $msg = _("This email is already present in our database!");
           }
@@ -31,7 +31,7 @@
               }
               else
               {
-                  $password = getPasswordHash($_POST['cpassword']);
+                  $password = getPasswordHash($cpassword);
                   registerUser($email, $password, $phoneNo, $name);
               }
           }
