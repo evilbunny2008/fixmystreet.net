@@ -100,7 +100,7 @@
               <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
-                  if ($msg != '')
+                  if (isset($msg) && $msg != '')
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
