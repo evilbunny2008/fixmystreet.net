@@ -76,7 +76,7 @@
 		global $link;
 		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
 		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
-		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
+		$phoneNo = empty($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
 		$name = mysqli_real_escape_string($link, strip_tags($name));
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
 		mysqli_query($link, $query);
