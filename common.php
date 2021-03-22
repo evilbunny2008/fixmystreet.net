@@ -71,6 +71,13 @@
 		return false;
 	}
 
+	function genHash()
+	{
+		$rnd = fopen("/dev/urandom", "r");
+		$hash = md5(fgets($rnd, 64));
+		return $hash;
+	}
+
 	function registerUser($email, $password, $phoneNo, $name)
 	{
 		global $link;
@@ -86,6 +93,8 @@
 		sendMail(1, $hash, $id, $email);
 		header("Location: signedup.html");
 	}
+
+
 
 	function sendMail($type, $hash, $id, $email)
 	{
