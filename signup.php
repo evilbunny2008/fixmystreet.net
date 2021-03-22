@@ -57,8 +57,6 @@
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 
-<body>
-
   <body>
     <div class="flex-wrapper">
       <div class="header">
@@ -160,7 +158,6 @@
       </p>
     </div>
   </body>
-</body>
 <script>
   function validate() {
     const pass = document.getElementById("aligned-password");
