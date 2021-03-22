@@ -71,19 +71,13 @@
 		return false;
 	}
 
-	function genHash()
-	{
-		$rnd = fopen("/dev/urandom", "r");
-		$hash = md5(fgets($rnd, 64));
-		return $hash;
-	}
-
 	function registerUser($email, $password, $phoneNo, $name)
 	{
 		global $link;
 		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
 		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
 		$phoneNo = is_null($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
+		$name = mysqli_real_escape_string($link, strip_tags($name));
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
 		mysqli_query($link, $query);
 		$query = "SELECT `id` FROM `users` WHERE `email`='$email'";
@@ -94,8 +88,6 @@
 		sendMail(1, $hash, $id, $email);
 		header("Location: signedup.html");
 	}
-
-
 
 	function sendMail($type, $hash, $id, $email)
 	{
