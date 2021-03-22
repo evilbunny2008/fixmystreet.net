@@ -1,7 +1,7 @@
 <?php
-	require_once('mysql.php');
+	require_once('common.php');
 	$hash = mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['hash'])));
-	$uid = intval(mysqli_real_escape_string($conn, trim(strip_tags($_REQUEST['uid']))));
+	$uid = intval(mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['uid']))));
 	if ($hash == "" || is_null($uid))
 	{
 		echo "Unknown error";
