@@ -90,6 +90,7 @@
 		$hash = genHash();
 		$id = mysqli_query($link, $query);
 		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id";
+		mysqli_query($link, $query);
 		sendMail(1, $hash, $id, $email);
 		header("Location: signedup.html");
 	}
@@ -112,4 +113,11 @@
 				$body .= "https:/"."/fixmystreet.net/verify.php?hash=$hash&uid=$id\n\n";
 				mail($email, "[FixMyStreet.net]: "._("Email Verification Check"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
 		}
+	}
+
+	function genHash()
+	{
+		$rnd = fopen("/dev/urandom", "r");
+		$hash = md5(fgets($rnd, 64));
+		return $hash;
 	}
