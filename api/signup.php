@@ -47,11 +47,17 @@
 		exit;
 	}
 
-	registerUser(
+	if(isNumberInDB($mobile))
+	{
+		$arr['status'] = 'Fail';
+		$arr['errmsg'] = "Number already in the database.";
+		echo json_encode($arr);
+		exit;
+	}
 
-	$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$mobile', `name`='$name'";
-	mysqli_query($link, $query);
+	$password = getPasswordHash($cpassword);
 
+	registerUser($email, $password, $mobile, $name)
 	$arr['status'] = 'OK';
 	echo json_encode($arr);
 	exit;
