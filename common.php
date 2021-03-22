@@ -87,6 +87,7 @@
 		mysqli_query($link, $query);
 		sendMail(1, $hash, $id, $email);
 		header("Location: signedup.html");
+		exit;
 	}
 
 	function sendMail($type, $hash, $id, $email)
