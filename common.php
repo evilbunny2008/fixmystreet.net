@@ -78,11 +78,13 @@
 		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
 		$phoneNo = empty($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
 		$name = mysqli_real_escape_string($link, strip_tags($name));
+
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
 		mysqli_query($link, $query);
-		// $query = "SELECT `id` FROM `users` WHERE `email`='$email'";
+
 		$id = mysqli_insert_id($link);
 		$hash = genHash();
+
 		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id";
 		mysqli_query($link, $query);
 		sendMail(1, $hash, $id, $email);
