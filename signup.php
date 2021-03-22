@@ -129,7 +129,7 @@
                         <input type="checkbox" id="aligned-cb" /> I&#x27;ve read
                         the terms and conditions</label
                       > -->
-                    <button type="submit" id="btn-submit" class="pure-button pure-button-primary">
+                    <button name="submit" type="submit" id="btn-submit" class="pure-button pure-button-primary">
                       Submit
                     </button>
                   </div>
