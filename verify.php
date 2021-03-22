@@ -12,8 +12,11 @@
 		$res = mysqli_query($link, $sql);
 		if(mysqli_num_rows($res) === 1)
 		{
-			$sql = "UPDATE `token` SET `token` = NULL WHERE uid = $uid";
-			header('location: verified.html');
+			$sql = "UPDATE `token` SET `token` = NULL WHERE `uid` = $uid";
+			mysqli_query($link, $sql);
+			$sql = "UPDATE `users` SET `email_verified` = 1 WHERE `uid`= $uid";
+			mysqli_query($link, $sql);
+			header('Location: verified.html');
 		}
 		else
 		{
