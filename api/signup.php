@@ -47,6 +47,8 @@
 		exit;
 	}
 
+	registerUser(
+
 	$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$mobile', `name`='$name'";
 	mysqli_query($link, $query);
 
