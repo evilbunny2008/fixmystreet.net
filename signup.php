@@ -4,7 +4,9 @@
     {
         $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
         header("Location: $url");
+	exit;
     }
+
     if (isset($_POST['submit']))
     {
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
@@ -14,11 +16,12 @@
           $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
           $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
           $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
-  
+
           if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
           {
               $msg = _("An error ocurred.");
           }
+
           if(isEmailInDB($_POST['email']))
           {
               $msg = _("This email is already present in our database!");
@@ -38,8 +41,8 @@
           else
           {
               $msg = _("The passwords you entered didn't match");
-          } 
-        }       
+          }
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -118,7 +121,7 @@
                   </div>
                   <div class="pure-control-group">
                     <label for="aligned-password">Password</label>
-                    <input type="password" name="password" id="aligned-password" placeholder="Password" />
+                    <input type="password" name="password" id="aligned-password" onkeyup="validate()" placeholder="Password" />
                   </div>
                   <div class="pure-control-group">
                     <label for="aligned-password">Confirm Password</label>
@@ -129,7 +132,7 @@
                         <input type="checkbox" id="aligned-cb" /> I&#x27;ve read
                         the terms and conditions</label
                       > -->
-                    <button type="submit" id="btn-submit" class="pure-button pure-button-primary">
+                    <button name="submit" type="submit" id="btn-submit" class="pure-button pure-button-primary">
                       Submit
                     </button>
                   </div>
