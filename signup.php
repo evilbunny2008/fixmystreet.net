@@ -104,6 +104,7 @@
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
+                  <input type="hidden" value="1" name="hiddenval">
                   <div class="pure-control-group">
                     <label for="aligned-number">Phone number</label>
                     <input type="tel" name="number" id="aligned-number" placeholder="Phone number" />
