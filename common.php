@@ -104,7 +104,7 @@
 				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("requested to reset your password on FixMyStreet.net")."\n\n";
 				$body .= _("Please click on the following URL to reset your password:")."\n\n";
 				$body .= "https:/"."/fixmystreet.net/reset.php?hash=$hash&uid=$id\n\n";
-				mail($email, "[FixMyStreet.net]: "._("Email Verification Check"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
+				mail($email, "[FixMyStreet.net]: "._("Password Reset"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
 		}
 	}
 
