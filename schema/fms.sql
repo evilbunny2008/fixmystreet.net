@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 4.6.6deb5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Mar 14, 2021 at 12:37 PM
--- Server version: 10.3.25-MariaDB-0ubuntu0.20.04.1
--- PHP Version: 7.4.3
+-- Generation Time: Mar 23, 2021 at 05:48 PM
+-- Server version: 10.3.27-MariaDB-0+deb10u1
+-- PHP Version: 7.3.27-1~deb10u1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -146,6 +144,13 @@ CREATE TABLE `body` (
   `deleted` tinyint(1) NOT NULL DEFAULT 0,
   `extra` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `body`
+--
+
+INSERT INTO `body` (`id`, `name`, `external_url`, `parent`, `endpoint`, `jurisdiction`, `api_key`, `send_method`, `send_comments`, `comment_user_id`, `suppress_alerts`, `can_be_devolved`, `send_extended_statuses`, `fetch_problems`, `blank_updates_permitted`, `convert_latlong`, `deleted`, `extra`) VALUES
+(1, 'Australia', '', NULL, '', '', '', 'Email', 0, NULL, 0, 0, 0, 0, 0, 0, 0, 'A1:1,T18:fetch_all_problems,T0:,');
 
 -- --------------------------------------------------------
 
@@ -287,17 +292,6 @@ CREATE TABLE `defect_types` (
   `name` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `extra` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `flickr_imported`
---
-
-CREATE TABLE `flickr_imported` (
-  `id` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `problem_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -482,28 +476,6 @@ CREATE TABLE `roles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `secret`
---
-
-CREATE TABLE `secret` (
-  `secret` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sessions`
---
-
-CREATE TABLE `sessions` (
-  `id` varchar(72) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `session_data` mediumtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `expires` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `state`
 --
 
@@ -549,10 +521,10 @@ CREATE TABLE `textmystreet` (
 --
 
 CREATE TABLE `token` (
-  `scope` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
   `token` mediumtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` blob NOT NULL,
-  `created` timestamp NOT NULL DEFAULT current_timestamp()
+  `created` timestamp NOT NULL DEFAULT current_timestamp(),
+  `type` enum('signup','reset') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'signup'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -596,6 +568,11 @@ CREATE TABLE `users` (
   `area_ids` int(11) DEFAULT NULL,
   `extra` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
 
 -- --------------------------------------------------------
 
@@ -732,12 +709,6 @@ ALTER TABLE `defect_types`
   ADD KEY `body_id` (`body_id`);
 
 --
--- Indexes for table `flickr_imported`
---
-ALTER TABLE `flickr_imported`
-  ADD KEY `problem_id` (`problem_id`);
-
---
 -- Indexes for table `manifest_theme`
 --
 ALTER TABLE `manifest_theme`
@@ -800,16 +771,16 @@ ALTER TABLE `roles`
   ADD KEY `body_id` (`body_id`);
 
 --
--- Indexes for table `sessions`
---
-ALTER TABLE `sessions`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `state`
 --
 ALTER TABLE `state`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `token`
+--
+ALTER TABLE `token`
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `translation`
@@ -854,146 +825,122 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `admin_log`
 --
 ALTER TABLE `admin_log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `alert`
 --
 ALTER TABLE `alert`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `body`
 --
 ALTER TABLE `body`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `contacts_history`
 --
 ALTER TABLE `contacts_history`
   MODIFY `contacts_history_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `contact_response_priorities`
 --
 ALTER TABLE `contact_response_priorities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `contact_response_templates`
 --
 ALTER TABLE `contact_response_templates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `defect_types`
 --
 ALTER TABLE `defect_types`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `manifest_theme`
 --
 ALTER TABLE `manifest_theme`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `moderation_original_data`
 --
 ALTER TABLE `moderation_original_data`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `partial_user`
 --
 ALTER TABLE `partial_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `problem`
 --
 ALTER TABLE `problem`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `questionnaire`
 --
 ALTER TABLE `questionnaire`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `report_extra_fields`
 --
 ALTER TABLE `report_extra_fields`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `response_priorities`
 --
 ALTER TABLE `response_priorities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `response_templates`
 --
 ALTER TABLE `response_templates`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `roles`
 --
 ALTER TABLE `roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `state`
 --
 ALTER TABLE `state`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `translation`
 --
 ALTER TABLE `translation`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `user_body_permissions`
 --
 ALTER TABLE `user_body_permissions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `user_planned_reports`
 --
 ALTER TABLE `user_planned_reports`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- Constraints for dumped tables
 --
@@ -1043,12 +990,6 @@ ALTER TABLE `defect_types`
   ADD CONSTRAINT `defect_types_ibfk_1` FOREIGN KEY (`body_id`) REFERENCES `body` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
--- Constraints for table `flickr_imported`
---
-ALTER TABLE `flickr_imported`
-  ADD CONSTRAINT `flickr_imported_ibfk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-
---
 -- Constraints for table `moderation_original_data`
 --
 ALTER TABLE `moderation_original_data`
@@ -1087,6 +1028,12 @@ ALTER TABLE `roles`
   ADD CONSTRAINT `roles_ibfk_1` FOREIGN KEY (`body_id`) REFERENCES `body` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `token`
+--
+ALTER TABLE `token`
+  ADD CONSTRAINT `token_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `user_body_permissions`
 --
 ALTER TABLE `user_body_permissions`
@@ -1105,7 +1052,6 @@ ALTER TABLE `user_planned_reports`
 ALTER TABLE `user_roles`
   ADD CONSTRAINT `user_roles_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
   ADD CONSTRAINT `user_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
