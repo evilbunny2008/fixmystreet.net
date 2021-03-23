@@ -7,7 +7,7 @@
 			$email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
 			$password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
 			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
-			$uid = intval(mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['uid']))));
+			$uid = intval($link, trim(strip_tags($_REQUEST['uid'])));
 
 			if($email == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
