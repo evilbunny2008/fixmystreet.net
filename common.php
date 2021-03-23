@@ -85,7 +85,7 @@
 		$id = mysqli_insert_id($link);
 		$hash = genHash();
 
-		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id";
+		$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='signup'";
 		mysqli_query($link, $query);
 		sendMail(1, $hash, $id, $email);
 	}
@@ -103,7 +103,7 @@
 			case 2:
 				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("requested to reset your password on FixMyStreet.net")."\n\n";
 				$body .= _("Please click on the following URL to reset your password:")."\n\n";
-				$body .= "https:/"."/fixmystreet.net/verify.php?hash=$hash&uid=$id\n\n";
+				$body .= "https:/"."/fixmystreet.net/reset.php?hash=$hash&uid=$id\n\n";
 				mail($email, "[FixMyStreet.net]: "._("Email Verification Check"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
 		}
 	}
