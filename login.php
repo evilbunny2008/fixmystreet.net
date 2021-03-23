@@ -1,5 +1,5 @@
 <?php
-    require_once('mysql.php');
+    require_once('common.php');
 
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
