@@ -106,6 +106,7 @@
                       Submit
                     </button>
                   </div>
+                  <a href="./reset.php">Forgot password?</a>
                 </fieldset>
               </form>
             </div>
