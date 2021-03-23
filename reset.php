@@ -5,37 +5,38 @@
 		if(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
 		{
 			$email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
-			$password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
-			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
-			$uid = intval($link, trim(strip_tags($_REQUEST['uid'])));
 
 			if($email == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
 				$msg = _("Invalid input");
 			}
-			else if($password !== $cpassword)
+		}
+		elseif(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '2')
+		{
+			$password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
+			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
+			$uid = intval($link, trim(strip_tags($_REQUEST['uid'])));
+
+			if($password !== $cpassword)
 			{
 				$msg = _("The passwords you entered didn't match");
 			}
-			else
+			if(isEmailInDB($email))
 			{
-				if(isEmailInDB($email))
-				{
-					$hash = genHash();
-					$ret = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
-					$id = $ret['id'];
-					$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
-					mysqli_query($link, $query);
-					sendMail(2, $hash, $id, $email);
-				}
-				header('Location: mailsent.html');
-				exit;
+				$hash = genHash();
+				$ret = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
+				$id = $ret['id'];
+				$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
+				mysqli_query($link, $query);
+				sendMail(2, $hash, $id, $email);
+			}
+			header('Location: mailsent.html');
+			exit;
 
-				if($password === $cpassword)
-				{
-					$password = getPasswordHash($cpassword);
-					$sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
-				}
+			if($password === $cpassword)
+			{
+				$password = getPasswordHash($cpassword);
+				$sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
 			}
 		}
 	}
@@ -176,7 +177,7 @@
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
-                  <input type="hidden" value="1" name="hiddenval">
+                  <input type="hidden" value="2" name="hiddenval">
 				  <div class="pure-control-group">
                     <label for="aligned-password">Password</label>
                     <input type="password" name="password" id="aligned-password" placeholder="Password" />
