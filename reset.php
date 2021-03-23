@@ -22,7 +22,7 @@
 				if(isEmailInDB($email))
 				{
 					$hash = genHash();
-					$id = mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`=$email");
+					$id = mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'");
 					$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
 					mysqli_query($link, $query);
 					sendMail(2, $hash, $id, $email);
