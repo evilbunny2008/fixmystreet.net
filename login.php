@@ -11,18 +11,17 @@
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
             $email = empty($_POST['email']) ? NULL : htmlentities($_POST['email']);
-            $password = empty($_POST['password']) ? NULL : getPasswordHash(htmlentities($_POST['password']));
+            $password = empty($_POST['password']) ? NULL : mysqli_real_escape_string($link, $_POST['password']); 
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
                 $msg = _("An error occurred");
             } 
             else
             {
-                $result = mysqli_query($link, "SELECT 1 FROM `users` WHERE `email`= '$email' AND `password` = '$password'");
-                if (mysqli_num_rows($result) > 0)
+                if(comparePasswordHash($email, $password))
                 {
-                    $_SESSION['loggedin'] = 1;
-                    $_SESSION['email'] = $email;
+                  $_SESSION['loggedin'] = 1;
+                  $_SESSION['email'] = $email;
                 }
                 else
                 {
