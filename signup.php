@@ -33,7 +33,7 @@
               {
                   $password = getPasswordHash($cpassword);
                   registerUser($email, $password, $phoneNo, $name);
-		  header("Location: signedup.html");
+		              header("Location: signedup.html");
                   exit;
               }
           }
