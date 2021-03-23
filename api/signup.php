@@ -57,7 +57,7 @@
 
 	$password = getPasswordHash($cpassword);
 
-	registerUser($email, $password, $mobile, $name)
+	registerUser($email, $password, $mobile, $name);
 	$arr['status'] = 'OK';
 	echo json_encode($arr);
 	exit;
