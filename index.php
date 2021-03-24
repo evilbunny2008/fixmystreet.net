@@ -1,3 +1,6 @@
+<?php
+    require_once('common.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,12 +33,23 @@
         <li class="pure-menu-item">
           <a href="#" class="pure-menu-link">Local alerts</a>
         </li>
-        <li class="pure-menu-item">
-          <a href="./login.php" class="pure-menu-link">Sign in</a>
-        </li>
-        <li class="pure-menu-item">
-          <a href="./signup.php" class="pure-menu-link">Sign up</a>
-        </li>
+        <?php
+        if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
+              {
+                  echo '<li class="pure-menu-item">
+                  <a href="./logout.php" class="pure-menu-link">Log out</a>
+                  </li>';
+              }
+              else
+              {
+                  echo '        <li class="pure-menu-item">
+                  <a href="./login.php" class="pure-menu-link">Sign in</a>
+                </li>
+                <li class="pure-menu-item">
+                  <a href="./signup.php" class="pure-menu-link">Sign up</a>
+                </li>';
+              }
+        ?>
       </ul>
     </div>
   </div>
