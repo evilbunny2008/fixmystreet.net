@@ -1,6 +1,5 @@
 <?php
-	// remove all session variables
-	session_start();
+	require_once('common.php');
 	session_unset();
 	// destroy the session
 	session_destroy(); 
