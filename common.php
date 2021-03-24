@@ -30,9 +30,12 @@
 		if(isset($str) && $str != "")
 		{
 			$str = urlencode(trim(strip_tags($str)));
-			//$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
-			//$json = file_get_contents();
+//			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
+//			$json = file_get_contents($url);
 			$json = file_get_contents("places.txt");
+//			$fp = fopen("/tmp/places.txt", "w");
+//			fputs($fp, $json);
+//			fclose($fp);
 			return $json;
 		}
 	}
