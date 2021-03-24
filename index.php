@@ -1,5 +1,11 @@
 <?php
-    require_once('common.php');
+	require_once('common.php');
+
+	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")
+	{
+		header("Location: https://fixmystreet.net");
+		exit;
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
