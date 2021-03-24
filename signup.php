@@ -5,9 +5,9 @@
         header("Location: /");
 	exit;
     }
-    if (isset($_POST['submit']))
+    if(isset($_POST['submit']))
     {
-        if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
+        if(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
           $email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
           $password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
@@ -100,7 +100,7 @@
               <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
-                  if (isset($msg) && $msg != '')
+                  if(isset($msg) && $msg != '')
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
@@ -164,7 +164,7 @@
   function validate() {
     const pass = document.getElementById("aligned-password");
     const cpass = document.getElementById("aligned-cpassword");
-    if (cpass.value !== pass.value) {
+    if(cpass.value !== pass.value) {
       cpass.style.borderColor = "red";
       document.getElementById("btn-submit").setAttribute("disabled", "");
     } else {

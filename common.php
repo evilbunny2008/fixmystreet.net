@@ -17,16 +17,26 @@
 		  </li>
 		  <li class="pure-menu-item">
 			<a href="#" class="pure-menu-link">Local alerts</a>
-		  </li>
-		  <li class="pure-menu-item">
-			<a href="./login.php" class="pure-menu-link">Sign in</a>
-		  </li>
-		  <li class="pure-menu-item">
-			<a href="" class="pure-menu-link">Sign up</a>
-		  </li>
-		</ul>
-	  </div>
-	</div>';
+		  </li>';
+	if($_SESSION['loggedin'] === 1)
+	{
+		$header .= '<li class="pure-menu-item">
+		<a href="./logout.php" class="pure-menu-link">Log out</a>
+	  </li>';
+	}
+	else
+	{
+		$header .= 	'<li class="pure-menu-item">
+		<a href="./login.php" class="pure-menu-link">Sign in</a>
+			</li>
+			<li class="pure-menu-item">
+				<a href="" class="pure-menu-link">Sign up</a>
+			</li>
+			</ul>
+		</div>
+		</div>';
+	}
+
 
 	$footer = '    <div class="content">
 	<hr />
