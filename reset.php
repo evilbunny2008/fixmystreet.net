@@ -88,8 +88,8 @@
 	
 
 <?php
-	$hash = mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['hash'])));
-	$uid = intval(trim(strip_tags($_REQUEST['uid'])));
+	$hash = isset($_REQUEST['hash']) ? mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['hash']))) : "";
+	$uid = isset($_REQUEST['uid']) ? intval(trim(strip_tags($_REQUEST['uid']))) : NULL;
 	if ($hash == "" || is_null($uid))
 	{
 		?>
@@ -143,7 +143,8 @@
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
                   <input type="hidden" value="2" name="hiddenval">
-				  <div class="pure-control-group">
+                  <input type="hidden" value="<?=$uid?>" name="uid">
+                  <div class="pure-control-group">
                     <label for="aligned-password">Password</label>
                     <input type="password" name="password" id="aligned-password" placeholder="Password" />
                   </div>
