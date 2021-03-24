@@ -167,7 +167,7 @@
 		<a href="./login.php" class="pure-menu-link">Sign in</a>
 			</li>
 			<li class="pure-menu-item">
-				<a href="" class="pure-menu-link">Sign up</a>
+				<a href="./signup.php" class="pure-menu-link">Sign up</a>
 			</li>
 			</ul>
 		</div>
