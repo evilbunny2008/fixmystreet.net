@@ -22,7 +22,11 @@
 	{
 		$header .= '<li class="pure-menu-item">
 		<a href="./logout.php" class="pure-menu-link">Log out</a>
-	  </li>';
+	  </li>
+	  </ul>
+	  </div>
+	  </div>';
+
 	}
 	else
 	{
