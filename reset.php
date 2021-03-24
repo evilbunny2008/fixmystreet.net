@@ -37,6 +37,7 @@
       {
         $password = getPasswordHash($cpassword);
         $sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
+        mysqli_query($link, $sql);
         header('Location: reset.html');
         exit;
       }
