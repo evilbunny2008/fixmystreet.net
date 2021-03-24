@@ -10,6 +10,17 @@
 			{
 				$msg = _("Invalid input");
 			}
+			if(isEmailInDB($email))
+			{
+				$hash = genHash();
+				$ret = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
+				$id = $ret['id'];
+				$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
+				mysqli_query($link, $query);
+				sendMail(2, $hash, $id, $email);
+        header('Location: mailsent.html');
+        exit;
+      }
 		}
 		elseif(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '2')
 		{
@@ -21,23 +32,14 @@
 			{
 				$msg = _("The passwords you entered didn't match");
 			}
-			if(isEmailInDB($email))
-			{
-				$hash = genHash();
-				$ret = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
-				$id = $ret['id'];
-				$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
-				mysqli_query($link, $query);
-				sendMail(2, $hash, $id, $email);
-			}
-			header('Location: mailsent.html');
-			exit;
 
-			if($password === $cpassword)
-			{
-				$password = getPasswordHash($cpassword);
-				$sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
-			}
+      if($password === $cpassword)
+      {
+        $password = getPasswordHash($cpassword);
+        $sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
+        header('Location: reset.html');
+        exit;
+      }
 		}
 	}
 ?>
@@ -69,32 +71,7 @@
     }
   }
 </script>
-    <div class="flex-wrapper">
-      <div class="header">
-        <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-          <a class="pure-menu-heading" href="./index.php">FixMyStreet.net</a>
-          <ul class="pure-menu-list">
-            <li class="pure-menu-item">
-              <a href="./index.php" class="pure-menu-link">Report a problem</a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Help</a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="./reports.php" class="pure-menu-link">All reports</a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Local alerts</a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="./login.php" class="pure-menu-link">Sign in</a>
-            </li>
-            <li class="pure-menu-item">
-              <a href="" class="pure-menu-link">Sign up</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+    <?= $header ?>
 	  <div class="dash-header">
         <div class="splash">
           <h1 class="splash-head">Reset your password</h1>
@@ -142,22 +119,7 @@
         </div>
       </div>
     </div>
-    <div class="content">
-      <hr />
-
-      <h2 class="content-head is-center">FixMyStreet.net</h2>
-      <p class="is-center">
-        This version of FixMyStreet is written in PHP and runs on a MySQL
-        database!
-        <br />
-        It is inspired by
-        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet.com</a>
-        <br />
-        Would you like to contribute to FixMyStreet.net? Our code is open
-        source and available on
-        <a target="_blank" href="https://github.com/evilbunny2008/fixmystreet.net">github</a>
-      </p>
-    </div>
+    <?=$footer?>
   </body>
 </html>
 	<?php
@@ -203,22 +165,7 @@
         </div>
       </div>
     </div>
-    <div class="content">
-      <hr />
-
-      <h2 class="content-head is-center">FixMyStreet.net</h2>
-      <p class="is-center">
-        This version of FixMyStreet is written in PHP and runs on a MySQL
-        database!
-        <br />
-        It is inspired by
-        <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety's FixMyStreet.com</a>
-        <br />
-        Would you like to contribute to FixMyStreet.net? Our code is open
-        source and available on
-        <a target="_blank" href="https://github.com/evilbunny2008/fixmystreet.net">github</a>
-      </p>
-    </div>
+    <?=$footer?>
 	<script>
 	  	    function validate() {
     const pass = document.getElementById("aligned-password");
