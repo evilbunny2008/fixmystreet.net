@@ -38,6 +38,8 @@
         $password = getPasswordHash($cpassword);
         $sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
         mysqli_query($link, $sql);
+        $sql = "DELETE FROM `token` WHERE `user_id` = $uid";
+        mysqli_query($link, $sql);
         header('Location: reset.html');
         exit;
       }
@@ -183,12 +185,6 @@
   </body>
 </html>
 			<?php
-			$sql = "DELETE FROM `token` WHERE `user_id` = $uid";
-			mysqli_query($link, $sql);
-			$sql = "UPDATE `users` SET `email_verified` = 1 WHERE `id`= $uid";
-			mysqli_query($link, $sql);
-			header('Location: verified.html');
-			exit;
 		}
 		else
 		{
