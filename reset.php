@@ -18,9 +18,9 @@
 				$query = "INSERT INTO `token` SET `token`='$hash', `user_id`=$id, `type`='reset'";
 				mysqli_query($link, $query);
 				sendMail(2, $hash, $id, $email);
-        header('Location: mailsent.html');
-        exit;
       }
+      header('Location: mailsent.html');
+      exit;
 		}
 		elseif(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '2')
 		{
