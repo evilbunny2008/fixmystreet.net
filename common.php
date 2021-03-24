@@ -18,7 +18,7 @@
 		  <li class="pure-menu-item">
 			<a href="#" class="pure-menu-link">Local alerts</a>
 		  </li>';
-	if($_SESSION['loggedin'] === 1)
+	if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
 	{
 		$header .= '<li class="pure-menu-item">
 		<a href="./logout.php" class="pure-menu-link">Log out</a>
@@ -26,7 +26,6 @@
 	  </ul>
 	  </div>
 	  </div>';
-
 	}
 	else
 	{
