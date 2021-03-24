@@ -13,6 +13,7 @@
       content="A layout example that shows off a responsive product landing page."
     />
     <title>Dashboard</title>
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="./css/pure/pure-min.css" />
     <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
     <!-- <script defer src="/js/Chart.bundle.min.js"></script> -->
