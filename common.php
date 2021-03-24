@@ -1,66 +1,10 @@
 <?php
 	require_once("mysql.php");
 
-	$header = '    <div class="flex-wrapper">
-	<div class="header">
-	  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-		<a class="pure-menu-heading" href="./index.php">FixMyStreet.net</a>
-		<ul class="pure-menu-list">
-		  <li class="pure-menu-item">
-			<a href="./index.php" class="pure-menu-link">Report a problem</a>
-		  </li>
-		  <li class="pure-menu-item">
-			<a href="#" class="pure-menu-link">Help</a>
-		  </li>
-		  <li class="pure-menu-item">
-			<a href="./reports.php" class="pure-menu-link">All reports</a>
-		  </li>
-		  <li class="pure-menu-item">
-			<a href="#" class="pure-menu-link">Local alerts</a>
-		  </li>';
-	if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
-	{
-		$header .= '<li class="pure-menu-item">
-		<a href="./logout.php" class="pure-menu-link">Log out</a>
-	  </li>
-	  </ul>
-	  </div>
-	  </div>';
-	}
-	else
-	{
-		$header .= 	'<li class="pure-menu-item">
-		<a href="./login.php" class="pure-menu-link">Sign in</a>
-			</li>
-			<li class="pure-menu-item">
-				<a href="" class="pure-menu-link">Sign up</a>
-			</li>
-			</ul>
-		</div>
-		</div>';
-	}
-
-
-	$footer = '    <div class="content">
-	<hr />
-
-	<h2 class="content-head is-center">FixMyStreet.net</h2>
-	<p class="is-center">
-	  This version of FixMyStreet is written in PHP and runs on a MySQL
-	  database!
-	  <br />
-	  It is inspired by
-	  <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety\'s FixMyStreet.com</a>
-	  <br />
-	  Would you like to contribute to FixMyStreet.net? Our code is open
-	  source and available on
-	  <a target="_blank" href="https://github.com/evilbunny2008/fixmystreet.net">github</a>
-	</p>
-  </div>';
-	
 	function getAddress($lat, $lng)
 	{
 		global $gapikey;
+
 		$lat = floatval($lat);
 		$lng = floatval($lng);
 		if($lat != 0 && $lat >= -90 && $lat <= 90 && $lng != 0 && $lng >= -180 && $lng <= 180)
@@ -77,6 +21,20 @@
 
 		echo "Invalid latitude or longitude";
 		return false;
+	}
+
+	function getPlace($str)
+	{
+		global $gapikey;
+
+		if(isset($str) && $str != "")
+		{
+			$str = urlencode(trim(strip_tags($str)));
+			//$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
+			//$json = file_get_contents();
+			$json = file_get_contents("places.txt");
+			return $json;
+		}
 	}
 
 	function getPasswordHash($password)
@@ -171,3 +129,62 @@
 		$hash = md5(fgets($rnd, 64));
 		return $hash;
 	}
+
+
+
+	$header = '    <div class="flex-wrapper">
+	<div class="header">
+	  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
+		<a class="pure-menu-heading" href="./index.php">FixMyStreet.net</a>
+		<ul class="pure-menu-list">
+		  <li class="pure-menu-item">
+			<a href="./index.php" class="pure-menu-link">Report a problem</a>
+		  </li>
+		  <li class="pure-menu-item">
+			<a href="#" class="pure-menu-link">Help</a>
+		  </li>
+		  <li class="pure-menu-item">
+			<a href="./reports.php" class="pure-menu-link">All reports</a>
+		  </li>
+		  <li class="pure-menu-item">
+			<a href="#" class="pure-menu-link">Local alerts</a>
+		  </li>';
+	if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
+	{
+		$header .= '<li class="pure-menu-item">
+		<a href="./logout.php" class="pure-menu-link">Log out</a>
+	  </li>
+	  </ul>
+	  </div>
+	  </div>';
+	}
+	else
+	{
+		$header .= 	'<li class="pure-menu-item">
+		<a href="./login.php" class="pure-menu-link">Sign in</a>
+			</li>
+			<li class="pure-menu-item">
+				<a href="" class="pure-menu-link">Sign up</a>
+			</li>
+			</ul>
+		</div>
+		</div>';
+	}
+
+
+	$footer = '    <div class="content">
+	<hr />
+
+	<h2 class="content-head is-center">FixMyStreet.net</h2>
+	<p class="is-center">
+	  This version of FixMyStreet is written in PHP and runs on a MySQL
+	  database!
+	  <br />
+	  It is inspired by
+	  <a target="_blank" href="https://github.com/mysociety/fixmystreet">MySociety\'s FixMyStreet.com</a>
+	  <br />
+	  Would you like to contribute to FixMyStreet.net? Our code is open
+	  source and available on
+	  <a target="_blank" href="https://github.com/evilbunny2008/fixmystreet.net">github</a>
+	</p>
+  </div>';
