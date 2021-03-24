@@ -9,11 +9,11 @@
     {
         if(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-          $email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
-          $password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
-          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
-          $phoneNo = empty(trim($_POST['number'])) ? NULL : htmlentities($_POST['number']);
-          $name = empty(trim($_POST['name'])) ? NULL : htmlentities($_POST['name']);
+          $email = empty(trim($_POST['email'])) ? NULL : mysqli_real_escape_string($link, $_POST['email']);
+          $password = empty(trim($_POST['password'])) ? NULL : mysqli_real_escape_string($link, $_POST['password']);
+          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($Link, $_POST['cpassword']);
+          $phoneNo = empty(trim($_POST['number'])) ? NULL : mysqli_real_escape_string($link, $_POST['number']);
+          $name = empty(trim($_POST['name'])) ? NULL : mysqli_real_escape_string($link, $_POST['name']);
 
           if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
           {
@@ -97,7 +97,7 @@
           <div class="pure-g" id="signup-form">
             <div class="pure-u-1-3"></div>
             <div class="pure-u-1-3">
-              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
+              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
                   if(isset($msg) && $msg != '')

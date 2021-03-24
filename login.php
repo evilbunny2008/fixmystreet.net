@@ -9,7 +9,7 @@
     {
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-            $email = empty($_POST['email']) ? NULL : htmlentities($_POST['email']);
+            $email = empty($_POST['email']) ? NULL : mysqli_real_escape_string($link, $_POST['email']);
             $password = empty($_POST['password']) ? NULL : mysqli_real_escape_string($link, $_POST['password']); 
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
@@ -86,7 +86,7 @@
           <div class="pure-g" id="signup-form">
             <div class="pure-u-1-3"></div>
             <div class="pure-u-1-3">
-              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
+              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                 <?php
                   if (isset($msg) && $msg != '')

@@ -4,7 +4,7 @@
 	{
 		if(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
 		{
-			$email = empty(trim($_POST['email'])) ? NULL : htmlentities($_POST['email']);
+			$email = empty(trim($_POST['email'])) ? NULL : mysqli_real_escape_string($link, $_POST['email']);
 
 			if($email == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
 			{
@@ -24,8 +24,8 @@
 		}
 		elseif(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '2')
 		{
-			$password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
-			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
+			$password = empty(trim($_POST['password'])) ? NULL : mysqli_real_escape_string($link, $_POST['password']);
+			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($link, $_POST['cpassword']);
 			$uid = intval(trim(strip_tags($_REQUEST['uid'])));
 
 			if($password !== $cpassword)
@@ -93,7 +93,7 @@
 	if ($hash == "" || is_null($uid))
 	{
 		?>
-              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
+              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
                   if (isset($msg) && $msg != '')
@@ -135,7 +135,7 @@
 		if(mysqli_num_rows($res) === 1)
 		{
 			?>
-              <form action="<?= htmlentities($_SERVER['PHP_SELF']) ?>" method="post" class="pure-form pure-form-stacked">
+              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
                   if (isset($msg) && $msg != '')
