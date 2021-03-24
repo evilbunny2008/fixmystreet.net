@@ -26,7 +26,7 @@
 		{
 			$password = empty(trim($_POST['password'])) ? NULL : htmlentities($_POST['password']);
 			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : htmlentities($_POST['cpassword']);
-			$uid = intval($link, trim(strip_tags($_REQUEST['uid'])));
+			$uid = intval(trim(strip_tags($_REQUEST['uid'])));
 
 			if($password !== $cpassword)
 			{
