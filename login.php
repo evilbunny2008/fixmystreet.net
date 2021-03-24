@@ -3,9 +3,8 @@
 
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
-        $url = $_SERVER['SERVER_PROTOCOL'].$_SERVER['HTTP_HOST'];
-        header("Location: $url");
-    } 
+        header("Location: /");
+    }
     if (isset($_POST['submit']))
     {
         if (isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
@@ -15,13 +14,15 @@
             if ($email == NULL || $password == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
             {
                 $msg = _("An error occurred");
-            } 
+            }
             else
             {
                 if(comparePasswordHash($email, $password))
                 {
                   $_SESSION['loggedin'] = 1;
                   $_SESSION['email'] = $email;
+	          header("Location: /");
+		  exit;
                 }
                 else
                 {

@@ -2,8 +2,8 @@
     require_once('common.php');
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
     {
-        $url = $_SERVER['REQUEST_SCHEME'].$_SERVER['HTTP_HOST'];
-        header("Location: $url");
+        header("Location: /");
+	exit;
     }
     if (isset($_POST['submit']))
     {
@@ -33,7 +33,7 @@
               {
                   $password = getPasswordHash($cpassword);
                   registerUser($email, $password, $phoneNo, $name);
-		              header("Location: signedup.html");
+	          header("Location: signedup.html");
                   exit;
               }
           }
