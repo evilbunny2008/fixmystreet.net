@@ -26,6 +26,8 @@
           center: { lat: -34.397, lng: 150.644 },
           zoom: 8,
         });
+	const markerloc = { lat: -34.397, lng: 150.644 };
+	const marker = new google.maps.Marker({ position: markerloc, map: map, });
       }
     </script>
   </head>
