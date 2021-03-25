@@ -36,7 +36,7 @@
       {
         echo $header;
         ?>
-    <div style="overflow:auto;" class="splash-container">
+    <div class="splash-container">
       <div class="splash">
       <h1 id="main-message" class="splash-head">Report, view, or discuss local problems</h1>
       <p class="splash-subhead">
@@ -59,7 +59,7 @@
           </fieldset>
         </form>
       </div>
-        <div style="background-color: white; height:100%">
+        <div style="background-color: white; height:100%; border-radius: 16px;">
           <ul>
             <li>ITEM 1</li>
             <li>ITEM 2</li>
@@ -68,11 +68,15 @@
         </div>
       </div>
     </div>
+    <div style="top: 85%;" class="content-wrapper">
         <?php
         echo $footer;
         die;
-      }
-  
+        ?>
+    </div>
+    </div>
+      <?php
+      }  
     }
   ?>
   <div class="header">
