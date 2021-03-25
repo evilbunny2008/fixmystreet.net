@@ -24,6 +24,57 @@
 </head>
 
 <body>
+  <?php
+    if(isset($_POST['submit']))
+    {
+      $place = empty(trim($_POST['place'])) ? NULL : mysqli_real_escape_string($link, $_POST['place']);
+      if($place == NULL)
+      {
+        $msg = "Input cannot be empty.";
+      }
+      else
+      {
+        echo $header;
+        ?>
+    <div style="overflow:auto;" class="splash-container">
+      <div class="splash">
+      <h1 id="main-message" class="splash-head">Report, view, or discuss local problems</h1>
+      <p class="splash-subhead">
+        (like graffiti, illegal dumping, broken paving slabs, or street
+        lighting)
+      </p>
+      <div class="pure-u-1 pure-u-md-2-3">
+        Enter a nearby street name and area: e.g. ‘George Street, Sydney, NSW’
+        <form action="<?=$_SERVER['PHP_SELF']?>" method="post" class="pure-form">
+          <fieldset>
+            <br>
+            <input type="hidden" name="hiddenval" value="1">
+          <?php
+                  if(isset($msg) && $msg != '')
+                  { 
+                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
+            <?php } ?>
+            <input type="text" name="place" class="pure-input-rounded" />
+            <button type="submit" name="submit" class="pure-button">Search</button>
+          </fieldset>
+        </form>
+      </div>
+        <div style="background-color: white; height:100%">
+          <ul>
+            <li>ITEM 1</li>
+            <li>ITEM 2</li>
+            <li>ITEM 3</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+        <?php
+        echo $footer;
+        die;
+      }
+  
+    }
+  ?>
   <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
       <a class="pure-menu-heading" href="">FixMyStreet.net</a>
@@ -67,12 +118,19 @@
         (like graffiti, illegal dumping, broken paving slabs, or street
         lighting)
       </p>
-      <div class="pure-u-1 pure-u-md-1-3">
+      <div class="pure-u-1 pure-u-md-2-3">
         Enter a nearby street name and area: e.g. ‘George Street, Sydney, NSW’
-        <form class="pure-form">
+        <form action="<?=$_SERVER['PHP_SELF']?>" method="post" class="pure-form">
           <fieldset>
-            <input type="text" class="pure-input-rounded" />
-            <button type="submit" class="pure-button">Search</button>
+            <br>
+            <input type="hidden" name="hiddenval" value="1">
+          <?php
+                  if(isset($msg) && $msg != '')
+                  { 
+                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
+            <?php } ?>
+            <input type="text" name="place" class="pure-input-rounded" />
+            <button type="submit" name="submit" class="pure-button">Search</button>
           </fieldset>
         </form>
       </div>
