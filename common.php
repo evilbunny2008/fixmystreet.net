@@ -9,9 +9,9 @@
 		$lng = floatval($lng);
 		if($lat != 0 && $lat >= -90 && $lat <= 90 && $lng != 0 && $lng >= -180 && $lng <= 180)
 		{
-			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
-			$address = file_get_contents($url);
-//			$address = file_get_contents("data.txt");
+//			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
+//			$address = file_get_contents($url);
+			$address = file_get_contents("data.txt");
 			$json_data = json_decode($address, true);
 
 			if($json_data['status'] == "OK")
@@ -31,12 +31,10 @@
 		{
 			$str = urlencode(trim(strip_tags($str)));
 //			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
-//			$json = file_get_contents($url);
-			$json = file_get_contents("places.txt");
-//			$fp = fopen("/tmp/places.txt", "w");
-//			fputs($fp, $json);
-//			fclose($fp);
-			return $json;
+//			$places = file_get_contents($url);
+			$places = file_get_contents("places.txt");
+			$json_data = json_decode($places, true);
+			return $json_data;
 		}
 	}
 
