@@ -33,6 +33,9 @@
 //			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
 //			$places = file_get_contents($url);
 			$places = file_get_contents("places.txt");
+//			$fp = fopen('/tmp/places.txt', 'w');
+//			fputs($fp, $places);
+//			fclose($fp);
 			$json_data = json_decode($places, true);
 			return $json_data;
 		}
