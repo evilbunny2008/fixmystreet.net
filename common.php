@@ -131,6 +131,16 @@
 		return $hash;
 	}
 
+	function active($current_page)
+	{
+		$url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
+		$url = end($url_array);  
+		if(trim($current_page) == $url){
+			return 'pure-menu-selected '; //class name in css 
+		}
+		return '';
+	}
+
 
 
 	$header = '    <div class="flex-wrapper">
@@ -144,7 +154,7 @@
 		  <li class="pure-menu-item">
 			<a href="#" class="pure-menu-link">Help</a>
 		  </li>
-		  <li class="pure-menu-item">
+		  <li class="'. active('reports.php') .'pure-menu-item">
 			<a href="./reports.php" class="pure-menu-link">All reports</a>
 		  </li>
 		  <li class="pure-menu-item">
@@ -161,10 +171,10 @@
 	}
 	else
 	{
-		$header .= 	'<li class="pure-menu-item">
+		$header .= 	'<li class="'. active('login.php') .'pure-menu-item">
 		<a href="./login.php" class="pure-menu-link">Sign in</a>
 			</li>
-			<li class="pure-menu-item">
+			<li class="'. active('signup.php') .'pure-menu-item">
 				<a href="./signup.php" class="pure-menu-link">Sign up</a>
 			</li>
 			</ul>
