@@ -243,6 +243,12 @@ a.pure-button-primary {
   background: #ffc30b;
 }
 
+@media (max-width: 768px) {
+  .content-wrapper {
+    top: 85%;
+  }
+}
+
 /* We want to give the content area some more padding */
 .content {
   font-family: "Bree Serif";
