@@ -243,11 +243,35 @@ a.pure-button-primary {
   background: #ffc30b;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .content-wrapper {
-    top: 85%;
+    top: 80%;
   }
 }
+
+@media (max-width: 740px) {
+  .content-wrapper {
+    top: 100% !important;
+  }
+
+  .splash {
+    height: 85%;
+  }
+
+  .content-subhead {
+    font-size: 3.5vh !important;
+  }
+
+  .splash-container {
+    top: 0;
+  }
+}
+/* 
+@media (max-width: 812px) {
+  .content-wrapper {
+    top: 70%;
+  }
+} */
 
 /* We want to give the content area some more padding */
 .content {
@@ -396,12 +420,12 @@ hr {
   z-index: 40;
 }
 
-@media screen and (max-width: 815px) {
+/* @media screen and (max-width: 815px) {
   .pure-menu-heading {
     display: none;
     width: 50%;
   }
-}
+} */
 
 #signup-content {
   background-color: #039741;
