@@ -22,8 +22,8 @@
 
 			if($json_data['status'] == "OK")
 			{
-				cacheInsert($lat.",".$lng, $json_data);
-				return $json_data;
+				$row = cacheInsert($lat.",".$lng, $json_data);
+				return $row;
 			}
 			return false;
 		}
@@ -54,14 +54,14 @@
 //			fputs($fp, $places);
 //			fclose($fp);
 			$json_data = json_decode($places, true);
-			cacheInsert($search, $json_data);
-			return $json_data;
+			$row = cacheInsert($search, $json_data);
+			return $row;
 		}
 	}
 
 	function cacheSearch($search)
 	{
-		return false;
+//		return false;
 
 		global $link;
 
@@ -75,16 +75,7 @@
 
 		$row = mysqli_fetch_assoc($res);
 
-		$arr = array();
-		$arr['results']['0']['place_id'] = $row['poi'];
-		$arr['results']['0']['geometry']['location']['lat'] = $row['lat'];
-		$arr['results']['0']['geometry']['location']['lng'] = $row['lng'];
-		$arr['results']['0']['address_components'] = $row['address'];
-		$arr['results']['0']['place_id'] = $row['poi'];
-		$arr['results']['0']['address_components']['0']['types'] = array('administrative_area_level_2');
-		$arr['results']['0']['address_components']['0']['long_name'] = $row['council'];
-
-		return json_encode($arr);
+		return $row;
 	}
 
 	function cacheInsert($search, $json)
@@ -130,6 +121,15 @@
 
 		$query = "insert into `poi` set `poi`='$poi', `address`='$address', `council`='$council', `lat`='$lat', `lng`='$lng', `search`='$search'";
 		mysqli_query($link, $query);
+
+		$row['search'] = $search;
+		$row['poi'] = $poi;
+		$row['address'] = $address;
+		$row['council'] = $council;
+		$row['lat'] = $lat;
+		$row['lng'] = $lng;
+
+		return $row;
 	}
 
 	function getPasswordHash($password)
