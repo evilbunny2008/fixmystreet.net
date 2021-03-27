@@ -9,6 +9,12 @@
 		$lng = floatval($lng);
 		if($lat != 0 && $lat >= -90 && $lat <= 90 && $lng != 0 && $lng >= -180 && $lng <= 180)
 		{
+			$row = cacheSearch("$lat,$lng");
+			if($row != false)
+			{
+				return $row;
+			}
+
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
 			$address = file_get_contents($url);
 //			$address = file_get_contents("data.txt");
@@ -34,6 +40,12 @@
 		{
 			$str = trim(strip_tags($str));
 			$search = mysqli_real_escape_string($link, $str);
+			$row = cacheSearch($search);
+			if($row != false)
+			{
+				return $row;
+			}
+
 			$str = urlencode($str);
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
 			$places = file_get_contents($url);
@@ -49,6 +61,8 @@
 
 	function cacheSearch($search)
 	{
+		return false;
+
 		global $link;
 
 		if($search == "")
@@ -60,7 +74,17 @@
 			return false;
 
 		$row = mysqli_fetch_assoc($res);
-		return $row;
+
+		$arr = array();
+		$arr['results']['0']['place_id'] = $row['poi'];
+		$arr['results']['0']['geometry']['location']['lat'] = $row['lat'];
+		$arr['results']['0']['geometry']['location']['lng'] = $row['lng'];
+		$arr['results']['0']['address_components'] = $row['address'];
+		$arr['results']['0']['place_id'] = $row['poi'];
+		$arr['results']['0']['address_components']['0']['types'] = array('administrative_area_level_2');
+		$arr['results']['0']['address_components']['0']['long_name'] = $row['council'];
+
+		return json_encode($arr);
 	}
 
 	function cacheInsert($search, $json)
