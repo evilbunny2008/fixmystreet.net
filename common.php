@@ -9,14 +9,14 @@
 		$lng = floatval($lng);
 		if($lat != 0 && $lat >= -90 && $lat <= 90 && $lng != 0 && $lng >= -180 && $lng <= 180)
 		{
-//			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
-//			$address = file_get_contents($url);
-			$address = file_get_contents("data.txt");
+			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
+			$address = file_get_contents($url);
+//			$address = file_get_contents("data.txt");
 			$json_data = json_decode($address, true);
 
 			if($json_data['status'] == "OK")
 			{
-				cacheSearch($lat.",".$lng, $json_data);
+				cacheInsert($lat.",".$lng, $json_data);
 				return $json_data;
 			}
 			return false;
@@ -35,19 +35,35 @@
 			$str = trim(strip_tags($str));
 			$search = mysqli_real_escape_string($link, $str);
 			$str = urlencode($str);
-//			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
-//			$places = file_get_contents($url);
-			$places = file_get_contents("places.txt");
+			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
+			$places = file_get_contents($url);
+//			$places = file_get_contents("places.txt");
 //			$fp = fopen('/tmp/places.txt', 'w');
 //			fputs($fp, $places);
 //			fclose($fp);
 			$json_data = json_decode($places, true);
-			cacheSearch($search, $json_data);
+			cacheInsert($search, $json_data);
 			return $json_data;
 		}
 	}
 
-	function cacheSearch($search, $json)
+	function cacheSearch($search)
+	{
+		global $link;
+
+		if($search == "")
+			return false;
+
+		$query = "select * from `poi` where `search`='$search'";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) < 1)
+			return false;
+
+		$row = mysqli_fetch_assoc($res);
+		return $row;
+	}
+
+	function cacheInsert($search, $json)
 	{
 		global $link;
 
