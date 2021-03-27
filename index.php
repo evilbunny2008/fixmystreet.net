@@ -1,5 +1,5 @@
 <?php
-	require_once('common.php');
+	require_once('search.php');
 
 	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")
 	{
@@ -61,9 +61,12 @@
       </div>
         <div style="background-color: white; height:100%; border-radius: 16px;">
           <ul>
-            <li>ITEM 1</li>
+            <!-- <li>ITEM 1</li>
             <li>ITEM 2</li>
-            <li>ITEM 3</li>
+            <li>ITEM 3</li> -->
+            <?php 
+              echo showPlace($place);
+            ?>
           </ul>
         </div>
       </div>
