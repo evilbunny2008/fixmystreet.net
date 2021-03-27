@@ -30,5 +30,5 @@
 
 		$lat = $json['results']['0']['geometry']['location']['lat'];
 		$lng = $json['results']['0']['geometry']['location']['lng'];
-		return $staddress.", ".$council;
+		return "<a href='map.php?lat=$lat&lng=$lng'>".$staddress.", ".$council."</a>";
 	}

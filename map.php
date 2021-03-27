@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+<?php
+	$lat = -34.397;
+	if(isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && floatval($_REQUEST['lat']) != 0 && floatval($_REQUEST['lat']) >= -90 && floatval($_REQUEST['lat']) <= 90)
+		$lat = floatval($_REQUEST['lat']);
+
+	$lng = 150.644;
+	if(isset($_REQUEST['lng']) && $_REQUEST['lng'] != "" && floatval($_REQUEST['lng']) != 0 && floatval($_REQUEST['lng']) >= -180 && floatval($_REQUEST['lng']) <= 180)
+		$lng = floatval($_REQUEST['lng']);
+
+?><!DOCTYPE html>
 <html>
   <head>
     <title>Simple Map</title>
@@ -23,10 +32,10 @@
 
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
-          center: { lat: -34.397, lng: 150.644 },
+          center: { lat: <?=$lat?>, lng: <?=$lng?> },
           zoom: 8,
         });
-	const markerloc = { lat: -34.397, lng: 150.644 };
+	const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
 	const marker = new google.maps.Marker({ position: markerloc, map: map, });
       }
     </script>

@@ -54,7 +54,7 @@
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
-            <input type="text" name="place" class="pure-input-rounded" />
+            <input type="text" name="place" class="pure-input-rounded" value="<?=trim(strip_tags($_REQUEST['place']))?>" />
             <button type="submit" name="submit" class="pure-button">Search</button>
           </fieldset>
         </form>
