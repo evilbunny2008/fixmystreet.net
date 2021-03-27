@@ -17,7 +17,6 @@
 
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
 			$address = file_get_contents($url);
-//			$address = file_get_contents("data.txt");
 			$json_data = json_decode($address, true);
 
 			if($json_data['status'] == "OK")
@@ -28,7 +27,6 @@
 			return false;
 		}
 
-//		echo "Invalid latitude or longitude";
 		return false;
 	}
 
@@ -49,10 +47,6 @@
 			$str = urlencode($str);
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
 			$places = file_get_contents($url);
-//			$places = file_get_contents("places.txt");
-//			$fp = fopen('/tmp/places.txt', 'w');
-//			fputs($fp, $places);
-//			fclose($fp);
 			$json_data = json_decode($places, true);
 			$row = cacheInsert($search, $json_data);
 			return $row;
@@ -61,8 +55,6 @@
 
 	function cacheSearch($search)
 	{
-//		return false;
-
 		global $link;
 
 		if($search == "")
@@ -75,20 +67,7 @@
 
 		$row = mysqli_fetch_assoc($res);
 
-<<<<<<< HEAD
 		return $row;
-=======
-		$arr = array();
-		$arr['results'][0]['place_id'] = $row['poi'];
-		$arr['results'][0]['geometry']['location']['lat'] = $row['lat'];
-		$arr['results'][0]['geometry']['location']['lng'] = $row['lng'];
-		$arr['results'][0]['address_components'][0]['address'] = $row['address'];
-		$arr['results'][0]['place_id'] = $row['poi'];
-		$arr['results'][0]['address_components'][0]['types'] = 'administrative_area_level_2';
-		$arr['results'][0]['address_components'][0]['long_name'] = $row['council'];
-
-		return json_encode($arr);
->>>>>>> 009217e63b675cc54b904788354a6a63c582a794
 	}
 
 	function cacheInsert($search, $json)
@@ -135,6 +114,7 @@
 		$query = "insert into `poi` set `poi`='$poi', `address`='$address', `council`='$council', `lat`='$lat', `lng`='$lng', `search`='$search'";
 		mysqli_query($link, $query);
 
+		$row = array();
 		$row['search'] = $search;
 		$row['poi'] = $poi;
 		$row['address'] = $address;
@@ -241,9 +221,9 @@
 	function active($current_page)
 	{
 		$url_array =  explode('/', $_SERVER['REQUEST_URI']) ;
-		$url = end($url_array);  
+		$url = end($url_array);
 		if(trim($current_page) == $url){
-			return 'pure-menu-selected '; //class name in css 
+			return 'pure-menu-selected '; //class name in css
 		}
 		return '';
 	}
