@@ -76,13 +76,13 @@
 		$row = mysqli_fetch_assoc($res);
 
 		$arr = array();
-		$arr['results']['0']['place_id'] = $row['poi'];
-		$arr['results']['0']['geometry']['location']['lat'] = $row['lat'];
-		$arr['results']['0']['geometry']['location']['lng'] = $row['lng'];
-		$arr['results']['0']['address_components'] = $row['address'];
-		$arr['results']['0']['place_id'] = $row['poi'];
-		$arr['results']['0']['address_components']['0']['types'] = array('administrative_area_level_2');
-		$arr['results']['0']['address_components']['0']['long_name'] = $row['council'];
+		$arr['results'][0]['place_id'] = $row['poi'];
+		$arr['results'][0]['geometry']['location']['lat'] = $row['lat'];
+		$arr['results'][0]['geometry']['location']['lng'] = $row['lng'];
+		$arr['results'][0]['address_components'][0]['address'] = $row['address'];
+		$arr['results'][0]['place_id'] = $row['poi'];
+		$arr['results'][0]['address_components'][0]['types'] = 'administrative_area_level_2';
+		$arr['results'][0]['address_components'][0]['long_name'] = $row['council'];
 
 		return json_encode($arr);
 	}
