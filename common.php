@@ -3,7 +3,7 @@
 
 	function getAddress($lat, $lng)
 	{
-		global $gapikey;
+		global $gapikey, $link;
 
 		$lat = floatval($lat);
 		$lng = floatval($lng);
@@ -15,21 +15,26 @@
 			$json_data = json_decode($address, true);
 
 			if($json_data['status'] == "OK")
+			{
+				cacheSearch($lat.",".$lng, $json_data);
 				return $json_data;
+			}
 			return false;
 		}
 
-		echo "Invalid latitude or longitude";
+//		echo "Invalid latitude or longitude";
 		return false;
 	}
 
 	function getPlace($str)
 	{
-		global $gapikey;
+		global $gapikey, $link;
 
 		if(isset($str) && $str != "")
 		{
-			$str = urlencode(trim(strip_tags($str)));
+			$str = trim(strip_tags($str));
+			$search = mysqli_real_escape_string($link, $str);
+			$str = urlencode($str);
 //			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&address=$str";
 //			$places = file_get_contents($url);
 			$places = file_get_contents("places.txt");
@@ -37,8 +42,54 @@
 //			fputs($fp, $places);
 //			fclose($fp);
 			$json_data = json_decode($places, true);
+			cacheSearch($search, $json_data);
 			return $json_data;
 		}
+	}
+
+	function cacheSearch($search, $json)
+	{
+		global $link;
+
+		if($json == false)
+			return false;
+
+		$poi = mysqli_real_escape_string($link, $json['results']['0']['place_id']);
+		if($poi == "")
+			return false;
+
+		$query = "select * from `poi` where `poi`='$poi'";
+		$res = mysqli_query($link, $query);
+		if(mysqli_num_rows($res) >= 1)
+			return;
+
+		$lat = floatval($json['results']['0']['geometry']['location']['lat']);
+		$lng = floatval($json['results']['0']['geometry']['location']['lng']);
+
+		if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
+			return false;
+
+		$address = mysqli_real_escape_string($link, $json['results']['0']['formatted_address']);
+		if($address == "")
+			return false;
+
+		$areas = $json['results']['0']['address_components'];
+		$council = "";
+		foreach($areas as $key => $value)
+		{
+			if($areas[$key]['types']['0'] == "administrative_area_level_2")
+			{
+				$council = trim($areas[$key]['long_name']);
+				break;
+			}
+		}
+
+		if($council == "")
+			return false;
+
+
+		$query = "insert into `poi` set `poi`='$poi', `address`='$address', `council`='$council', `lat`='$lat', `lng`='$lng', `search`='$search'";
+		mysqli_query($link, $query);
 	}
 
 	function getPasswordHash($password)
