@@ -36,7 +36,7 @@
           zoom: 8,
         });
 	const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-	const marker = new google.maps.Marker({ position: markerloc, map: map, });
+	const marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
       }
     </script>
   </head>
