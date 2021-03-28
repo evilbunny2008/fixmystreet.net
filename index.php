@@ -1,5 +1,5 @@
 <?php
-	require_once('search.php');
+	require_once('common.php');
 
 	if(!isset($_SERVER['HTTPS']) || $_SERVER['HTTPS'] != "on")
 	{
