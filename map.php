@@ -91,7 +91,7 @@
         </div>
     </div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?keyAIzaSyDhlxBCx0UGWd-GXPTxfovIwHCOejXP8GA&callback=initMap&libraries=&v=weekly&map_ids=fb9e22c9cd8fdff0"
+      src="https://maps.googleapis.com/maps/api/js?key=<?=$mapkey?>&callback=initMap&libraries=&v=weekly"
       async
     ></script>
 </div>

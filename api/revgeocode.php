@@ -9,6 +9,17 @@
                 exit;
         }
 
+        $email = strip_tags(trim($_GET['email']));
+        $password = strip_tags(trim($_GET['password']));
+
+        if(!comparePasswordHash($email, $password))
+        {
+                $arr['status'] = "Fail";
+                $arr['errmsg'] = "Invalid username and/or password.";
+                echo json_encode($arr);
+                exit;
+        }
+
 	$row = getAddress($_GET['lat'], $_GET['lng']);
 	if($row == false)
 	{
