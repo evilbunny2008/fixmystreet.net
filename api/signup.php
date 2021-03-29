@@ -1,7 +1,7 @@
 <?php
 	require_once('../common.php');
 
-        if($_GET['severKey'] != $serverKey)
+        if(!in_array($_GET['severKey'], $serverKeys, true))
         {
                 $arr['status'] = "FAIL";
                 $arr['errmsg'] = "Invalid server key";

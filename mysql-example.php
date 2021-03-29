@@ -5,6 +5,7 @@
 	$password = "password";
 	$hostname = "localhost";
 	$gapikey  = "go to https://developers.google.com/maps/documentation/places/web-service/autocomplete#place_types to get an api key";
-	$serverKey= "make something up here.";
+	$serverKeys = array("App key one", // Developer one's api key
+			    "app key two"); // Developer twos' api key
 
 	$link = new mysqli($hostname, $username, $password, $database);

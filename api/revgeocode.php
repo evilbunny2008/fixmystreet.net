@@ -1,7 +1,7 @@
 <?php
 	require_once('../common.php');
 
-        if($_GET['severKey'] != $serverKey)
+        if(!in_array($_GET['severKey'], $serverKeys, true))
         {
                 $arr['status'] = "FAIL";
                 $arr['errmsg'] = "Invalid server key";
@@ -10,5 +10,14 @@
         }
 
 	$row = getAddress($_GET['lat'], $_GET['lng']);
+	if($row == false)
+	{
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid server key";
+                echo json_encode($arr);
+                exit;
+	}
+
+	$row['status'] = 'OK';
 	$row = json_encode($row);
 	echo $row;
