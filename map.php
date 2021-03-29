@@ -10,37 +10,19 @@
 		$lng = floatval($_REQUEST['lng']);
 
 ?>
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Report problems in your area so they can be fixed." />
-  <title>FixMyStreet.net</title>
-  <link rel="stylesheet" href="./css/pure/pure-min.css" />
-  <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
-  <script defer src="./fontawesome-free-5.15.2-web/js/all.min.js"></script>
-  <link rel="stylesheet" href="./fontawesome-free-5.15.2-web/css/all.min.css" />
-  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/styles.css" />
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-  <style type="text/css">
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-
-      /* Optional: Makes the sample page fill the window. */
-      html,
-      body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A layout example with a side menu that hides on mobile, just like the Pure website.">
+    <title>Responsive Side Menu &ndash; Layout Examples &ndash; Pure</title>
+    <link rel="stylesheet" href="/css/pure/pure-min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/sidebar.css">
+    <link rel="stylesheet" href="./fontawesome-free-5.15.2-web/css/all.min.css" />
+    <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+    <script src="./js/ui.js"></script>
     <script>
       let map;
 
@@ -64,26 +46,56 @@
 //	TODO: show side bar with shire info etc
       }
   </script>
+    <style>
+              html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 </head>
-
 <body>
-    <?=$header?>
-      <div class="dash-header">
-        <div class="splash">
-          <h1 class="splash-head">Login</h1>
-        </div>
-      </div>
 
-    <div class="splash-container">
-      <div class="splash">
-        <div id="map"></div>
-      </div>
+<div id="layout">
+    <!-- Menu toggle -->
+    <a href="#menu" id="menuLink" class="menu-link">
+        <!-- Hamburger icon -->
+        <span></span>
+    </a>
+
+    <div id="menu">
+        <div class="pure-menu">
+            <a class="pure-menu-heading" href="#company">Company</a>
+
+            <ul class="pure-menu-list">
+                <li class="pure-menu-item"><a href="#home" class="pure-menu-link">Home</a></li>
+                <li class="pure-menu-item"><a href="#about" class="pure-menu-link">About</a></li>
+
+                <li class="pure-menu-item menu-item-divided pure-menu-selected">
+                    <a href="#" class="pure-menu-link">Services</a>
+                </li>
+
+                <li class="pure-menu-item"><a href="#contact" class="pure-menu-link">Contact</a></li>
+            </ul>
+        </div>
     </div>
-    <?=$footer?>
-    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+
+    <div id="main">
+        <div class="content">
+            <div class="splash-container">
+                <div id="map"></div>
+                <div class="splash">
+                </div>
+            </div>
+        </div>
+    </div>
     <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhlxBCx0UGWd-GXPTxfovIwHCOejXP8GA&callback=initMap&libraries=&v=weekly&map_ids=fb9e22c9cd8fdff0"
+      src="https://maps.googleapis.com/maps/api/js?keyAIzaSyDhlxBCx0UGWd-GXPTxfovIwHCOejXP8GA&callback=initMap&libraries=&v=weekly&map_ids=fb9e22c9cd8fdff0"
       async
     ></script>
-  </body>
+</div>
+
+
+</body>
 </html>
