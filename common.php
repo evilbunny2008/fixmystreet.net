@@ -45,7 +45,7 @@
 			}
 
 			$str = urlencode($str);
-			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&region=.au&address=$str";
+			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&region=au&address=$str";
 			$places = file_get_contents($url);
 			$json_data = json_decode($places, true);
 			$row = cacheInsert($search, $json_data);
