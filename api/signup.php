@@ -1,6 +1,14 @@
 <?php
 	require_once('../common.php');
 
+        if($_GET['severKey'] != $serverKey)
+        {
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid server key";
+                echo json_encode($arr);
+                exit;
+        }
+
 	$email = strip_tags(trim($_GET['email']));
 	if(isEmailInDB($email))
 	{
