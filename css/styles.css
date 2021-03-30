@@ -461,3 +461,7 @@ img {
   width: 100%;
   position: relative;
 }
+
+.step {
+  color: white;
+}
