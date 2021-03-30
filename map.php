@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
     <script src="./js/ui.js"></script>
+    <script src="./js/index.js"></script>
     <script>
       let map;
 
@@ -57,7 +58,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="showSteps()">
     <div id="layout">
       <!-- Menu toggle -->
       <a href="#menu" id="menuLink" class="menu-link">
@@ -71,7 +72,7 @@
 
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
-              <a href="#home" class="pure-menu-link">Step 1</a>
+              <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one" hidden>
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="lonField">Longitude</label>
@@ -82,7 +83,7 @@
               </div>
             </li>
             <li class="pure-menu-item">
-              <a href="#about" class="pure-menu-link">Step 2</a>
+              <a href="#" class="pure-menu-link">Step 2</a>
               <div id="step-two" hidden>
                 <p class="is-center">
                   Select the type of problem and add it's details
@@ -106,7 +107,7 @@
               <a href="#" class="pure-menu-link">Services</a>
             </li> -->
             <li class="pure-menu-item">
-              <a href="#contact" class="pure-menu-link">Step 3</a>
+              <a href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
                 <p class="is-center">
                   Add photos that clearly show the problem
@@ -119,7 +120,7 @@
             </li>
 
             <li class="pure-menu-item">
-              <a href="#contact" class="pure-menu-link">Submit</a>
+              <a href="#" class="pure-menu-link">Submit</a>
             </li>
           </ul>
         </div>
