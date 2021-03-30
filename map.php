@@ -95,7 +95,6 @@
       async
     ></script>
 </div>
-
-
+<?=$footer?>
 </body>
 </html>

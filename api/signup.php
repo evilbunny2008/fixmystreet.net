@@ -12,7 +12,7 @@
 	$email = strip_tags(trim($_GET['email']));
 	if(isEmailInDB($email))
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "This email already exists in the database.";
 		echo json_encode($arr);
 		exit;
@@ -25,7 +25,7 @@
 
 	if($email == "" || strlen($email) < 8 || !filter_var($email, FILTER_VALIDATE_EMAIL))
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "Invalid email.";
 		echo json_encode($arr);
 		exit;
@@ -33,7 +33,7 @@
 
 	if($password == "" || strlen($password) < 8)
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "Invalid password.";
 		echo json_encode($arr);
 		exit;
@@ -41,7 +41,7 @@
 
 	if($name == "" || strlen($name) < 4)
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "Invalid name.";
 		echo json_encode($arr);
 		exit;
@@ -49,7 +49,7 @@
 
 	if($mobile == "" || strlen($mobile) < 10)
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "Invalid mobile.";
 		echo json_encode($arr);
 		exit;
@@ -57,7 +57,7 @@
 
 	if(isNumberInDB($mobile))
 	{
-		$arr['status'] = 'Fail';
+		$arr['status'] = 'FAIL';
 		$arr['errmsg'] = "Number already in the database.";
 		echo json_encode($arr);
 		exit;

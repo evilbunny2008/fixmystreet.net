@@ -14,7 +14,7 @@
 
 	if(!comparePasswordHash($email, $password))
 	{
-		$arr['status'] = "Fail";
+		$arr['status'] = "FAIL";
 		$arr['errmsg'] = "Invalid username and/or password.";
 		echo json_encode($arr);
 		exit;

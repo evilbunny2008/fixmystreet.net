@@ -16,24 +16,30 @@
 
 	if(!comparePasswordHash($email, $password))
 	{
-		$arr['status'] = "Fail";
+		$arr['status'] = "FAIL";
 		$arr['errmsg'] = "Invalid username and/or password.";
 		echo json_encode($arr);
 		exit;
 	}
 
+	$file_count = 0;
 	foreach($_FILES["photos"]["error"] as $key => $error)
 	{
 		if($error == UPLOAD_ERR_OK)
 		{
-			if(!is_uploaded_file($_FILES["photos"]["tmp_name"][$key]))
+			if(is_uploaded_file($_FILES["photos"]["tmp_name"][$key]))
 			{
-				$arr['status'] = "Fail";
-				$arr['errmsg'] = "Invalid uploaded file";
-				echo json_encode($arr);
-				exit;
+				$file_count++;
 			}
 		}
+	}
+
+	if($file_count < 2)
+	{
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid uploaded file";
+		echo json_encode($arr);
+		exit;
 	}
 
 	

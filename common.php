@@ -158,9 +158,7 @@
 			return false;
 
 		$row = mysqli_fetch_assoc($res);
-		if(password_verify($password, $row['password']))
-			return true;
-		return false;
+		return(password_verify($password, $row['password']));
 	}
 
 	function isEmailInDB($email)
