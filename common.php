@@ -11,9 +11,7 @@
 		{
 			$row = cacheSearch("$lat,$lng");
 			if($row != false)
-			{
 				return $row;
-			}
 
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?latlng=$lat,$lng&output=json&sensor=true&key=$gapikey";
 			$address = file_get_contents($url);
@@ -21,7 +19,7 @@
 
 			if($json_data['status'] == "OK")
 			{
-				$row = cacheInsert($lat.",".$lng, $json_data);
+				$row = cacheInsert("$lat,$lng", $json_data);
 				return $row;
 			}
 			return false;
@@ -66,7 +64,7 @@
 			return false;
 
 		$row = mysqli_fetch_assoc($res);
-
+		$row['status'] = 'OK';
 		return $row;
 	}
 
@@ -84,7 +82,7 @@
 		$query = "select * from `poi` where `poi`='$poi'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
-			return;
+			return false;
 
 		$lat = floatval($json['results']['0']['geometry']['location']['lat']);
 		$lng = floatval($json['results']['0']['geometry']['location']['lng']);
@@ -121,6 +119,7 @@
 		$row['council'] = $council;
 		$row['lat'] = $lat;
 		$row['lng'] = $lng;
+		$row['status'] = 'OK';
 
 		return $row;
 	}
