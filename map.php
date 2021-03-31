@@ -99,15 +99,20 @@
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
 	{
-		echo "\t\t<option value='".$row['id']."'>".$row['defect']."</option>\n";
+		echo "\t\t<option value='".$row['id']."'";
+		if($row['id'] == 11)
+			echo " selected";
+		echo ">".$row['defect']."</option>\n";
 	}
 ?>
                 </select>
+                <p class="is-center">Add a summary of the problem</p>
+		<input type="text" id="summary" size="86" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea
                   name=""
                   id=""
-                  cols="30"
+                  cols="89"
                   rows="10"
                   placeholder="Enter a problem description"
                 ></textarea>
