@@ -238,6 +238,21 @@
 		return '';
 	}
 
+	function getDefects()
+	{
+		global $link;
+
+		$query = "select * from `defect_types` order by `id`";
+		$res = mysqli_query($link, $query);
+
+		$arr = array();
+
+		while($row = mysqli_fetch_assoc($res))
+			$arr[] = $row;
+
+		$arr['status'] = "OK";
+		echo json_encode($arr);
+	}
 
 
 	$header = '    <div class="flex-wrapper">
