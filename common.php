@@ -82,7 +82,7 @@
 		$query = "select * from `poi` where `poi`='$poi'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
-			return false;
+			return mysqli_fetch_assoc($res);
 
 		$lat = floatval($json['results']['0']['geometry']['location']['lat']);
 		$lng = floatval($json['results']['0']['geometry']['location']['lng']);
