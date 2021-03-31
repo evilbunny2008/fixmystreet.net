@@ -80,10 +80,10 @@
               <div id="step-one" hidden>
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="latField">Latitude</label>
-                <input type="text" id="latField" />
+                <input type="text" id="latField" value="<?=$lat?>" />
                 <br />
                 <label class="step" for="lonField">Longitude</label>
-                <input type="text" id="lonField" />
+                <input type="text" id="lonField" value="<?=$lng?>" />
               </div>
             </li>
             <li class="pure-menu-item">
@@ -94,7 +94,14 @@
                 </p>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
-                  <!-- POPULATE OPTIONS HERE WITH PHP -->
+<?php
+	$query = "select * from `defect_type`";
+	$res = mysqli_query($link, $query);
+	while($row = mysqli_fetch_assoc($res))
+	{
+		echo "\t\t<option value='".$row['id']."'>".$row['defect']."</option>\n";
+	}
+?>
                 </select>
                 <p class="is-center">Add a description for the problem</p>
                 <textarea
