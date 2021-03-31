@@ -10,4 +10,12 @@
                 exit;
 	}
 
+	if(strtolower(substr($_SERVER['HTTP_REFERER'], 0, 24)) != "https://fixmystreet.net/")
+	{
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid latitude or longitude";
+                echo json_encode($arr);
+                exit;
+	}
+
 	echo $row['address']."|".$row['council'];
