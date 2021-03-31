@@ -59,6 +59,8 @@
 	{
 		const lat = document.getElementById("latField");
 		const lon = document.getElementById("lonField");
+		const address = document.getElementById("address");
+		const council = document.getElementById("council");
 
 		http.open('GET', '/revgeocode.php?lat=' + lat.value + "&lng=" + lon.value, true);
 		http.onreadystatechange = function()
@@ -66,7 +68,8 @@
 			if(http.readyState == 4 && http.status == 200)
 			{
 				let ret = http.responseText.split('|');
-				alert(ret);
+				address.value = ret[0];
+				council.value = ret[1];
 			}
 		}
 
@@ -118,6 +121,10 @@
                 <p class="is-center">
                   Select the type of problem and add it's details
                 </p>
+		<label class="step">Address:</label>
+		<input type="text" id="address" readonly /><br/>
+		<label class="step">Council:</label>
+		<input type="text" id="council" readonly /><br/>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
 <?php
