@@ -49,8 +49,8 @@
 	const lat = document.getElementById("latField");
 	const lon = document.getElementById("lonField");
 
-	lat.value = pos.lat();
-	lon.value = pos.lng();
+	lat.value = pos.lat().toFixed(6);
+	lon.value = pos.lng().toFixed(6);
       }
     </script>
     <style>
