@@ -52,6 +52,32 @@
 	lat.value = pos.lat().toFixed(6);
 	lon.value = pos.lng().toFixed(6);
       }
+
+	let http = getHTTPObject();
+
+	function revgeocode()
+	{
+		const lat = document.getElementById("latField");
+		const lon = document.getElementById("lonField");
+
+		http.open('GET', '/revgeocode.php?lat=' + lat.value + "&lng=" + lon.value, true);
+		http.onreadystatechange = function()
+		{
+			if(http.readyState == 4 && http.status == 200)
+			{
+				let ret = http.responseText.split('|');
+				alert(ret);
+			}
+		}
+
+		http.send();
+	}
+
+	function getHTTPObject()
+	{
+		let request = null;
+		return new XMLHttpRequest();
+	}
     </script>
     <style>
       html,
@@ -87,7 +113,7 @@
               </div>
             </li>
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Step 2</a>
+              <a href="#" onClick="revgeocode()" class="pure-menu-link">Step 2</a>
               <div id="step-two" hidden>
                 <p class="is-center">
                   Select the type of problem and add it's details
