@@ -45,8 +45,12 @@
 
       function dragEnd(pos)
       {
-      //	alert(pos);
-      //	TODO: show side bar with shire info etc
+	//latField, lonField
+	const lat = document.getElementById("latField");
+	const lon = document.getElementById("lonField");
+
+	lat.value = pos.lat;
+	lon.value = pos.lng;
       }
     </script>
     <style>
@@ -75,11 +79,11 @@
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one" hidden>
                 <p class="is-center">Drag the marker on the map</p>
-                <label class="step" for="lonField">Longitude</label>
-                <input type="text" id="lonField" />
-                <br />
                 <label class="step" for="latField">Latitude</label>
                 <input type="text" id="latField" />
+                <br />
+                <label class="step" for="lonField">Longitude</label>
+                <input type="text" id="lonField" />
               </div>
             </li>
             <li class="pure-menu-item">
