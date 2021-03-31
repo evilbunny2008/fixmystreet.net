@@ -128,7 +128,7 @@
 
       <div id="main">
         <div class="content">
-          <div class="splash-container">
+          <div class="splash-container" style="width: 66%; left:34%">
             <div id="map"></div>
             <div class="splash"></div>
           </div>
