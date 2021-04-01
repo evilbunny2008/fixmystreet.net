@@ -46,8 +46,33 @@
 		exit;
 	}
 
-	
+	$lat = floatval($_GET['lat']);
+	$lng = floatval($_GET['lng']);
+	if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
+        {
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid username and/or password.";
+                echo json_encode($arr);
+                exit;
+	}
 
+	$address = cleanup($_GET['address']);
+	$council = cleanup($_GET['council']);
+	$title = cleanup($_GET['title']);
+	$extra = cleanup($_GET['extra']);
+	$defect = cleanup($_GET['defect']);
+
+	$query = "SELECT * FROM `defect_type` WHERE `defect`='$defect'";
+	$res = mysqli_query($link, $query);
+	if(mysqli_num_rows($res) <= 0)
+	{
+	// TODO Bomb out...
+	}
+
+	$query  = "INSERT INTO `problems` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `title`='$title', `user_id`=$userid, ";
+	$query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, 
+
+	$arr = array();
 	$arr['status'] = "OK";
 	echo json_encode($arr);
 	exit;

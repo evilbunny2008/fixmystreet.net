@@ -251,6 +251,12 @@
 		echo json_encode($arr);
 	}
 
+        function cleanup($str)
+        {
+                global $link;
+
+                return mysqli_real_escape_string($link, trim(strip_tags($str)));
+        }
 
 	$header = '    <div class="flex-wrapper">
 	<div class="header">
