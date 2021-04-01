@@ -62,15 +62,33 @@
 	$extra = cleanup($_GET['extra']);
 	$defect = cleanup($_GET['defect']);
 
-	$query = "SELECT * FROM `defect_type` WHERE `defect`='$defect'";
+	$query = "SELECT `id` FROM `defect_type` WHERE `defect`='$defect'";
 	$res = mysqli_query($link, $query);
 	if(mysqli_num_rows($res) <= 0)
 	{
-	// TODO Bomb out...
+		$arr = array();
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid username and/or password.";
+		echo json_encode($arr);
+		exit;
 	}
 
+	$row = mysqli_fetch_assoc($res);
+	$defect_id = $row['id'];
+
 	$query  = "INSERT INTO `problems` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `title`='$title', `user_id`=$userid, ";
-	$query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, 
+	$query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect_id";
+	mysqli_query($link, $query);
+	$problem_id = mysqli_insert_id($link);
+
+	foreach($_FILES["photos"]["error"] as $key => $error)
+        {
+		$filename = cleanup(basename($_FILES["photos"]["name"][$key]));
+		move_uploaded_file($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${problem_id}-${key}.jpg");
+		$file_path = basename($uploads_dir)."/${problem_id}-${key}.jpg";
+		$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `comment`='$filename', `file_path`='$file_path'";
+		mysqli_query($link, $query);
+	}
 
 	$arr = array();
 	$arr['status'] = "OK";
