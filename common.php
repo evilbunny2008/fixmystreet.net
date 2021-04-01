@@ -38,9 +38,7 @@
 			$search = mysqli_real_escape_string($link, $str);
 			$row = cacheSearch($search);
 			if($row != false)
-			{
 				return $row;
-			}
 
 			$str = urlencode($str);
 			$url = "https://maps.googleapis.com/maps/api/geocode/json?key=$gapikey&components=country:AU&address=$str";
