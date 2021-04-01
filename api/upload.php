@@ -3,7 +3,7 @@
 
 	$uploads_dir = '../photos';
 
-	if(!in_array($_GET['serverKey'], $serverKeys, true))
+	if(!isset($_POST['serverKey']) || !in_array($_POST['serverKey'], $serverKeys, true))
 	{
 		$arr['status'] = "FAIL";
 		$arr['errmsg'] = "Invalid server key";
@@ -11,8 +11,8 @@
 		exit;
 	}
 
-	$email = strip_tags(trim($_GET['email']));
-	$password = strip_tags(trim($_GET['password']));
+	$email = strip_tags(trim($_POST['email']));
+	$password = strip_tags(trim($_POST['password']));
 
 	if(!comparePasswordHash($email, $password))
 	{
@@ -22,7 +22,7 @@
 		exit;
 	}
 
-	$row = mysqli_fetch_assoc(mysqli_query($link, "select `id` from `users` where `email`='$email'));
+	$row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
 	$userid = $row['id'];
 
 	$file_count = 0;
@@ -46,8 +46,8 @@
 		exit;
 	}
 
-	$lat = floatval($_GET['lat']);
-	$lng = floatval($_GET['lng']);
+	$lat = floatval($_POST['lat']);
+	$lng = floatval($_POST['lng']);
 	if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
         {
                 $arr['status'] = "FAIL";
@@ -56,11 +56,11 @@
                 exit;
 	}
 
-	$address = cleanup($_GET['address']);
-	$council = cleanup($_GET['council']);
-	$title = cleanup($_GET['title']);
-	$extra = cleanup($_GET['extra']);
-	$defect = cleanup($_GET['defect']);
+	$address = cleanup($_POST['address']);
+	$council = cleanup($_POST['council']);
+	$summary = cleanup($_POST['summary']);
+	$extra = cleanup($_POST['extra']);
+	$defect = cleanup($_POST['defect']);
 
 	$query = "SELECT `id` FROM `defect_type` WHERE `defect`='$defect'";
 	$res = mysqli_query($link, $query);
