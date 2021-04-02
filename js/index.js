@@ -1,10 +1,8 @@
-"use strict";
-
 function showSteps() {
   const step = document.querySelectorAll(".pure-menu-link");
   const divs = ["step-one", "step-two", "step-three"];
 
-  for (let i = 0; i < step.length - 1; i++) {
+  for (let i = 0; i < step.length; i++) {
     step[i].addEventListener("click", function () {
       step[i].nextElementSibling.removeAttribute("hidden");
       // if(!step[i].nextElementSibling.hasAttribute("hidden")) {
@@ -46,8 +44,8 @@ function validate() {
     sumbitButton.removeAttribute("disabled");
     sumbitButton.style.backgroundColor = "#add8e6";
   } else {
-    sumbitButton.style.borderColor = "red";
-    sumbitButton.style.boxShadow = "0 0 0 0.15rem red";
+    sumbitButton.style.borderColor = "grey";
+    sumbitButton.style.backgroundColor = "grey";
     sumbitButton.setAttribute("disabled", "");
   }
 }
