@@ -107,7 +107,7 @@
             <li class="pure-menu-item">
             <form action="<?= $_SERVER['PHP_SELF']?>" method="post">
               <a href="#" class="pure-menu-link">Step 1</a>
-              <div id="step-one" hidden>
+              <div id="step-one">
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="latField">Latitude</label>
                 <input type="text" id="latField" onchange="validate()" value="<?=$lat?>" />
