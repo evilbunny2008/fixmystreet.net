@@ -26,9 +26,9 @@ for (let i = 0; i < inputs.length; i++) {
   inputs[i].addEventListener("keyup", function () {
     const submit = document.getElementById("submit");
     if (inputs[i].value.trim() == "") {
-      submit.setAttribute("hidden", "");
+      submit.setAttribute("disabled", "");
     } else {
-      submit.removeAttribute("hidden");
+      submit.removeAttribute("disabled");
       submit.style.backgroundColor = "green";
     }
   });
