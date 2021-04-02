@@ -21,16 +21,15 @@ function showSteps() {
   }
 }
 
-const submit = document.getElementById("submit");
 const inputs = document.getElementsByTagName("input");
 for (let i = 0; i < inputs.length; i++) {
-  inputs[i].addEventListener("change", function () {
+  inputs[i].addEventListener("keyup", function () {
+    const submit = document.getElementById("submit");
     if (inputs[i].value.trim() == "") {
-      submit.setAttribute("disabled", "");
-      submit.style.backgroundColor = "#cccccc";
+      submit.setAttribute("hidden", "");
     } else {
-      submit.removeAttribute("disabled");
-      submit.style.backgroundColor = "#5cb85c";
+      submit.removeAttribute("hidden");
+      submit.style.backgroundColor = "green";
     }
   });
 }
