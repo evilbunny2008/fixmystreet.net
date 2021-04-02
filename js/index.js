@@ -23,8 +23,8 @@ function showSteps() {
 
 const submit = document.getElementById("submit");
 const inputs = document.getElementsByTagName("input");
-document.querySelector("form").addEventListener("change", function () {
-  for (let i = 0; i < inputs.length; i++) {
+for (let i = 0; i < inputs.length; i++) {
+  inputs[i].addEventListener("change", function () {
     if (inputs[i].value.trim() == "") {
       submit.setAttribute("disabled", "");
       submit.style.backgroundColor = "#cccccc";
@@ -32,5 +32,5 @@ document.querySelector("form").addEventListener("change", function () {
       submit.removeAttribute("disabled");
       submit.style.backgroundColor = "#5cb85c";
     }
-  }
-});
+  });
+}
