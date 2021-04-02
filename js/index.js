@@ -42,7 +42,7 @@ function validate() {
   let res = checkEmpty(field);
   if (res === true) {
     sumbitButton.removeAttribute("disabled");
-    sumbitButton.style.backgroundColor = "#add8e6";
+    sumbitButton.style.backgroundColor = "";
   } else {
     sumbitButton.style.borderColor = "grey";
     sumbitButton.style.backgroundColor = "grey";
