@@ -105,6 +105,7 @@
 
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
+            <form action="<?= $_SERVER['PHP_SELF']?>" method="post">
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one" hidden>
                 <p class="is-center">Drag the marker on the map</p>
@@ -161,7 +162,6 @@
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                <form action="">
                   <input type="file" id="myFile" name="filename" />
                   <input type="submit" value="Submit photos" />
                 </form>
@@ -169,7 +169,7 @@
             </li>
 
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Submit</a>
+              <a href="#" type="submit" class="pure-menu-link" id="submit" disabled >Submit</a>
             </li>
           </ul>
         </div>
