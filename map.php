@@ -1,6 +1,48 @@
 <?php
 	require_once('common.php');
 
+  if(!isset($_SESSION['loggedin']))
+  {
+    header('Location: /');
+    die;
+  }
+
+  if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
+  {
+    $lat = is_null($_POST['latField']) ? NULL : floatval(cleanup($_POST['latField']));
+    $lng = is_null($_POST['lonField']) ? NULL : floatval(cleanup($_POST['lonField']));
+    $address = is_null($_POST['address']) ? NULL : cleanup($_POST['address']);
+    $council = is_null($_POST['council']) ? NULL : cleanup($_POST['council']);
+    $defect = is_null($_POST['problem-type']) ? NULL : cleanup($_POST['problem-type']);
+    $summary = is_null($_POST['summary']) ? NULL : cleanup($_POST['summary']);
+    $extra = is_null($_POST['desc']) ? NULL : cleanup($_POST['desc']);
+
+    if(is_null($lat) || is_null($lng) || is_null($address) || is_null($council) || is_null($defect) || is_null($summary) || is_null($extra))
+    {
+      // header('Location: /');
+      echo "null";
+      die;
+    }
+    
+    $email = $_SESSION['email'];
+    $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
+    $userid = $row['id'];
+  
+    $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
+    $query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect";
+    mysqli_query($link, $query);
+    $problem_id = mysqli_insert_id($link);
+
+    //THERE WAS AN ERROR
+    if($problem_id <= 0)
+    {
+      header('Location: /');
+      die;
+    }
+    //PROBLEM HAS BEEN ADDED
+    
+  }
+
 	$lat = -34.397;
 	if(isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && floatval($_REQUEST['lat']) != 0 && floatval($_REQUEST['lat']) >= -90 && floatval($_REQUEST['lat']) <= 90)
 		$lat = floatval($_REQUEST['lat']);
@@ -110,10 +152,10 @@
               <div id="step-one">
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="latField">Latitude</label>
-                <input type="text" id="latField" onchange="validate()" value="<?=$lat?>" />
+                <input type="text" name="latField" id="latField" onchange="validate()" value="<?=$lat?>" />
                 <br />
                 <label class="step" for="lonField">Longitude</label>
-                <input type="text" id="lonField" onchange="validate()" value="<?=$lng?>" />
+                <input type="text" name="lonField" id="lonField" onchange="validate()" value="<?=$lng?>" />
               </div>
             </li>
             <li class="pure-menu-item">
@@ -123,9 +165,9 @@
                   Select the type of problem and add it's details
                 </p>
 		<label class="step">Address:</label>
-		<input type="text" id="address" onchange="validate()" readonly /><br/>
+		<input type="text" id="address" name="address" onchange="validate()" readonly /><br/>
 		<label class="step">Council:</label>
-		<input type="text" id="council" onchange="validate()" readonly /><br/>
+		<input type="text" id="council" name="council" onchange="validate()" readonly /><br/>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
 <?php
@@ -141,10 +183,10 @@
 ?>
                 </select>
                 <p class="is-center">Add a summary of the problem</p>
-		<input onchange="validate()" type="text" id="summary" size="86" />
+		            <input name="summary" onchange="validate()" type="text" id="summary" size="86" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate()"
-                  name=""
+                  name="desc"
                   id="description"
                   cols="89"
                   rows="10"
@@ -159,15 +201,16 @@
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
+              <img id="preview" alt="" width="100" height="100" />
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="validate()" type="file" id="myFile" name="filename" />
+                  <input onchange="validate();document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" type="file" id="myFile" name="filename" />
               </div>
             </li>
 
             <li class="pure-menu-item">
-              <button href="#" type="submit" class="pure-button" id="submit" disabled>Submit</buttons>
+              <button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>
             </li>
           </ul>
           </form>
