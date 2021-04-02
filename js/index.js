@@ -23,7 +23,7 @@ function showSteps() {
 
 function checkEmpty(field) {
   for (let i = 0; i < field.length; i++) {
-    if (field[i].value.trim() == "") {
+    if (document.getElementById(field[i]).value.trim() == "") {
       return false;
     }
   }
