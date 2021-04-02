@@ -21,12 +21,33 @@ function showSteps() {
   }
 }
 
-function validate(id) {
-  const submit = document.getElementById("submit");
-  if (document.getElementById(id).value.trim() == "") {
-    submit.removeAttribute("disabled");
-    submit.style.backgroundColor = "#ADD8E6";
+function checkEmpty(field) {
+  for (let i = 0; i < field.length; i++) {
+    if (field[i].value.trim() == "") {
+      return false;
+    }
+  }
+  return true;
+}
+
+function validate() {
+  let sumbitButton = document.getElementById("submit");
+  let field = [
+    "latField",
+    "lonField",
+    "address",
+    "council",
+    "summary",
+    "description",
+    "myFile",
+  ];
+  let res = checkEmpty(field);
+  if (res === true) {
+    sumbitButton.removeAttribute("disabled");
+    sumbitButton.style.backgroundColor = "#add8e6";
   } else {
-    submit.setAttribute("disabled", "");
+    sumbitButton.style.borderColor = "red";
+    sumbitButton.style.boxShadow = "0 0 0 0.15rem red";
+    sumbitButton.setAttribute("disabled", "");
   }
 }

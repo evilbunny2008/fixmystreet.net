@@ -110,10 +110,10 @@
               <div id="step-one" hidden>
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="latField">Latitude</label>
-                <input type="text" id="latField" onchange="validate(this.id)" value="<?=$lat?>" />
+                <input type="text" id="latField" onchange="validate()" value="<?=$lat?>" />
                 <br />
                 <label class="step" for="lonField">Longitude</label>
-                <input type="text" id="lonField" onchange="validate(this.id)" value="<?=$lng?>" />
+                <input type="text" id="lonField" onchange="validate()" value="<?=$lng?>" />
               </div>
             </li>
             <li class="pure-menu-item">
@@ -123,9 +123,9 @@
                   Select the type of problem and add it's details
                 </p>
 		<label class="step">Address:</label>
-		<input type="text" id="address" onchange="validate(this.id)" readonly /><br/>
+		<input type="text" id="address" onchange="validate()" readonly /><br/>
 		<label class="step">Council:</label>
-		<input type="text" id="council" onchange="validate(this.id)" readonly /><br/>
+		<input type="text" id="council" onchange="validate()" readonly /><br/>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
 <?php
@@ -141,9 +141,9 @@
 ?>
                 </select>
                 <p class="is-center">Add a summary of the problem</p>
-		<input onchange="validate(this.id)" type="text" id="summary" size="86" />
+		<input onchange="validate()" type="text" id="summary" size="86" />
                 <p class="is-center">Add a description for the problem</p>
-                <textarea onchange="validate(this.id)"
+                <textarea onchange="validate()"
                   name=""
                   id="description"
                   cols="89"
@@ -162,7 +162,7 @@
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="validate(this.id)" type="file" id="myFile" name="filename" />
+                  <input onchange="validate()" type="file" id="myFile" name="filename" />
               </div>
             </li>
 
