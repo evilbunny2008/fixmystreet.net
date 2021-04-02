@@ -31,7 +31,7 @@
 		if($error == UPLOAD_ERR_OK)
 		{
 			if(is_uploaded_file($_FILES["photos"]["tmp_name"][$key]) &&
-				file_size($_FILES["photos"]["tmp_name"][$key]) > 50000)
+				filesize($_FILES["photos"]["tmp_name"][$key]) > 50000)
 			{
 				$file_count++;
 			}
