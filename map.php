@@ -163,7 +163,6 @@
                   Add photos that clearly show the problem
                 </p>
                   <input type="file" id="myFile" name="filename" />
-                  <input type="submit" value="Submit photos" />
                 </form>
               </div>
             </li>
