@@ -3,6 +3,9 @@
 
 	$uploads_dir = '../photos';
 
+//	foreach(getallheaders() as $key => $val)
+//		echo "$key => $val\n";
+
 	if(!isset($_POST['serverKey']) || !in_array($_POST['serverKey'], $serverKeys, true))
 	{
 		$arr['status'] = "FAIL";
@@ -11,8 +14,8 @@
 		exit;
 	}
 
-	$email = strip_tags(trim($_POST['email']));
-	$password = strip_tags(trim($_POST['password']));
+	$email = cleanup(urldecode($_POST['email']));
+	$password = cleanup(urldecode($_POST['password']));
 
 	if(!comparePasswordHash($email, $password))
 	{
@@ -56,11 +59,11 @@
                 exit;
 	}
 
-	$address = cleanup($_POST['address']);
-	$council = cleanup($_POST['council']);
-	$summary = cleanup($_POST['summary']);
-	$extra = cleanup($_POST['extra']);
-	$defect = cleanup($_POST['defect']);
+	$address = cleanup(urldecode($_POST['address']));
+	$council = cleanup(urldecode($_POST['council']));
+	$summary = cleanup(urldecode($_POST['summary']));
+	$extra = cleanup(urldecode($_POST['extra']));
+	$defect = cleanup(urldecode($_POST['defect']));
 
 	$query = "SELECT `id` FROM `defect_type` WHERE `defect`='$defect'";
 	$res = mysqli_query($link, $query);
@@ -76,14 +79,24 @@
 	$row = mysqli_fetch_assoc($res);
 	$defect_id = $row['id'];
 
-	$query  = "INSERT INTO `problems` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `title`='$title', `user_id`=$userid, ";
+	$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
 	$query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect_id";
+
 	mysqli_query($link, $query);
 	$problem_id = mysqli_insert_id($link);
 
+	if($problem_id <= 0)
+	{
+		$arr = array();
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Error inserting into database...";
+		echo json_encode($arr);
+		exit;
+	}
+
 	foreach($_FILES["photos"]["error"] as $key => $error)
         {
-		$filename = cleanup(basename($_FILES["photos"]["name"][$key]));
+		$filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
 		move_uploaded_file($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${problem_id}-${key}.jpg");
 		$file_path = basename($uploads_dir)."/${problem_id}-${key}.jpg";
 		$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `comment`='$filename', `file_path`='$file_path'";

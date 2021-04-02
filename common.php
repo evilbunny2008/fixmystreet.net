@@ -138,7 +138,7 @@
 	{
 		global $link;
 
-		$password = password_hash(strip_tags(trim($password)), PASSWORD_ARGON2ID);
+		$password = password_hash(trim(strip_tags($password)), PASSWORD_ARGON2ID);
 		return mysqli_real_escape_string($link, $password);
 	}
 
@@ -147,7 +147,7 @@
 		global $link;
 
 		$email = mysqli_real_escape_string($link, $email);
-		$password = strip_tags(trim($password));
+		$password = trim(strip_tags($password));
 
 		$query = "select `password` from `users` where `email`='$email'";
 		$res = mysqli_query($link, $query);
@@ -162,7 +162,7 @@
 	{
 		global $link;
 
-		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
+		$email = mysqli_real_escape_string($link, trim(strip_tags($email)));
 		$query = "SELECT 1 FROM `users` WHERE `email`='$email'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
@@ -173,7 +173,7 @@
 	function isNumberInDB($phoneNo)
 	{
 		global $link;
-		$number = mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
+		$number = mysqli_real_escape_string($link, trim(strip_tags($phoneNo)));
 		$query = "SELECT 1 FROM `users` WHERE `phone` = '$phoneNo'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
@@ -184,9 +184,9 @@
 	function registerUser($email, $password, $phoneNo, $name)
 	{
 		global $link;
-		$email = mysqli_real_escape_string($link, strip_tags(trim($email)));
-		$password = mysqli_real_escape_string($link, strip_tags(trim($password)));
-		$phoneNo = empty($phoneNo) ? NULL : mysqli_real_escape_string($link, strip_tags(trim($phoneNo)));
+		$email = mysqli_real_escape_string($link, trim(strip_tags($email)));
+		$password = mysqli_real_escape_string($link, trim(strip_tags($password)));
+		$phoneNo = empty($phoneNo) ? NULL : mysqli_real_escape_string($link, trim(strip_tags($phoneNo)));
 		$name = mysqli_real_escape_string($link, strip_tags($name));
 
 		$query = "INSERT INTO `users` SET `email`='$email', `password`='$password', `created`=NOW(), `last_active`=NOW(), `phone`='$phoneNo', `name`='$name'";
