@@ -23,7 +23,7 @@ function showSteps() {
 
 function validate(id) {
   const submit = document.getElementById("submit");
-  if (id.value.trim() == "") {
+  if (document.getElementById(id).value.trim() == "") {
     submit.removeAttribute("disabled");
     submit.style.backgroundColor = "#ADD8E6";
   } else {
