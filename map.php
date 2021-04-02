@@ -167,7 +167,7 @@
             </li>
 
             <li class="pure-menu-item">
-              <button href="#" type="submit" class="pure-menu-link" id="submit" >Submit</buttons>
+              <button href="#" type="submit" class="pure-button" id="submit" disabled>Submit</buttons>
             </li>
           </ul>
           </form>
@@ -177,7 +177,7 @@
 
       <div id="main">
         <div class="content">
-          <div class="splash-container" style="width: 66%; left:34%">
+          <div class="splash-container" style="top: 0; width: 66%; left:34%">
             <div id="map"></div>
             <div class="splash"></div>
           </div>
