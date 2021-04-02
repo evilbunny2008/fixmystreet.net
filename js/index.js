@@ -23,7 +23,7 @@ function showSteps() {
 
 const inputs = document.getElementsByTagName("input");
 for (let i = 0; i < inputs.length; i++) {
-  inputs[i].addEventListener("change", function () {
+  inputs[i].addEventListener("onchange", function () {
     const submit = document.getElementById("submit");
     if (inputs[i].value.trim() == "") {
       submit.setAttribute("disabled", "");
