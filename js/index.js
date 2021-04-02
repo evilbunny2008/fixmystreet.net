@@ -21,15 +21,12 @@ function showSteps() {
   }
 }
 
-const inputs = document.getElementsByTagName("input");
-for (let i = 0; i < inputs.length; i++) {
-  inputs[i].addEventListener("mousemove", function () {
-    const submit = document.getElementById("submit");
-    if (inputs[i].value.trim() == "") {
-      submit.setAttribute("disabled", "");
-    } else {
-      submit.removeAttribute("disabled");
-      submit.style.backgroundColor = "green";
-    }
-  });
+function validate(id) {
+  const submit = document.getElementById("submit");
+  if (id.value.trim() == "") {
+    submit.removeAttribute("disabled");
+    submit.style.backgroundColor = "#ADD8E6";
+  } else {
+    submit.setAttribute("disabled", "");
+  }
 }
