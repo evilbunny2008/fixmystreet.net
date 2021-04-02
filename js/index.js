@@ -23,7 +23,7 @@ function showSteps() {
 
 const submit = document.getElementById("submit");
 const inputs = document.getElementsByTagName("input");
-const form = document.querySelector("form");
+let form = document.querySelector("form");
 form.addEventListener("change", function () {
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].value.trim() == "") {
