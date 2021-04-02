@@ -145,7 +145,7 @@
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate(this.id)"
                   name=""
-                  id=""
+                  id="description"
                   cols="89"
                   rows="10"
                   placeholder="Enter a problem description"
