@@ -154,7 +154,7 @@
 
       <div id="menu">
         <div class="pure-menu">
-          <a class="pure-menu-heading" href="#">Go home</a>
+          <a class="pure-menu-heading" href="/">Go home</a>
 
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
