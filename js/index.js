@@ -29,6 +29,9 @@ function checkEmpty(field) {
 }
 
 function validate() {
+  if(document.getElementById("submit") === null)
+    return;
+
   if(document.getElementById("submit") === undefined)
     return;
 
