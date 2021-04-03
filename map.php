@@ -149,10 +149,10 @@
               <div id="step-one">
                 <p class="is-center">Drag the marker on the map</p>
                 <label class="step" for="latField">Latitude</label>
-                <input type="text" name="latField" id="latField" onchange="validate()" value="<?=$lat?>" />
+                <input type="text" name="latField" id="latField" value="<?=$lat?>" readonly />
                 <br />
                 <label class="step" for="lonField">Longitude</label>
-                <input type="text" name="lonField" id="lonField" onchange="validate()" value="<?=$lng?>" />
+                <input type="text" name="lonField" id="lonField" value="<?=$lng?>" readonly />
               </div>
             </li>
             <li class="pure-menu-item">
@@ -217,7 +217,7 @@
 <?php
 	} else {
 ?>
-		<p>You need to be logged in to make reports</p>
+		<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>
 <?php
 	}
 ?>
