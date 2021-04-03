@@ -1,11 +1,11 @@
 <?php
 	require_once('common.php');
 
-  if(!isset($_SESSION['loggedin']))
-  {
-    header('Location: /');
-    die;
-  }
+//  if(!isset($_SESSION['loggedin']))
+//  {
+//    header('Location: /');
+//    exit;
+//  }
 
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
@@ -74,7 +74,7 @@
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
       	center: { lat: <?=$lat?>, lng: <?=$lng?> },
-      	zoom: 12,
+      	zoom: 16,
         });
        const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
        const marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
@@ -210,7 +210,18 @@
             </li>
 
             <li class="pure-menu-item">
+<?php
+	if(isset($_SESSION['loggedin']))
+	{
+?>
               <button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>
+<?php
+	} else {
+?>
+		<p>You need to be logged in to make reports</p>
+<?php
+	}
+?>
             </li>
           </ul>
           </form>
