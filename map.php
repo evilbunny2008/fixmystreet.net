@@ -3,18 +3,26 @@
 
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
-    $lat = is_null($_POST['latField']) ? NULL : floatval($_POST['latField']);
-    $lng = is_null($_POST['lonField']) ? NULL : floatval($_POST['lonField']);
+    $lat = is_null($_POST['lat']) ? NULL : floatval($_POST['lat']);
+    $lng = is_null($_POST['lng']) ? NULL : floatval($_POST['lng']);
     $address = is_null($_POST['address']) ? NULL : cleanup($_POST['address']);
     $council = is_null($_POST['council']) ? NULL : cleanup($_POST['council']);
     $defect = is_null($_POST['problem-type']) ? NULL : cleanup($_POST['problem-type']);
     $summary = is_null($_POST['summary']) ? NULL : cleanup($_POST['summary']);
-    $extra = is_null($_POST['desc']) ? NULL : cleanup($_POST['desc']);
+    $extra = is_null($_POST['extra']) ? NULL : cleanup($_POST['extra']);
 
-    if(is_null($lat) || is_null($lng) || is_null($address) || is_null($council) || is_null($defect) || is_null($summary) || is_null($extra))
+    if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
     {
-      // header('Location: /');
-      echo "null";
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid latitude or longitude.";
+	echo json_encode($arr);
+	exit;
+    }
+
+
+    if(is_null($address) || is_null($council) || is_null($defect) || is_null($summary) || is_null($extra))
+    {
+      echo "Latitude was null";
       die;
     }
 
@@ -64,10 +72,6 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A layout example with a side menu that hides on mobile, just like the Pure website."
-    />
     <title>Report your problem</title>
     <link rel="stylesheet" href="./css/pure/pure-min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
@@ -96,11 +100,11 @@
       function dragEnd(pos)
       {
 	//latField, lonField
-	const lat = document.getElementById("latField");
-	const lon = document.getElementById("lonField");
+	const lat = document.getElementById("lat");
+	const lng = document.getElementById("lng");
 
 	lat.value = pos.lat().toFixed(6);
-	lon.value = pos.lng().toFixed(6);
+	lng.value = pos.lng().toFixed(6);
       }
 
 	let http = getHTTPObject();
@@ -108,11 +112,11 @@
 	function revgeocode()
 	{
 		const lat = document.getElementById("latField");
-		const lon = document.getElementById("lonField");
+		const lng = document.getElementById("lng");
 		const address = document.getElementById("address");
 		const council = document.getElementById("council");
 
-		http.open('GET', '/revgeocode.php?lat=' + lat.value + "&lng=" + lon.value, true);
+		http.open('GET', '/revgeocode.php?lat=' + lat.value + "&lng=" + lng.value, true);
 		http.onreadystatechange = function()
 		{
 			if(http.readyState == 4 && http.status == 200)
@@ -159,11 +163,11 @@
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one">
                 <p class="is-center">Drag the marker on the map</p>
-                <label class="step" for="latField">Latitude</label>
-                <input type="text" name="latField" id="latField" value="<?=$lat?>" readonly />
+                <label class="step" for="lat">Latitude</label>
+                <input type="text" name="lat" id="lat" value="<?=$lat?>" readonly />
                 <br />
-                <label class="step" for="lonField">Longitude</label>
-                <input type="text" name="lonField" id="lonField" value="<?=$lng?>" readonly />
+                <label class="step" for="lng">Longitude</label>
+                <input type="text" name="lng" id="lng" value="<?=$lng?>" readonly />
                 <br>
                 <br>
               </div>
@@ -199,12 +203,12 @@
 	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" value="<?=cleanup($_POST['summary'])?>" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate()"
-                  name="desc"
-                  id="description"
+                  name="extra"
+                  id="extra"
                   cols="89"
                   rows="10"
                   placeholder="Enter a problem description"
-                ><?=cleanup($_POST['desc'])?></textarea>
+                ><?=cleanup($_POST['extra'])?></textarea>
                 <br>
               </div>
             </li>

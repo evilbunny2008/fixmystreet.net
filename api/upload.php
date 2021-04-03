@@ -54,7 +54,7 @@
 	if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
         {
                 $arr['status'] = "FAIL";
-                $arr['errmsg'] = "Invalid username and/or password.";
+                $arr['errmsg'] = "Invalid latitude or longitude.";
                 echo json_encode($arr);
                 exit;
 	}

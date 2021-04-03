@@ -41,12 +41,12 @@ function checkEmpty(field) {
 function validate() {
   let sumbitButton = document.getElementById("submit");
   let field = [
-    "latField",
-    "lonField",
+    "lat",
+    "lng",
     "address",
     "council",
     "summary",
-    "description",
+    "extra",
     "myFile1",
     "myFile2",
   ];
