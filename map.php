@@ -99,7 +99,6 @@
 
       function dragEnd(pos)
       {
-	//latField, lonField
 	const lat = document.getElementById("lat");
 	const lng = document.getElementById("lng");
 
@@ -111,7 +110,7 @@
 
 	function revgeocode()
 	{
-		const lat = document.getElementById("latField");
+		const lat = document.getElementById("lat");
 		const lng = document.getElementById("lng");
 		const address = document.getElementById("address");
 		const council = document.getElementById("council");
