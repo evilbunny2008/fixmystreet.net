@@ -121,6 +121,12 @@ appears on the left side of the page.
   background: #ffc30b;
 }
 
+/* Styles for plain links with */
+.plain {
+  background: none;
+  padding: 0;
+}
+
 /*
     This styles the selected menu item `<li>`.
     */

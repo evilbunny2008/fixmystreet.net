@@ -217,7 +217,7 @@
 <?php
 	} else {
 ?>
-		<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>
+		<p>You <a  class="plain" href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a class="plain" href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>
 <?php
 	}
 ?>
