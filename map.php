@@ -1,12 +1,6 @@
 <?php
 	require_once('common.php');
 
-//  if(!isset($_SESSION['loggedin']))
-//  {
-//    header('Location: /');
-//    exit;
-//  }
-
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
     $lat = is_null($_POST['latField']) ? NULL : floatval(cleanup($_POST['latField']));
@@ -23,15 +17,17 @@
       echo "null";
       die;
     }
-    
+
     $email = $_SESSION['email'];
     $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
     $userid = $row['id'];
-  
+
     $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
     $query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect";
     mysqli_query($link, $query);
     $problem_id = mysqli_insert_id($link);
+
+    //TODO: need to handle uploaded photos...
 
     //THERE WAS AN ERROR
     if($problem_id <= 0)
@@ -40,7 +36,7 @@
       die;
     }
     //PROBLEM HAS BEEN ADDED
-    
+
   }
 
 	$lat = -34.397;
@@ -70,6 +66,7 @@
     <script src="./js/index.js"></script>
     <script>
       let map;
+      let marker;
 
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -77,7 +74,7 @@
       	zoom: 16,
         });
        const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-       const marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
+       marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
 
         google.maps.event.addListener(marker, 'dragend', function()
         {
@@ -183,7 +180,7 @@
 ?>
                 </select>
                 <p class="is-center">Add a summary of the problem</p>
-		            <input name="summary" onchange="validate()" type="text" id="summary" size="86" />
+	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate()"
                   name="desc"
@@ -201,11 +198,13 @@
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
-              <img id="preview" alt="" width="100" height="100" />
+              <img id="preview1" alt="" width="100" height="100" />
+              <img id="preview2" alt="" width="100" height="100" />
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile" name="filename" />
+                  <input onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile1" name="photos[]" /><br/>
+                  <input onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile2" name="photos[]" />
               </div>
             </li>
 
