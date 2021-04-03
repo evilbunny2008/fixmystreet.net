@@ -1,3 +1,6 @@
+<?php
+	header("Content-type: text/javascript");
+?>
 function showSteps() {
   const step = document.querySelectorAll(".pure-menu-link");
   const divs = ["step-one", "step-two", "step-three"];
@@ -27,14 +30,13 @@ function checkEmpty(field) {
   }
   return true;
 }
+<?php
+	require_once('../common.php');
 
+	if(isset($_SESSION['loggedin']))
+	{
+?>
 function validate() {
-  if(document.getElementById("submit") === null)
-    return;
-
-  if(document.getElementById("submit") === undefined)
-    return;
-
   let sumbitButton = document.getElementById("submit");
   let field = [
     "latField",
@@ -55,3 +57,4 @@ function validate() {
     sumbitButton.setAttribute("disabled", "");
   }
 }
+<?php } ?>

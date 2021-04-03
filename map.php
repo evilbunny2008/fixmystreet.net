@@ -3,8 +3,8 @@
 
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
-    $lat = is_null($_POST['latField']) ? NULL : floatval(cleanup($_POST['latField']));
-    $lng = is_null($_POST['lonField']) ? NULL : floatval(cleanup($_POST['lonField']));
+    $lat = is_null($_POST['latField']) ? NULL : floatval($_POST['latField']);
+    $lng = is_null($_POST['lonField']) ? NULL : floatval($_POST['lonField']);
     $address = is_null($_POST['address']) ? NULL : cleanup($_POST['address']);
     $council = is_null($_POST['council']) ? NULL : cleanup($_POST['council']);
     $defect = is_null($_POST['problem-type']) ? NULL : cleanup($_POST['problem-type']);
@@ -27,14 +27,25 @@
     mysqli_query($link, $query);
     $problem_id = mysqli_insert_id($link);
 
-    //TODO: need to handle uploaded photos...
-
     //THERE WAS AN ERROR
-    if($problem_id <= 0)
+//    if($problem_id <= 0)
+//    {
+//      header('Location: /');
+//      die;
+//    }
+
+    foreach($_FILES["photos"]["error"] as $key => $error)
     {
-      header('Location: /');
-      die;
+	if($error == UPLOAD_ERR_OK)
+	{
+	    $filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
+	    move_uploaded_file($_FILES["photos"]["tmp_name"][$key], "photos/${problem_id}-${key}.jpg");
+	    $file_path = basename($uploads_dir)."/${problem_id}-${key}.jpg";
+	    $query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `comment`='$filename', `file_path`='$file_path'";
+	    mysqli_query($link, $query);
+	}
     }
+
     //PROBLEM HAS BEEN ADDED
 
   }
@@ -63,7 +74,7 @@
     <link rel="stylesheet" href="./css/sidebar.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
     <script src="./js/ui.js"></script>
-    <script src="./js/index.js"></script>
+    <script src="./js/index.php"></script>
     <script>
       let map;
       let marker;
