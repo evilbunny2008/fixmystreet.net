@@ -29,6 +29,9 @@ function checkEmpty(field) {
 }
 
 function validate() {
+  if(document.getElementById("submit") === undefined)
+    return;
+
   let sumbitButton = document.getElementById("submit");
   let field = [
     "latField",
