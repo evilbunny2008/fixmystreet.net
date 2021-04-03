@@ -23,7 +23,7 @@
     $userid = $row['id'];
 
     $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
-    $query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect";
+    $query .= "`extra`='$extra', `defect_id`=$defect";
     mysqli_query($link, $query);
     $problem_id = mysqli_insert_id($link);
 
@@ -175,9 +175,9 @@
                   Select the type of problem and add it's details
                 </p>
 		<label class="step">Address:</label>
-		<input type="text" id="address" name="address" onchange="validate()" readonly /><br/>
+		<input type="text" id="address" name="address" value="<?=cleanup($_POST['address'])?>" readonly /><br/>
 		<label class="step">Council:</label>
-		<input type="text" id="council" name="council" onchange="validate()" readonly /><br/>
+		<input type="text" id="council" name="council" value="<?=cleanup($_POST['council'])?>" readonly /><br/>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
 <?php
@@ -186,14 +186,17 @@
 	while($row = mysqli_fetch_assoc($res))
 	{
 		echo "\t\t<option value='".$row['id']."'";
-		if($row['id'] == 11)
+		if(isset($_POST['problem-type']) && $_POST['problem-type'] > 0 && $row['id'] == $_POST['problem-type'])
 			echo " selected";
+		else if($row['id'] == 11)
+			echo " selected";
+
 		echo ">".$row['defect']."</option>\n";
 	}
 ?>
                 </select>
                 <p class="is-center">Add a summary of the problem</p>
-	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" />
+	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" value="<?=cleanup($_POST['summary'])?>" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate()"
                   name="desc"
@@ -201,7 +204,7 @@
                   cols="89"
                   rows="10"
                   placeholder="Enter a problem description"
-                ></textarea>
+                ><?=cleanup($_POST['desc'])?></textarea>
                 <br>
               </div>
             </li>

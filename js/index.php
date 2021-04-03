@@ -24,12 +24,14 @@ function showSteps() {
 
 function checkEmpty(field) {
   for (let i = 0; i < field.length; i++) {
+//    alert(field[i]);
     if (document.getElementById(field[i]).value.trim() == "") {
       return false;
     }
   }
   return true;
 }
+
 <?php
 	require_once('../common.php');
 
@@ -45,7 +47,8 @@ function validate() {
     "council",
     "summary",
     "description",
-    "myFile",
+    "myFile1",
+    "myFile2",
   ];
   let res = checkEmpty(field);
   if (res === true) {
