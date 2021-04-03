@@ -153,6 +153,8 @@
                 <br />
                 <label class="step" for="lonField">Longitude</label>
                 <input type="text" name="lonField" id="lonField" value="<?=$lng?>" readonly />
+                <br>
+                <br>
               </div>
             </li>
             <li class="pure-menu-item">
@@ -189,6 +191,7 @@
                   rows="10"
                   placeholder="Enter a problem description"
                 ></textarea>
+                <br>
               </div>
             </li>
 
@@ -205,6 +208,8 @@
                 </p>
                   <input onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile1" name="photos[]" /><br/>
                   <input onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile2" name="photos[]" />
+                  <br>
+                  <br>
               </div>
             </li>
 
@@ -217,7 +222,7 @@
 <?php
 	} else {
 ?>
-		<p>You <a  class="plain" href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a class="plain" href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>
+		<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>
 <?php
 	}
 ?>
