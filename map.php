@@ -205,7 +205,7 @@
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="validate();document.getElementById('preview').src = window.URL.createObjectURL(this.files[0])" type="file" id="myFile" name="filename" />
+                  <input onchange="document.getElementById('preview').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile" name="filename" />
               </div>
             </li>
 
