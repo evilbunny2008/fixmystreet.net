@@ -258,6 +258,51 @@
                 return mysqli_real_escape_string($link, trim(strip_tags($str)));
         }
 
+	function resizeAndStrip($filename, $output, $outputThumb)
+	{
+		if(!file_exists($filename))
+			return false;
+
+		$image = new Imagick($filename);
+		$profiles = $image->getImageProfiles("icc", true);
+		$orientation = $image->getImageOrientation();
+
+		switch($orientation)
+		{
+			case imagick::ORIENTATION_BOTTOMRIGHT:
+				$image->rotateimage("#000", 180);
+				break;
+
+			case imagick::ORIENTATION_RIGHTTOP:
+				$image->rotateimage("#000", 90);
+				break;
+
+			case imagick::ORIENTATION_LEFTBOTTOM:
+				$image->rotateimage("#000", -90);
+				break;
+		}
+
+		$image->stripImage();
+
+		$image->resizeImage(1200, 1200, imagick::FILTER_CATROM, 1, TRUE);
+
+		if(!empty($profiles))
+			$image->profileImage("icc", $profiles['icc']);
+
+		$image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+
+		$image->writeImage($output);
+
+		$image->resizeImage(240, 240, imagick::FILTER_CATROM, 1, TRUE);
+
+		if(!empty($profiles))
+			$image->profileImage("icc", $profiles['icc']);
+
+		$image->setImageOrientation(imagick::ORIENTATION_TOPLEFT);
+
+		$image->writeImage($outputThumb);
+	}
+
 	$header = '    <div class="flex-wrapper">
 	<div class="header">
 	  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
