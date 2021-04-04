@@ -146,6 +146,7 @@
     <script>
       let map;
       let marker;
+      let markers = [];
 
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, });
@@ -154,11 +155,11 @@
 		loadProblems();
 	});
         const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-        marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
+        marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
 
         google.maps.event.addListener(marker, 'dragend', function()
         {
-      	 dragEnd(marker.getPosition());
+		dragEnd(marker.getPosition());
         });
 	loadProblems();
       }
@@ -167,21 +168,31 @@
 	{
 		let http1 = getHTTPObject();
 
-		aNorth  =   map.getBounds().getNorthEast().lat();
-		aEast   =   map.getBounds().getNorthEast().lng();
-		aSouth  =   map.getBounds().getSouthWest().lat();
-		aWest   =   map.getBounds().getSouthWest().lng();
+		if(map.getBounds().getNorthEast().lat() === undefined)
+			return;
+
+		aNorth = map.getBounds().getNorthEast().lat();
+		aEast  = map.getBounds().getNorthEast().lng();
+		aSouth = map.getBounds().getSouthWest().lat();
+		aWest  = map.getBounds().getSouthWest().lng();
 
 		http1.open('GET', '/problems.php?north=' + aNorth + "&east=" + aEast + "&south=" + aSouth + "&west=" + aWest, true);
 		http1.onreadystatechange = function()
 		{
 			if(http1.readyState == 4 && http1.status == 200)
 			{
-				let ret = http1.responseText.split("\n");
+				let ret = http1.responseText.trim().split("\n");
 				for(let i = 0; i < ret.length; i++)
 				{
 					let bits = ret[i].split("|");
-					alert(bits);
+					let loc = { lat: bits[1], lng: bits[2] };
+					alert(loc);
+					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[3], });
+					google.maps.event.addListener(marker, 'click', function()
+					{
+						alert("You clicked on " + bits[0]);
+					});
+					markers.push(mark);
 				}
 			}
 		}

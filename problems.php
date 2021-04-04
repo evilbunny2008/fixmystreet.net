@@ -16,9 +16,9 @@
 		exit;
 	}
 
-	$query = "SELECT * FROM `problem` WHERE `lat` >= $south and `lat` <= $north and `lng` >= $west and `lng` <= $east"
+	$query = "SELECT * FROM `problem` WHERE `latitude` >= $south and `latitude` <= $north and `longitude` >= $west and `longitude` <= $east";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
 	{
-		echo "$row['id']|$row['lat']|$row['lng']|$row['summary']\n";
+		echo "${row['id']}|${row['latitude']}|${row['longitude']}|${row['summary']}\n";
 	}
