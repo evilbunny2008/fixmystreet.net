@@ -46,9 +46,7 @@ function validate() {
     "address",
     "council",
     "summary",
-    "extra",
-    "myFile1",
-    "myFile2",
+    "extra"
   ];
   let res = checkEmpty(field);
   if (res === true) {
