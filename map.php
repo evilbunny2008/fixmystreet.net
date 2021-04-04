@@ -148,12 +148,13 @@
       let marker;
 
       function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), {
-      	center: { lat: <?=$lat?>, lng: <?=$lng?> },
-      	zoom: 16,
-        });
-       const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-       marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
+        map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, });
+	google.maps.event.addListener(map, 'dragend', function()
+	{
+		loadProblems();
+	});
+        const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
+        marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true, animation: google.maps.Animation.DROP });
 
         google.maps.event.addListener(marker, 'dragend', function()
         {
