@@ -168,7 +168,11 @@
 	{
 		let http1 = getHTTPObject();
 
-		if(map.getBounds().getNorthEast().lat() === undefined)
+		if(map.getBounds()  === undefined)
+			return;
+		if(map.getBounds().getNorthEast()  === undefined)
+			return;
+		if(map.getBounds().getNorthEast().lat()  === undefined)
 			return;
 
 		aNorth = map.getBounds().getNorthEast().lat();
@@ -185,8 +189,8 @@
 				for(let i = 0; i < ret.length; i++)
 				{
 					let bits = ret[i].split("|");
-					let loc = { lat: bits[1], lng: bits[2] };
-					alert(loc);
+					let loc = { lat: bits[1], lng: bits[2], };
+					alert(loc.lat() + ", " + loc.lng());
 					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[3], });
 					google.maps.event.addListener(marker, 'click', function()
 					{
