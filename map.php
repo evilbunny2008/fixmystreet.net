@@ -166,14 +166,22 @@
 	{
 		let http1 = getHTTPObject();
 
-		http1.open('GET', '/problems.php?lat=' + lat.value + "&lng=" + lng.value, true);
+		aNorth  =   map.getBounds().getNorthEast().lat();
+		aEast   =   map.getBounds().getNorthEast().lng();
+		aSouth  =   map.getBounds().getSouthWest().lat();
+		aWest   =   map.getBounds().getSouthWest().lng();
+
+		http1.open('GET', '/problems.php?north=' + aNorth + "&east=" + aEast + "&south=" + aSouth + "&west=" + aWest, true);
 		http1.onreadystatechange = function()
 		{
 			if(http1.readyState == 4 && http1.status == 200)
 			{
-				let ret = http1.responseText.split('|');
-				address.value = ret[0];
-				council.value = ret[1];
+				let ret = http1.responseText.split("\n");
+				for(let i = 0; i < ret.length; i++)
+				{
+					let bits = ret[i].split("|");
+					alert(bits);
+				}
 			}
 		}
 
