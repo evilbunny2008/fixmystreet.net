@@ -330,8 +330,8 @@
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile1" name="photos[]" /><br/>
-                  <input onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0]);validate()" type="file" id="myFile2" name="photos[]" />
+                  <input onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0]);" type="file" id="myFile1" name="photos[]" /><br/>
+                  <input onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0]);" type="file" id="myFile2" name="photos[]" />
                   <br>
                   <br>
               </div>
