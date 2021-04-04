@@ -148,31 +148,32 @@
       let marker;
       let markers = [];
 
-      function initMap() {
-        map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, });
-	google.maps.event.addListener(map, 'dragend', function()
+	function initMap()
 	{
-		loadProblems();
-	});
-        const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-        marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
+        	map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, });
+		google.maps.event.addListener(map, 'dragend', function()
+		{
+			loadProblems();
+		});
+        	const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
+        	marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
 
-        google.maps.event.addListener(marker, 'dragend', function()
-        {
-		dragEnd(marker.getPosition());
-        });
-	loadProblems();
-      }
+	        google.maps.event.addListener(marker, 'dragend', function()
+        	{
+			dragEnd(marker.getPosition());
+	        });
+		loadProblems();
+	}
 
 	function loadProblems()
 	{
 		let http1 = getHTTPObject();
 
-		if(map.getBounds()  === undefined)
+		if(map.getBounds() === undefined)
 			return;
-		if(map.getBounds().getNorthEast()  === undefined)
+		if(map.getBounds().getNorthEast() === undefined)
 			return;
-		if(map.getBounds().getNorthEast().lat()  === undefined)
+		if(map.getBounds().getNorthEast().lat() === undefined)
 			return;
 
 		aNorth = map.getBounds().getNorthEast().lat();
@@ -189,10 +190,9 @@
 				for(let i = 0; i < ret.length; i++)
 				{
 					let bits = ret[i].split("|");
-					let loc = { lat: bits[1], lng: bits[2], };
-					alert(loc.lat() + ", " + loc.lng());
+					let loc = { lat: parseFloat(bits[1].trim()), lng: parseFloat(bits[2].trim()) };
 					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[3], });
-					google.maps.event.addListener(marker, 'click', function()
+					google.maps.event.addListener(mark, 'click', function()
 					{
 						alert("You clicked on " + bits[0]);
 					});
