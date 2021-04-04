@@ -1,5 +1,5 @@
 <?php
-	require_once('common.php');
+  require_once('common.php');
 
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
@@ -11,7 +11,7 @@
     $summary = is_null($_POST['summary']) ? NULL : cleanup($_POST['summary']);
     $extra = is_null($_POST['extra']) ? NULL : cleanup($_POST['extra']);
 
-    if($lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
+    if(is_null($lat) || is_null($lng) || $lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
     {
 	$arr['status'] = "FAIL";
 	$arr['errmsg'] = "Invalid latitude or longitude.";
@@ -19,28 +19,91 @@
 	exit;
     }
 
-
-    if(is_null($address) || is_null($council) || is_null($defect) || is_null($summary) || is_null($extra))
+    if(is_null($address) || $address == "")
     {
-      echo "Latitude was null";
-      die;
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid Address.";
+	echo json_encode($arr);
+	exit;
+    }
+
+    if(is_null($council) || $council == "")
+    {
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid Council.";
+	echo json_encode($arr);
+	exit;
+    }
+
+    if(is_null($defect) || $defect == "")
+    {
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid Defect.";
+	echo json_encode($arr);
+	exit;
+    }
+
+    if(is_null($summary) || $summary == "")
+    {
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid Summary.";
+	echo json_encode($arr);
+	exit;
+    }
+
+    if(is_null($extra) || $extra == "")
+    {
+	$arr['status'] = "FAIL";
+	$arr['errmsg'] = "Invalid Description.";
+	echo json_encode($arr);
+	exit;
     }
 
     $email = $_SESSION['email'];
     $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
     $userid = $row['id'];
 
+    if($userid <= 0)
+    {
+	$arr['status'] = "FAIL";
+        $arr['errmsg'] = "Invalid user.";
+        echo json_encode($arr);
+        exit;
+    }
+
+    $file_count = 0;
+    foreach($_FILES["photos"]["error"] as $key => $error)
+    {
+        if($error == UPLOAD_ERR_OK)
+        {
+            if(is_uploaded_file($_FILES["photos"]["tmp_name"][$key]) &&
+                       filesize($_FILES["photos"]["tmp_name"][$key]) > 50000)
+            {
+                $file_count++;
+            }
+        }
+    }
+
+    if($file_count < 2)
+    {
+        $arr['status'] = "FAIL";
+        $arr['errmsg'] = "You failed to upload enough photos of the problem, or the photos were low quality.";
+        echo json_encode($arr);
+        exit;
+    }
+
     $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
     $query .= "`extra`='$extra', `defect_id`=$defect";
     mysqli_query($link, $query);
     $problem_id = mysqli_insert_id($link);
 
-    //THERE WAS AN ERROR
-//    if($problem_id <= 0)
-//    {
-//      header('Location: /');
-//      die;
-//    }
+    if($problem_id <= 0)
+    {
+        $arr['status'] = "FAIL";
+        $arr['errmsg'] = "Error inserting into database...";
+        echo json_encode($arr);
+        exit;
+    }
 
     foreach($_FILES["photos"]["error"] as $key => $error)
     {
@@ -55,7 +118,8 @@
     }
 
     //PROBLEM HAS BEEN ADDED
-
+    header("Location: map.php?lat=$lat&lng=$lng");
+    exit;
   }
 
 	$lat = -34.397;
@@ -95,16 +159,35 @@
         {
       	 dragEnd(marker.getPosition());
         });
+	loadProblems();
       }
 
-      function dragEnd(pos)
-      {
-	const lat = document.getElementById("lat");
-	const lng = document.getElementById("lng");
+	function loadProblems()
+	{
+		let http1 = getHTTPObject();
 
-	lat.value = pos.lat().toFixed(6);
-	lng.value = pos.lng().toFixed(6);
-      }
+		http1.open('GET', '/problems.php?lat=' + lat.value + "&lng=" + lng.value, true);
+		http1.onreadystatechange = function()
+		{
+			if(http1.readyState == 4 && http1.status == 200)
+			{
+				let ret = http1.responseText.split('|');
+				address.value = ret[0];
+				council.value = ret[1];
+			}
+		}
+
+		http1.send();
+	}
+
+	function dragEnd(pos)
+	{
+		const lat = document.getElementById("lat");
+		const lng = document.getElementById("lng");
+
+		lat.value = pos.lat().toFixed(6);
+		lng.value = pos.lng().toFixed(6);
+	}
 
 	let http = getHTTPObject();
 
@@ -161,7 +244,7 @@
             <form action="<?= $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one">
-                <p class="is-center">Drag the marker on the map</p>
+                <p class="is-center">Drag the <b>red marker</b> on the map</p>
                 <label class="step" for="lat">Latitude</label>
                 <input type="text" name="lat" id="lat" value="<?=$lat?>" readonly />
                 <br />
@@ -218,8 +301,8 @@
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
-              <img id="preview1" alt="" width="100" height="100" />
-              <img id="preview2" alt="" width="100" height="100" />
+              <img id="preview1" alt="Image 1 Preview" width="100" height="100" />
+              <img id="preview2" alt="Image 2 Preview" width="100" height="100" />
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
