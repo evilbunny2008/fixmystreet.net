@@ -249,3 +249,10 @@ Hides the menu at `48em`, but modify this based on your app's needs.
     left: 150px;
   }
 }
+
+#preview1,
+#preview2 {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
