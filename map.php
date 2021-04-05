@@ -157,7 +157,7 @@
 			loadProblems();
 		});
 
-		loadProblems();
+		google.maps.event.addListener(map, 'tilesloaded', loadProblems);
 	}
 
 	function loadProblems()
