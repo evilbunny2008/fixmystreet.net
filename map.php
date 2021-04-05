@@ -8,8 +8,8 @@
     $address = is_null($_POST['address']) ? NULL : cleanup($_POST['address']);
     $council = is_null($_POST['council']) ? NULL : cleanup($_POST['council']);
     $defect = is_null($_POST['problem-type']) ? NULL : cleanup($_POST['problem-type']);
-    $summary = is_null($_POST['summary']) ? NULL : cleanup($_POST['summary']);
-    $extra = is_null($_POST['extra']) ? NULL : cleanup($_POST['extra']);
+    $summary = is_null($_POST['summary']) ? NULL : ucfirst(cleanup($_POST['summary']));
+    $extra = is_null($_POST['extra']) ? NULL : ucfirst(cleanup($_POST['extra']));
 
     if(is_null($lat) || is_null($lng) || $lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
     {
@@ -214,7 +214,12 @@
 						}
 
 						let reportInfo = document.querySelector(".reportInfo");
-						reportInfo.innerHTML = `${bits[3]}`;
+						reportInfo.innerHTML = `<p class="title"> ${bits[3]} </p>`;
+            reportInfo.innerHTML += `<br>Last updated on ${bits[7]}`
+            // reportInfo.innerHTML += ``;
+            title = document.querySelector(".title");
+            title.style.fontWeight = "bold";
+            reportInfo.style.textAlign = "center";
 					});
 
 					markers.push(mark);
@@ -272,7 +277,10 @@
 		{
 			reportForm.style.display = 'block';
 			reportProblem.style.display = 'none';
-
+      
+      let reportInfo = document.querySelector(".reportInfo");
+      if(reportInfo != undefined)
+        reportInfo.setAttribute("hidden","");
 
 			const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
 			marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
@@ -285,6 +293,9 @@
 		} else {
 			reportForm.style.display = 'none';
 			reportProblem.style.display = 'block';
+      let reportInfo = document.querySelector(".reportInfo");
+      if(reportInfo != undefined)
+        reportInfo.removeAttribute("hidden");
 			marker.setMap(null);
 		}
 	}
@@ -325,7 +336,7 @@
 
 	  <p id="reportProblem" onClick="hideShowReport()">Click here to report a problem</p>
           <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
-	  <p onClick="hideShowReport()"> &lt;- Go back to the list of problems</p>
+	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 1</a>
