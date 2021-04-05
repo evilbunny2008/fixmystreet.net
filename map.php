@@ -184,6 +184,8 @@
 				if(http1.responseText.trim() == "")
 					return;
 
+				removeAllMarkers();
+
 				let ret = http1.responseText.trim().split("\n");
 				for(let i = 0; i < ret.length; i++)
 				{
@@ -279,6 +281,12 @@
 	{
 		document.getElementById('preview' + pic).src = window.URL.createObjectURL(c.files[0]);
 		document.getElementById('preview' + pic).style.display = '';
+	}
+
+	function removeAllMarkers()
+	{
+		for(int i = 0; i < markers.length; i++)
+			markers[i].setMap(null);
 	}
     </script>
     <style>

@@ -1,6 +1,8 @@
 <?php
 	require_once('common.php');
 
+	header("Content-Type: text/plain");
+
 	$north = floatval($_GET['north']);
 	$east = floatval($_GET['east']);
 	$south = floatval($_GET['south']);
