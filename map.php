@@ -181,6 +181,9 @@
 		{
 			if(http1.readyState == 4 && http1.status == 200)
 			{
+				if(http1.responseText.trim() == "")
+					return;
+
 				let ret = http1.responseText.trim().split("\n");
 				for(let i = 0; i < ret.length; i++)
 				{
