@@ -206,7 +206,8 @@
 						// alert("You clicked on " + bits[0]);
             let parent = document.getElementById('reportProblem');
             if(parent.nextElementSibling.tagName != "DIV") {
-              let reportInfo = document.createElement('div', 'class="reportInfo"');
+              let reportInfo = document.createElement('div');
+              reportInfo.className = "reportInfo";
               reportInfo.innerHTML = `${bits[3]}`;
               parent.after(reportInfo);
             }
