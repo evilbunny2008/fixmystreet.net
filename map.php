@@ -203,8 +203,16 @@
 					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[4] + ": " + bits[3], icon: icon, });
 					google.maps.event.addListener(mark, 'click', function()
 					{
-						alert("You clicked on " + bits[0]);
-					});
+						// alert("You clicked on " + bits[0]);
+            let parent = document.getElementById('reportProblem');
+            if(parent.nextElementSibling.tagName != "DIV") {
+              let reportInfo = document.createElement('div', 'class="reportInfo"');
+              reportInfo.innerHTML = `${bits[3]}`;
+              parent.after(reportInfo);
+            }
+            let reportInfo = document.querySelector(".reportInfo");
+            reportInfo.innerHTML = `${bits[3]}`;
+          });
 					markers.push(mark);
 				}
 			}
