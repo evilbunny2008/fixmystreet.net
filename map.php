@@ -279,9 +279,9 @@
         <div class="pure-menu">
           <a class="pure-menu-heading" href="/">Go home</a>
 
+          <form action="<?= $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data" hidden>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
-            <form action="<?= $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data">
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one">
                 <p class="is-center">Drag the <b>red marker</b> on the map</p>
@@ -369,7 +369,6 @@
             </li>
           </ul>
           </form>
-
         </div>
       </div>
 
