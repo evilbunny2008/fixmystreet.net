@@ -151,7 +151,7 @@
 
 	function initMap()
 	{
-        	map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, });
+        	map = new google.maps.Map(document.getElementById("map"), { center: { lat: <?=$lat?>, lng: <?=$lng?> }, zoom: 16, minZoom: 8, });
 		google.maps.event.addListener(map, 'dragend', function()
 		{
 			loadProblems();
@@ -295,6 +295,7 @@
 	{
 		for(let i = 0; i < markers.length; i++)
 			markers[i].setMap(null);
+		markers = [];
 	}
     </script>
     <style>
