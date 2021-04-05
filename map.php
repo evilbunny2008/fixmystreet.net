@@ -156,18 +156,6 @@
 		{
 			loadProblems();
 		});
-        	const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
-        	marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
-
-	        google.maps.event.addListener(marker, 'dragend', function()
-        	{
-			dragEnd(marker.getPosition());
-	        });
-
-		const contentString = '<div id="content"><div id="bodyContent">Drag this marker to the location of the problem.</div></div>';
-		const infowindow = new google.maps.InfoWindow({ content: contentString, });
-		infowindow.open(map, marker);
-		marker.addListener("click", () => { infowindow.open(map, marker); });
 
 		loadProblems();
 	}
@@ -257,6 +245,32 @@
 		let request = null;
 		return new XMLHttpRequest();
 	}
+
+	function hideShowReport()
+	{
+		const reportProblem = document.getElementById("reportProblem");
+		const reportForm = document.getElementById("reportForm");
+
+		if(reportForm.style.display == 'none')
+		{
+			reportForm.style.display = 'block';
+			reportProblem.style.display = 'none';
+
+
+			const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
+			marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
+			google.maps.event.addListener(marker, 'dragend', function() { dragEnd(marker.getPosition()); });
+
+			const contentString = '<div id="content"><div id="bodyContent">Drag this marker to the location of the problem.</div></div>';
+			const infowindow = new google.maps.InfoWindow({ content: contentString, });
+			infowindow.open(map, marker);
+			marker.addListener("click", () => { infowindow.open(map, marker); });
+		} else {
+			reportForm.style.display = 'none';
+			reportProblem.style.display = 'block';
+			marker.setMap(null);
+		}
+	}
     </script>
     <style>
       html,
@@ -279,7 +293,9 @@
         <div class="pure-menu">
           <a class="pure-menu-heading" href="/">Go home</a>
 
-          <form action="<?= $_SERVER['PHP_SELF']?>" method="post" enctype="multipart/form-data" hidden>
+	  <p id="reportProblem" onClick="hideShowReport()">Click here to report a problem</p>
+          <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
+	  <p onClick="hideShowReport()"> &lt;- Go back to the list of problems</p>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 1</a>
