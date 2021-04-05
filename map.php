@@ -271,6 +271,12 @@
 			marker.setMap(null);
 		}
 	}
+
+	function showPic(c, pic)
+	{
+		document.getElementById('preview' + pic).src = window.URL.createObjectURL(c.files[0]);
+		document.getElementById('preview' + pic).style.display = '';
+	}
     </script>
     <style>
       html,
@@ -357,13 +363,13 @@
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
-              <img id="preview1" alt="Image 1 Preview" width="100" height="100" />
-              <img id="preview2" alt="Image 2 Preview" width="100" height="100" />
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <input onchange="document.getElementById('preview1').src = window.URL.createObjectURL(this.files[0]);" type="file" id="myFile1" name="photos[]" /><br/>
-                  <input onchange="document.getElementById('preview2').src = window.URL.createObjectURL(this.files[0]);" type="file" id="myFile2" name="photos[]" />
+                  <img id="preview1" alt="Image 1 Preview" width="100" height="100" style="display:none" />
+                  <input onchange="showPic(this, '1');" type="file" id="myFile1" name="photos[]" /><br/>
+                  <img id="preview2" alt="Image 2 Preview" width="100" height="100" style="display:none" />
+                  <input onchange="showPic(this, '2');" type="file" id="myFile2" name="photos[]" />
                   <br>
                   <br>
               </div>
