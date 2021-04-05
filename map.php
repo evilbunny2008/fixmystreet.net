@@ -204,6 +204,7 @@
 					google.maps.event.addListener(mark, 'click', function()
 					{
 						// alert("You clicked on " + bits[0]);
+<<<<<<< HEAD
 						let parent = document.getElementById('reportProblem');
 						if(parent.nextElementSibling.tagName != "DIV")
 						{
@@ -215,6 +216,18 @@
 						let reportInfo = document.querySelector(".reportInfo");
 						reportInfo.innerHTML = `${bits[3]}`;
 					});
+=======
+            let parent = document.getElementById('reportProblem');
+            if(parent.nextElementSibling.tagName != "DIV") {
+              let reportInfo = document.createElement('div');
+              reportInfo.className = "reportInfo";
+              reportInfo.innerHTML = `${bits[3]}`;
+              parent.after(reportInfo);
+            }
+            let reportInfo = document.querySelector(".reportInfo");
+            reportInfo.innerHTML = `${bits[3]}`;
+          });
+>>>>>>> a09c73a829fe968497ba87aad45bfe755917491e
 					markers.push(mark);
 				}
 			}
