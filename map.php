@@ -163,6 +163,12 @@
         	{
 			dragEnd(marker.getPosition());
 	        });
+
+		const contentString = '<div id="content"><div id="bodyContent">Drag this marker to the location of the problem.</div></div>';
+		const infowindow = new google.maps.InfoWindow({ content: contentString, });
+		infowindow.open(map, marker);
+		marker.addListener("click", () => { infowindow.open(map, marker); });
+
 		loadProblems();
 	}
 
@@ -192,7 +198,16 @@
 				{
 					let bits = ret[i].split("|");
 					let loc = { lat: parseFloat(bits[1].trim()), lng: parseFloat(bits[2].trim()) };
-					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[3], });
+					let icon = "markers/red_marker.png";
+					if(bits[6] == "orange")
+						icon = "markers/orange_marker.png";
+					else if(bits[6] == "yellow")
+						icon = "markers/yellow_marker.png";
+					else if(bits[6] == "grey")
+						icon = "markers/grey_marker.png";
+					else if(bits[6] == "green")
+						icon = "markers/green_marker.png";
+					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[4] + ": " + bits[3], icon: icon, });
 					google.maps.event.addListener(mark, 'click', function()
 					{
 						alert("You clicked on " + bits[0]);
