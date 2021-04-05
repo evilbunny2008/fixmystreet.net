@@ -18,11 +18,11 @@
 		exit;
 	}
 
-	$query = "SELECT `problem`.`id` as `id`, `latitude`, `longitude`, `summary`, `defect`, `name`, `icon_colour` FROM `problem`, `defect_type`, `state` ";
+	$query = "SELECT `problem`.`id` as `id`, `latitude`, `longitude`, `summary`, `defect`, `name`, `icon_colour`,`lastupdate` FROM `problem`, `defect_type`, `state` ";
 	$query .= "WHERE `latitude` >= $south and `latitude` <= $north and `longitude` >= $west and `longitude` <= $east and ";
 	$query .= "`problem`.`defect_id`=`defect_type`.`id` and `problem`.`state`=`state`.`id`";
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
 	{
-		echo "${row['id']}|${row['latitude']}|${row['longitude']}|${row['summary']}|${row['defect']}|${row['name']}|${row['icon_colour']}\n";
+		echo "${row['id']}|${row['latitude']}|${row['longitude']}|${row['summary']}|${row['defect']}|${row['name']}|${row['icon_colour']}|${row['lastupdate']}\n";
 	}
