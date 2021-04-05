@@ -256,3 +256,9 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   white-space: nowrap;
   overflow: hidden;
 }
+
+#reportProblem {
+  margin: 0;
+  padding: 16px;
+  background: #00bd08;
+}
