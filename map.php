@@ -214,9 +214,11 @@
 
 						let reportInfo = document.querySelector(".reportInfo");
 						reportInfo.innerHTML = '';
+						reportInfo.innerHTML += `<p class="title">${bits[3]}</p>`;
+						reportInfo.innerHTML += `<p class="created">Created on ${bits[7]}</p>`;
+						reportInfo.innerHTML += `<p class="updated">Last updated on ${bits[8]}</p>`;
+						reportInfo.innerHTML += `<p class="summary">${bits[9]}</p> `;
 						reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos/${bits[0]}-0.jpg">`;
-						reportInfo.innerHTML += `<p class="title"> ${bits[3]} </p>`;
-						reportInfo.innerHTML += `Last updated on ${bits[7]}`
 						// reportInfo.innerHTML += ``;
 						title = document.querySelector(".title");
 						title.style.fontWeight = "bold";
