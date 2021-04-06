@@ -209,11 +209,11 @@
 						{
 							let reportInfo = document.createElement('div');
 							reportInfo.className = "reportInfo";
-							reportInfo.innerHTML = `${bits[3]}`;
 							parent.after(reportInfo);
 						}
 
 						let reportInfo = document.querySelector(".reportInfo");
+						reportInfo.innerHTML = '';
 						reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos/${bits[0]}-0.jpg">`;
 						reportInfo.innerHTML += `<p class="title"> ${bits[3]} </p>`;
 						reportInfo.innerHTML += `Last updated on ${bits[7]}`
