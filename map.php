@@ -214,7 +214,7 @@
 						}
 
 						let reportInfo = document.querySelector(".reportInfo");
-            reportInfo.innerHTML += `<img class="img1" href="photos/${bits[0]}-0.jpg" </img>`;
+            reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos/${bits[0]}-0.jpg">`;
 						reportInfo.innerHTML += `<p class="title"> ${bits[3]} </p>`;
 						reportInfo.innerHTML += `Last updated on ${bits[7]}`
 						// reportInfo.innerHTML += ``;
