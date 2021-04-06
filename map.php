@@ -219,6 +219,11 @@
 						reportInfo.innerHTML += `<p class="updated">Last updated on ${bits[8]}</p>`;
 						reportInfo.innerHTML += `<p class="summary">${bits[9]}</p> `;
 						reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos/${bits[0]}-0.jpg">`;
+						reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
+						reportInfo.innerHTML += `<h3>Have an update?</h3>`;
+						reportInfo.innerHTML += `<label>Photos (if any)</label>`;
+						reportInfo.innerHTML += `<label>Update</label>`;
+						reportInfo.innerHTML += `<textarea></textarea>`;
 						// reportInfo.innerHTML += ``;
 						title = document.querySelector(".title");
 						title.style.fontWeight = "bold";

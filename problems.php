@@ -24,5 +24,7 @@
 	$res = mysqli_query($link, $query);
 	while($row = mysqli_fetch_assoc($res))
 	{
+		$row['lastupdate'] = date("F j, Y, g:i a", strtotime($row['lastupdate']));
+		$row['created'] = date("F j, Y, g:i a", strtotime($row['created']));
 		echo "${row['id']}|${row['latitude']}|${row['longitude']}|${row['summary']}|${row['defect']}|${row['name']}|${row['icon_colour']}|${row['lastupdate']}|${row['created']}|${row['extra']}\n";
 	}
