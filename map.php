@@ -215,11 +215,11 @@
 
 						let reportInfo = document.querySelector(".reportInfo");
 						reportInfo.innerHTML = `<p class="title"> ${bits[3]} </p>`;
-            reportInfo.innerHTML += `<br>Last updated on ${bits[7]}`
-            // reportInfo.innerHTML += ``;
-            title = document.querySelector(".title");
-            title.style.fontWeight = "bold";
-            reportInfo.style.textAlign = "center";
+						reportInfo.innerHTML += `Last updated on ${bits[7]}`
+						// reportInfo.innerHTML += ``;
+						title = document.querySelector(".title");
+						title.style.fontWeight = "bold";
+						reportInfo.style.textAlign = "center";
 					});
 
 					markers.push(mark);
