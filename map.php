@@ -285,10 +285,10 @@
 		{
 			reportForm.style.display = 'block';
 			reportProblem.style.display = 'none';
-      
-      let reportInfo = document.querySelector(".reportInfo");
-      if(reportInfo != undefined)
-        reportInfo.setAttribute("hidden","");
+
+			let reportInfo = document.querySelector(".reportInfo");
+			if(reportInfo != undefined)
+				reportInfo.setAttribute("hidden","");
 
 			const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
 			marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
@@ -301,9 +301,9 @@
 		} else {
 			reportForm.style.display = 'none';
 			reportProblem.style.display = 'block';
-      let reportInfo = document.querySelector(".reportInfo");
-      if(reportInfo != undefined)
-        reportInfo.removeAttribute("hidden");
+			let reportInfo = document.querySelector(".reportInfo");
+			if(reportInfo != undefined)
+				reportInfo.removeAttribute("hidden");
 			marker.setMap(null);
 		}
 	}
