@@ -255,3 +255,8 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   padding: 16px;
   background: #00bd08;
 }
+
+.file-drop {
+  height: 2px;
+  width: 2px;
+}
