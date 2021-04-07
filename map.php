@@ -320,6 +320,24 @@
 			markers[i].setMap(null);
 		markers = [];
 	}
+
+	function getExtra(id)
+	{
+		http.open('GET', '/extra.php?id=' + id, true);
+		http.onreadystatechange = function()
+		{
+			if(http.readyState == 4 && http.status == 200)
+			{
+				if(http.responseText.trim() == "")
+					return;
+
+				row = JSON.parse(http.responseText.trim());
+				// do something with row...
+			}
+		}
+
+		http.send();
+	}
     </script>
     <style>
       html,
