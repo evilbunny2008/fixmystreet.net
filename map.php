@@ -206,30 +206,8 @@
 					google.maps.event.addListener(mark, 'click', function()
 					{
 						// alert("You clicked on " + bits[0]);
-						let parent = document.getElementById('reportProblem');
-						if(parent.nextElementSibling.tagName != "DIV")
-						{
-							let reportInfo = document.createElement('div');
-							reportInfo.className = "reportInfo";
-							parent.after(reportInfo);
-						}
-
-						let reportInfo = document.querySelector(".reportInfo");
-						reportInfo.innerHTML = '';
-						reportInfo.innerHTML += `<p class="title">${bits[3]}</p>`;
-						reportInfo.innerHTML += `<p class="created">Created on ${bits[7]}</p>`;
-						reportInfo.innerHTML += `<p class="updated">Last updated on ${bits[8]}</p>`;
-						reportInfo.innerHTML += `<p class="summary">${bits[9]}</p> `;
-						reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos/${bits[0]}-0.jpg">`;
-						reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
-						reportInfo.innerHTML += `<h3>Have an update?</h3>`;
-						reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-						reportInfo.innerHTML += `<label>Update</label>`;
-						reportInfo.innerHTML += `<textarea></textarea>`;
-						// reportInfo.innerHTML += ``;
-						title = document.querySelector(".title");
-						title.style.fontWeight = "bold";
-						reportInfo.style.textAlign = "center";
+						//ONLY NEED id, DON'T NEED ANYTHING ELSE
+						getExtra(bits[0]);
 					});
 
 					markers.push(mark);
@@ -335,6 +313,30 @@
 
 				row = JSON.parse(http.responseText.trim());
 				// do something with row...
+				let parent = document.getElementById('reportProblem');
+				if(parent.nextElementSibling.tagName != "DIV")
+				{
+					let reportInfo = document.createElement('div');
+					reportInfo.className = "reportInfo";
+					parent.after(reportInfo);
+				}
+				console.log(row);
+				let reportInfo = document.querySelector(".reportInfo");
+				reportInfo.innerHTML = '';
+				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
+				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
+				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
+				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
+				reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos${row['photos'][0]['file_path']}">`;
+				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
+				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
+				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
+				reportInfo.innerHTML += `<label>Update</label>`;
+				reportInfo.innerHTML += `<textarea></textarea>`;
+				// reportInfo.innerHTML += ``;
+				title = document.querySelector(".title");
+				title.style.fontWeight = "bold";
+				reportInfo.style.textAlign = "center";
 			}
 		}
 
