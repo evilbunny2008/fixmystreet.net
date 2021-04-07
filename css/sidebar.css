@@ -257,7 +257,7 @@ Hides the menu at `48em`, but modify this based on your app's needs.
 }
 
 .file-drop {
-  font-size: 32px;
+  font-size: 16px;
   background: transparent;
   padding: 32px;
   margin: 16px;
