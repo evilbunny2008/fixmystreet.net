@@ -330,11 +330,25 @@
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" id="myFiles" multiple style="display:none;"> </div>`;
-				reportInfo.innerHTML += `<label>Update</label>`;
-				reportInfo.innerHTML += `<textarea></textarea>`;
+				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg, image/jpg" id="myFiles" multiple style="display:none;"> </div>`;
+				reportInfo.innerHTML += `<img class="preview" hidden height="100px" width="100px" src="">`
+				reportInfo.innerHTML += `<br /><br/><br/>`;
+				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
+				reportInfo.innerHTML += `<br /><br/>`
+				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10"></textarea>`;
 				let fileDrag = document.querySelector(".file-drop");
 				let fileChoose = document.getElementById("myFiles");
+				
+				function previewFile(file)
+				{
+					let reader = new FileReader()
+					reader.readAsDataURL(file)
+					reader.onloadend = function() {
+						let img = document.querySelector(".preview");
+						img.removeAttribute("hidden");
+						img.src = reader.result;
+					}
+				}
 				fileDrag.addEventListener("click", function() {
 					fileChoose.click();
 				});
@@ -343,6 +357,30 @@
 				});
 				fileDrag.addEventListener("drop", function() {
 					//GET THE FILE DATA;
+					event.preventDefault();
+					if(event.dataTransfer.items)
+					{
+						console.log("yes");
+						event.preventDefault();
+						for (var i = 0; i < event.dataTransfer.items.length; i++) 
+						{
+							// If dropped items aren't files, reject them
+							if (event.dataTransfer.items[i].kind === 'file' && event.dataTransfer.items[i].type == "image/jpeg")
+							{
+								let file = event.dataTransfer.items[i].getAsFile();
+								//DO THINGS WITH FILE HERE
+								
+								previewFile(file);
+							}
+							else
+							{
+								console.log(event.dataTransfer.items[i].type);
+								//REPLACE WITH MODAL
+								alert("Only jpegs/jpgs are allowed");
+							}
+    					}
+					}
+					// document.querySelector(".img1").src = files[0]
 				});
 				// reportInfo.innerHTML += ``;
 				title = document.querySelector(".title");
