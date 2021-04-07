@@ -260,4 +260,5 @@ Hides the menu at `48em`, but modify this based on your app's needs.
   font-size: 32px;
   background: transparent;
   padding: 32px;
+  border: 1px dashed;
 }
