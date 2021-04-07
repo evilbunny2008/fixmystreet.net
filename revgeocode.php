@@ -10,7 +10,7 @@
                 exit;
 	}
 
-	if(strtolower(substr($_SERVER['HTTP_REFERER'], 0, 24)) != "https://fixmystreet.net/")
+	if(!isset($_SERVER['HTTP_REFERER']) || strtolower(substr($_SERVER['HTTP_REFERER'], 0, strlen($refererurl))) != $refererurl)
 	{
                 $arr['status'] = "FAIL";
                 $arr['errmsg'] = "Invalid latitude or longitude";

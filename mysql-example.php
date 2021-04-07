@@ -10,3 +10,5 @@
 			    "app key two"); // Developer twos' api key
 
 	$link = new mysqli($hostname, $username, $password, $database);
+
+	$refererurl = "https://fixmystreet.net/";
