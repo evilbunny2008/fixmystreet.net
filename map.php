@@ -320,7 +320,6 @@
 					reportInfo.className = "reportInfo";
 					parent.after(reportInfo);
 				}
-				console.log(row);
 				let reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
