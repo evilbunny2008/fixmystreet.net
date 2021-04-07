@@ -330,10 +330,14 @@
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> &#65291; </div>`;
+				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> &#65291; or click here to choose files <input type="file" id="myFiles" multiple style="display:none;"> </div>`;
 				reportInfo.innerHTML += `<label>Update</label>`;
 				reportInfo.innerHTML += `<textarea></textarea>`;
 				let fileDrag = document.querySelector(".file-drop");
+				let fileChoose = document.getElementById("myFiles");
+				fileDrag.addEventListener("click", function() {
+					fileChoose.click();
+				});
 				fileDrag.addEventListener("dragover", function() {
 					event.preventDefault();
 				});
