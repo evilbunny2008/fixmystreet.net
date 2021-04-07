@@ -327,7 +327,7 @@
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
-				reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="photos${row['photos'][0]['file_path']}">`;
+				reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="${row['photos'][0]['file_path']}">`;
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
