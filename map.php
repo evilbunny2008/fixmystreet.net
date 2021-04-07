@@ -340,7 +340,6 @@
 				fileDrag.addEventListener("drop", function() {
 					//GET THE FILE DATA;
 				});
-				fileDrag.addEventListener("")
 				// reportInfo.innerHTML += ``;
 				title = document.querySelector(".title");
 				title.style.fontWeight = "bold";
