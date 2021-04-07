@@ -1,6 +1,14 @@
 <?php
 	require_once('common.php');
 
+        if(!in_array($_GET['serverKey'], $serverKeys, true))
+        {
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid server key";
+                echo json_encode($arr);
+                exit;
+        }
+
 	header("Content-Type: text/plain");
 
 	$north = floatval($_GET['north']);
@@ -27,6 +35,6 @@
 		$row['lastupdate'] = date("F j, Y, g:i a", strtotime($row['lastupdate']));
 		$row['created'] = date("F j, Y, g:i a", strtotime($row['created']));
 		foreach($row as $key => $val)
-                        $row[$key] = str_replace("\n", " ", $val);
+			$row[$key] = str_replace("\n", " ", $val);
 		echo "${row['id']}|${row['latitude']}|${row['longitude']}|${row['summary']}|${row['defect']}|${row['name']}|${row['icon_colour']}|${row['lastupdate']}|${row['created']}\n";
 	}
