@@ -330,9 +330,17 @@
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop"> &#65291; </div>`;
+				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> &#65291; </div>`;
 				reportInfo.innerHTML += `<label>Update</label>`;
 				reportInfo.innerHTML += `<textarea></textarea>`;
+				let fileDrag = document.querySelector(".file-drop");
+				fileDrag.addEventListener("dragover", function() {
+					event.preventDefault();
+				});
+				fileDrag.addEventListener("drop", function() {
+					//GET THE FILE DATA;
+				});
+				fileDrag.addEventListener("")
 				// reportInfo.innerHTML += ``;
 				title = document.querySelector(".title");
 				title.style.fontWeight = "bold";
