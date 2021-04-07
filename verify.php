@@ -22,5 +22,6 @@
 		else
 		{
 			echo "An unexpected error occurred.";
+			exit;
 		}
 	}

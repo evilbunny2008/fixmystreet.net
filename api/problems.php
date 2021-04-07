@@ -1,5 +1,5 @@
 <?php
-	require_once('common.php');
+	require_once('../common.php');
 
         if(!in_array($_GET['serverKey'], $serverKeys, true))
         {
