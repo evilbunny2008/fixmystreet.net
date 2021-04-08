@@ -311,16 +311,16 @@
 				if(http.responseText.trim() == "")
 					return;
 
-				row = JSON.parse(http.responseText.trim());
+				let row = JSON.parse(http.responseText.trim());
 				// do something with row...
 				let parent = document.getElementById('reportProblem');
 				if(parent.nextElementSibling.tagName != "DIV")
 				{
-					let reportInfo = document.createElement('div');
+					const reportInfo = document.createElement('div');
 					reportInfo.className = "reportInfo";
 					parent.after(reportInfo);
 				}
-				let reportInfo = document.querySelector(".reportInfo");
+				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
@@ -334,19 +334,20 @@
 				reportInfo.innerHTML += `<img class="preview" hidden height="100%" width="80%" src="">`
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
-				reportInfo.innerHTML += `<br /><br/>`
-				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10"></textarea>`;
-				reportInfo.innerHTML += `<br /><br/>`
-				
-				let fileDrag = document.querySelector(".file-drop");
-				let fileChoose = document.getElementById("myFiles");
+				reportInfo.innerHTML += `<br /><br/>`;
+				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
+				reportInfo.innerHTML += `<br /><br/>`;
+				const menu = document.getElementById("menu");
+				menu.scrollTop = menu.scrollHeight;
+				const fileDrag = document.querySelector(".file-drop");
+				const fileChoose = document.getElementById("myFiles");
 				
 				function previewFile(file)
 				{
 					let reader = new FileReader()
 					reader.readAsDataURL(file)
 					reader.onloadend = function() {
-						let img = document.querySelector(".preview");
+						const img = document.querySelector(".preview");
 						img.removeAttribute("hidden");
 						img.src = reader.result;
 					}
@@ -364,7 +365,7 @@
 					{
 						console.log("yes");
 						event.preventDefault();
-						for (var i = 0; i < event.dataTransfer.items.length; i++) 
+						for (let i = 0; i < event.dataTransfer.items.length; i++) 
 						{
 							// If dropped items aren't files, reject them
 							if (event.dataTransfer.items[i].kind === 'file' && event.dataTransfer.items[i].type == "image/jpeg")
