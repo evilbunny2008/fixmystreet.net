@@ -364,11 +364,7 @@
 				const menu = document.getElementById("menu");
 				menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
-				// const fileChoose = document.getElementById("myFiles");
 				
-				// fileDrag.addEventListener("click", function() {
-				// 	fileChoose.click();
-				// });
 				fileDrag.addEventListener("dragover", function() {
 					event.preventDefault();
 				});
