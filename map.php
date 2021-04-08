@@ -331,11 +331,13 @@
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg, image/jpg" id="myFiles" multiple style="display:none;"> </div>`;
-				reportInfo.innerHTML += `<img class="preview" hidden height="100px" width="100px" src="">`
+				reportInfo.innerHTML += `<img class="preview" hidden height="100%" width="80%" src="">`
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
 				reportInfo.innerHTML += `<br /><br/>`
 				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10"></textarea>`;
+				reportInfo.innerHTML += `<br /><br/>`
+				
 				let fileDrag = document.querySelector(".file-drop");
 				let fileChoose = document.getElementById("myFiles");
 				
