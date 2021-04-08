@@ -301,6 +301,29 @@
 		markers = [];
 	}
 
+	function previewFile(file, type)
+	{
+		const img = document.querySelector(".preview");
+		switch (type)
+		{
+			case 1:
+				let reader = new FileReader()
+				reader.readAsDataURL(file)
+				reader.onloadend = function() {
+					img.src = reader.result;
+				}
+				break;
+			case 2:
+				console.log(file);
+				img.src = URL.createObjectURL(event.target.files[0]);
+				img.onload = function() {
+					URL.revokeObjectURL(img.src);
+				}
+				break;
+		}
+		img.removeAttribute("hidden");
+	}
+
 	function getExtra(id)
 	{
 		http.open('GET', '/extra.php?id=' + id, true);
@@ -330,7 +353,8 @@
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg, image/jpg" id="myFiles" multiple style="display:none;"> </div>`;
+				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files</div>`;
+				reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)"> `				
 				reportInfo.innerHTML += `<img class="preview" hidden height="100%" width="80%" src="">`
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
@@ -340,21 +364,11 @@
 				const menu = document.getElementById("menu");
 				menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
-				const fileChoose = document.getElementById("myFiles");
+				// const fileChoose = document.getElementById("myFiles");
 				
-				function previewFile(file)
-				{
-					let reader = new FileReader()
-					reader.readAsDataURL(file)
-					reader.onloadend = function() {
-						const img = document.querySelector(".preview");
-						img.removeAttribute("hidden");
-						img.src = reader.result;
-					}
-				}
-				fileDrag.addEventListener("click", function() {
-					fileChoose.click();
-				});
+				// fileDrag.addEventListener("click", function() {
+				// 	fileChoose.click();
+				// });
 				fileDrag.addEventListener("dragover", function() {
 					event.preventDefault();
 				});
@@ -373,7 +387,7 @@
 								let file = event.dataTransfer.items[i].getAsFile();
 								//DO THINGS WITH FILE HERE
 								
-								previewFile(file);
+								previewFile(file,1);
 							}
 							else
 							{
