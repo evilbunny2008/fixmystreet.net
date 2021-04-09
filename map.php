@@ -303,7 +303,17 @@
 
 	function previewFile(file, type)
 	{
-		const img = document.querySelector(".preview");
+		let images = document.querySelector(".images");
+		let img = document.createElement("img");
+		let grid = document.createElement("div");
+		grid.className = "pure-g";
+		img.className = "preview pure-u-1-3";
+		images.appendChild(grid);
+		grid.appendChild(img);
+		let tag = document.createElement("a");
+		tag.text = "Remove?";
+		images.after(tag);
+		
 		switch (type)
 		{
 			case 1:
@@ -354,8 +364,10 @@
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files</div>`;
-				reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)"> `				
-				reportInfo.innerHTML += `<img class="preview" hidden height="100%" width="80%" src="">`
+				reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)">`;
+				reportInfo.innerHTML += `<br /><br/><br/>`;
+				reportInfo.innerHTML += `<div class="images">`;
+				reportInfo.innerHTML += `</div>`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
 				reportInfo.innerHTML += `<br /><br/>`;
@@ -404,6 +416,42 @@
 
 		http.send();
 	}
+
+	function init()
+	{
+		const fileDrag = document.querySelector(".file-drop");
+				
+		fileDrag.addEventListener("dragover", function() {
+			event.preventDefault();
+		});
+		fileDrag.addEventListener("drop", function() {
+			//GET THE FILE DATA;
+			event.preventDefault();
+			if(event.dataTransfer.items)
+			{
+				console.log("yes");
+				event.preventDefault();
+				for (let i = 0; i < event.dataTransfer.items.length; i++) 
+				{
+					// If dropped items aren't files, reject them
+					if (event.dataTransfer.items[i].kind === 'file' && event.dataTransfer.items[i].type == "image/jpeg")
+					{
+						let file = event.dataTransfer.items[i].getAsFile();
+						//DO THINGS WITH FILE HERE
+						
+						previewFile(file,1);
+					}
+					else
+					{
+						console.log(event.dataTransfer.items[i].type);
+						//REPLACE WITH MODAL
+						alert("Only jpegs/jpgs are allowed");
+					}
+				}
+			}
+			// document.querySelector(".img1").src = files[0]
+		});
+	}
     </script>
     <style>
       html,
@@ -427,7 +475,7 @@
           <a class="pure-menu-heading" href="/">Go home</a>
 
 	  <p id="reportProblem" onClick="hideShowReport()">Click here to report a problem</p>
-          <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
+          <form onload="init()" action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
@@ -497,8 +545,13 @@
                   <input onchange="showPic(this, '1');" type="file" id="myFile1" name="photos[]" /><br/>
                   <img id="preview2" alt="Image 2 Preview" width="100" height="100" style="display:none" />
                   <input onchange="showPic(this, '2');" type="file" id="myFile2" name="photos[]" />
+				  <!-- <div class="file-drop" ondrop=""> Drag or click here to choose files</div>
+				  <input type="file" accept="image/jpeg" id="myFiles" multiple onchange="previewFile(event,2)">
+				  <br /><br/>
+				  <div class="images">
+				  </div>
                   <br>
-                  <br>
+                  <br> -->
               </div>
             </li>
 
