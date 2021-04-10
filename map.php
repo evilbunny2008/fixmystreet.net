@@ -315,11 +315,11 @@
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
-		console.log(exists.length);
+		// console.log(exists.length);
 		if(exists.length == 0 || exists.length % 3 === 0 && exists.length != 1)
 			img.style.marginLeft = "5%";
-		// if(exists.length % 3 === 0 && exists.length != 1)
-		// 	img.style.marginTop = "5%";
+		if(exists.length > 2)
+			img.style.marginTop = "5%";
 		images.appendChild(grid);
 		grid.appendChild(img);
 
@@ -333,7 +333,7 @@
 				}
 				break;
 			case 2:
-				console.log(file);
+				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
 				img.onload = function() {
 					URL.revokeObjectURL(img.src);
@@ -428,7 +428,7 @@
 							}
 							else
 							{
-								console.log(event.dataTransfer.items[i].type);
+								// console.log(event.dataTransfer.items[i].type);
 								//REPLACE WITH MODAL
 								alert("Only jpegs/jpgs are allowed");
 								break;
@@ -450,10 +450,16 @@
 	function init()
 	{
 		const fileDrag = document.querySelector(".file-drop");
-				
+		const fileChoose = document.getElementById("myFiles");
+
+		fileDrag.addEventListener("click", function() {
+			fileChoose.click();
+		});
+		
 		fileDrag.addEventListener("dragover", function() {
 			event.preventDefault();
 		});
+
 		fileDrag.addEventListener("drop", function() {
 			//GET THE FILE DATA;
 			event.preventDefault();
@@ -472,7 +478,7 @@
 					}
 					else
 					{
-						console.log(event.dataTransfer.items[i].type);
+						// console.log(event.dataTransfer.items[i].type);
 						//REPLACE WITH MODAL
 						alert("Only jpegs/jpgs are allowed");
 						break;
@@ -505,7 +511,7 @@
           <a class="pure-menu-heading" href="/">Go home</a>
 
 	  <p id="reportProblem" onClick="hideShowReport()">Click here to report a problem</p>
-          <form onload="init()" action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
+          <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
@@ -566,15 +572,15 @@
               <a href="#" class="pure-menu-link">Services</a>
             </li> -->
             <li class="pure-menu-item">
-              <a href="#" class="pure-menu-link">Step 3</a>
+              <a onclick="init()" href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <img id="preview1" alt="Image 1 Preview" width="100" height="100" style="display:none" />
+                  <!-- <img id="preview1" alt="Image 1 Preview" width="100" height="100" style="display:none" />
                   <input onchange="showPic(this, '1');" type="file" id="myFile1" name="photos[]" /><br/>
                   <img id="preview2" alt="Image 2 Preview" width="100" height="100" style="display:none" />
-                  <input onchange="showPic(this, '2');" type="file" id="myFile2" name="photos[]" />
+                  <input onchange="showPic(this, '2');" type="file" id="myFile2" name="photos[]" /> -->
 				  <!-- <div class="file-drop" ondrop=""> Drag or click here to choose files</div>
 				  <input type="file" accept="image/jpeg" id="myFiles" multiple onchange="previewFile(event,2)">
 				  <br /><br/>
@@ -582,6 +588,12 @@
 				  </div>
                   <br>
                   <br> -->
+				<div class="file-drop" ondrop=""> Drag or click here to choose files
+					<input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)">
+				</div>
+				<br /><br/><br/>
+				<div class="images">
+				</div>
               </div>
             </li>
 
