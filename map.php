@@ -316,11 +316,6 @@
 		grid.appendChild(img);
 		let exists = document.querySelectorAll(".pure-u-1-3");
 		console.log(exists.length);
-		if(exists.length > 2)
-		{
-			const submit = document.getElementById("submit");
-			submit.removeAttribute("disabled");
-		}
 
 		switch (type)
 		{
@@ -340,6 +335,11 @@
 				break;
 		}
 		img.removeAttribute("hidden");
+		if(exists.length > 2)
+		{
+			const submit = document.getElementById("submit");
+			submit.removeAttribute("disabled");
+		}
 	}
 
 	function getExtra(id)
