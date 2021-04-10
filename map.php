@@ -311,11 +311,17 @@
 			grid = document.createElement("div");
 			grid.className = "pure-g";
 		}
-		img.className = "preview pure-u-1-3";
+		img.className = "preview pure-u-1-4 is-center";
+		// img.style.width = "200px";
+		img.style.marginRight = "5%";
+		let exists = document.querySelectorAll(".pure-u-1-4");
+		console.log(exists.length);
+		if(exists.length == 0 || exists.length % 3 === 0 && exists.length != 1)
+			img.style.marginLeft = "5%";
+		// if(exists.length % 3 === 0 && exists.length != 1)
+		// 	img.style.marginTop = "5%";
 		images.appendChild(grid);
 		grid.appendChild(img);
-		let exists = document.querySelectorAll(".pure-u-1-3");
-		console.log(exists.length);
 
 		switch (type)
 		{
@@ -335,9 +341,9 @@
 				break;
 		}
 		img.removeAttribute("hidden");
-		if(exists.length > 2)
+		const submit = document.getElementById("submit");
+		if(exists.length > 2 && submit != null)
 		{
-			const submit = document.getElementById("submit");
 			submit.removeAttribute("disabled");
 		}
 	}
