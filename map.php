@@ -305,14 +305,17 @@
 	{
 		let images = document.querySelector(".images");
 		let img = document.createElement("img");
-		let grid = document.createElement("div");
-		grid.className = "pure-g";
+		let grid = document.querySelector(".pure-g");
+		if(grid == null)
+		{
+			grid = document.createElement("div");
+			grid.className = "pure-g";
+		}
 		img.className = "preview pure-u-1-3";
 		images.appendChild(grid);
 		grid.appendChild(img);
-		let tag = document.createElement("a");
-		tag.text = "Remove?";
-		images.after(tag);
+		let exists = document.querySelectorAll(".pure-u-1-3");
+
 		
 		switch (type)
 		{
@@ -364,7 +367,6 @@
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
-				// reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)">`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<div class="images">`;
 				reportInfo.innerHTML += `</div>`;
@@ -390,7 +392,6 @@
 					event.preventDefault();
 					if(event.dataTransfer.items)
 					{
-						console.log("yes");
 						event.preventDefault();
 						for (let i = 0; i < event.dataTransfer.items.length; i++) 
 						{
