@@ -425,6 +425,7 @@
 								console.log(event.dataTransfer.items[i].type);
 								//REPLACE WITH MODAL
 								alert("Only jpegs/jpgs are allowed");
+								break;
 							}
     					}
 					}
@@ -468,6 +469,7 @@
 						console.log(event.dataTransfer.items[i].type);
 						//REPLACE WITH MODAL
 						alert("Only jpegs/jpgs are allowed");
+						break;
 					}
 				}
 			}
