@@ -363,8 +363,8 @@
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files</div>`;
-				reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)">`;
+				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
+				// reportInfo.innerHTML += `<input type="file" accept="image/jpeg" id="myFiles" multiple style="" onchange="previewFile(event,2)">`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
 				reportInfo.innerHTML += `<div class="images">`;
 				reportInfo.innerHTML += `</div>`;
@@ -376,6 +376,11 @@
 				const menu = document.getElementById("menu");
 				menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
+				const fileChoose = document.getElementById("myFiles");
+				
+				fileDrag.addEventListener("click", function() {
+					fileChoose.click();
+				});
 				
 				fileDrag.addEventListener("dragover", function() {
 					event.preventDefault();
