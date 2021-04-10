@@ -1,5 +1,5 @@
 <?php
-	require_once('common.php');
+	require_once('../common.php');
 
         if(!in_array($_GET['serverKey'], $serverKeys, true))
         {
@@ -20,7 +20,9 @@
 		exit;
 	}
 
-	$query = "SELECT * FROM `problem` WHERE `id`=$id";
+        $query = "SELECT `latitude`, `longitude`, `address`, `council`, `defect`, `summary`, `extra`, `lastupdate`, `created`, `name`, `icon_colour` FROM `problem`, `defect_type`, `state` ";
+        $query .= "WHERE `problem`.`id`=$id and `problem`.`defect_id`=`defect_type`.`id` and `problem`.`state`=`state`.`id`";
+
 	$res = mysqli_query($link, $query);
 	$row = mysqli_fetch_assoc($res);
 	$row['lastupdate'] = date("F j, Y, g:i a", strtotime($row['lastupdate']));
