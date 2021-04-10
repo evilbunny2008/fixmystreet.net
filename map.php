@@ -315,8 +315,13 @@
 		images.appendChild(grid);
 		grid.appendChild(img);
 		let exists = document.querySelectorAll(".pure-u-1-3");
+		console.log(exists.length);
+		if(exists.length > 2)
+		{
+			const submit = document.getElementById("submit");
+			submit.removeAttribute("disabled");
+		}
 
-		
 		switch (type)
 		{
 			case 1:
@@ -375,6 +380,18 @@
 				reportInfo.innerHTML += `<br /><br/>`;
 				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
+				<?php
+					if(isset($_SESSION['loggedin']))
+					{
+				?>
+						reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
+				<?php
+					} else {
+				?>
+						reportInfo.innerHTML += `<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>`;
+				<?php
+					}
+				?>
 				const menu = document.getElementById("menu");
 				menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
@@ -435,7 +452,6 @@
 			event.preventDefault();
 			if(event.dataTransfer.items)
 			{
-				console.log("yes");
 				event.preventDefault();
 				for (let i = 0; i < event.dataTransfer.items.length; i++) 
 				{
