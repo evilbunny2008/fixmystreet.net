@@ -208,6 +208,8 @@
 						// alert("You clicked on " + bits[0]);
 						//ONLY NEED id, DON'T NEED ANYTHING ELSE
 						getExtra(bits[0]);
+						if(reportProblem.style.display == 'none')
+							hideShowReport();
 					});
 
 					markers.push(mark);
@@ -398,8 +400,8 @@
 				<?php
 					}
 				?>
-				const menu = document.getElementById("menu");
-				menu.scrollTop = menu.scrollHeight;
+				// const menu = document.getElementById("menu");
+				// menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
 				const fileChoose = document.getElementById("myFiles");
 				
