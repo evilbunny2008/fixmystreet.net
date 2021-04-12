@@ -272,7 +272,12 @@
 			if(reportInfo != undefined)
 				reportInfo.setAttribute("hidden","");
 
-			const markerloc = { lat: <?=$lat?>, lng: <?=$lng?> };
+			const lat = document.getElementById("lat");
+			const lng = document.getElementById("lng");
+
+			lat.value = map.getCenter().lat().toFixed(6);
+			lng.value = map.getCenter().lng().toFixed(6);
+			const markerloc = { lat: map.getCenter().lat(), lng: map.getCenter().lng() };
 			marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
 			google.maps.event.addListener(marker, 'dragend', function() { dragEnd(marker.getPosition()); });
 
@@ -404,11 +409,11 @@
 				// menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
 				const fileChoose = document.getElementById("myFiles");
-				
+
 				fileDrag.addEventListener("click", function() {
 					fileChoose.click();
 				});
-				
+
 				fileDrag.addEventListener("dragover", function() {
 					event.preventDefault();
 				});
@@ -418,14 +423,14 @@
 					if(event.dataTransfer.items)
 					{
 						event.preventDefault();
-						for (let i = 0; i < event.dataTransfer.items.length; i++) 
+						for (let i = 0; i < event.dataTransfer.items.length; i++)
 						{
 							// If dropped items aren't files, reject them
 							if (event.dataTransfer.items[i].kind === 'file' && event.dataTransfer.items[i].type == "image/jpeg")
 							{
 								let file = event.dataTransfer.items[i].getAsFile();
 								//DO THINGS WITH FILE HERE
-								
+
 								previewFile(file,1);
 							}
 							else
@@ -457,7 +462,7 @@
 		fileDrag.addEventListener("click", function() {
 			fileChoose.click();
 		});
-		
+
 		fileDrag.addEventListener("dragover", function() {
 			event.preventDefault();
 		});
@@ -468,14 +473,14 @@
 			if(event.dataTransfer.items)
 			{
 				event.preventDefault();
-				for (let i = 0; i < event.dataTransfer.items.length; i++) 
+				for (let i = 0; i < event.dataTransfer.items.length; i++)
 				{
 					// If dropped items aren't files, reject them
 					if (event.dataTransfer.items[i].kind === 'file' && event.dataTransfer.items[i].type == "image/jpeg")
 					{
 						let file = event.dataTransfer.items[i].getAsFile();
 						//DO THINGS WITH FILE HERE
-						
+
 						previewFile(file,1);
 					}
 					else
