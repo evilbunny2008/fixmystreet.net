@@ -125,6 +125,18 @@
     exit;
   }
 
+  if(isset($_POST['submit']) && $_POST['submit'] === "submit")
+  {
+		$extra = is_null($_POST['update-extra']) ? NULL : cleanup($_POST['update-extra']);
+		//DON'T FORGET PHOTOS CODE
+		if(is_null($extra))
+		{
+			$msg = "Update field cannot be empty";
+			exit;
+		}
+		//ADD SQL STUFF HERE
+  }
+
 	$lat = -34.397;
 	if(isset($_REQUEST['lat']) && $_REQUEST['lat'] != "" && floatval($_REQUEST['lat']) != 0 && floatval($_REQUEST['lat']) >= -90 && floatval($_REQUEST['lat']) <= 90)
 		$lat = floatval($_REQUEST['lat']);
@@ -389,15 +401,18 @@
 				reportInfo.innerHTML += `<div class="images">`;
 				reportInfo.innerHTML += `</div>`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
+				<?php if(isset($msg)){?>
+				reportInfo.innerHTML += `<p><?=$msg?></p>`;
+				<?php } ?>
 				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
 				reportInfo.innerHTML += `<br /><br/>`;
-				reportInfo.innerHTML += `<textarea id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
+				reportInfo.innerHTML += `<textarea name="update" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
 				<?php
 					if(isset($_SESSION['loggedin']))
 					{
 				?>
-						reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
+						reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
 				<?php
 					} else {
 				?>
