@@ -476,16 +476,16 @@ img {
   position: absolute;
   left: 20%;
   top: 49%;
-  font-size: 18px;
-  color: white;
+  font-size: 40px;
+  color: white !important;
 }
 
 .prev {
   position: absolute;
   right: 20%;
   top: 49%;
-  font-size: 18px;
-  color: white;
+  font-size: 40px;
+  color: white !important;
 }
 
 .next:hover,
