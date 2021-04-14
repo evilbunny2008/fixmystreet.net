@@ -343,36 +343,20 @@
 		img.remove();
 	}
 
-	function createCarousel(photoList)
+	function createCarousel(photosList)
 	{
-		let carousel = document.createElement("div");
-		carousel.className = "splide";
-		carousel.setAttribute("id", "image-slider");
-		let track = document.createElement("div");
-		track.className = "splide__track";
-		let l = document.createElement("ul");
-		l.className = "splide__list";
-		track.appendChild(l);
-		carousel.appendChild(track);
-		console.log(photoList[0]);
-		for(let i=0; i<photoList.length; i++)
+		let container = document.createElement("div");
+		container.className = "container";
+		container.innerHTML += `<a class="next">&#10094;</a>`;
+		for(let i=0;i<photosList.length-1; i++)
 		{
-			let slide = document.createElement("li");
-			slide.className = "splide__slide";
 			let img = document.createElement("img");
-			img.src = photoList[i]['file_path']
-			slide.appendChild(img);
-			l.appendChild(slide);
+			img.width = "50%";
+			img.src = photosList[i]['file_path'];
+			container.appendChild(img);
 		}
-		document.querySelector(".reportInfo").appendChild(carousel);
-		document.addEventListener( 'DOMContentLoaded', function () {
-			new Splide( '#image-slider', {
-				'cover'      : true,
-				'heightRatio': 0.5,
-				width : '100px',
-				height: '100px'
-			} ).mount();
-		});
+		container.innerHTML += `<a class="prev">&#10095;</a>`;
+		document.querySelector(".reportInfo").appendChild(container);
 	}
 
 	function previewFile(file, type)
@@ -449,15 +433,7 @@
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
-				// reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="${row['photos'][0]['file_path']}">`;
-				// reportInfo.innerHTML += `<div id="image-slider" class="splide">`;
-				// reportInfo.innerHTML += `<div class="splide__track">`;
-				// reportInfo.innerHTML += `<ul class="splide__list">`;
-				// for(let i=0; i<row['photos'].length; i++)
-				// {
-				// 	reportInfo.innerHTML += `<li class="splide__slide">`;
-				// 	reportInfo.innerHTML += `<img src="${row['photos'][i]['file_path']}">`;
-				// }
+				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
 				createCarousel(row['photos']);
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
