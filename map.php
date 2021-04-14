@@ -360,8 +360,11 @@
 		}
 		document.querySelector(".reportInfo").appendChild(carousel);
 		document.addEventListener( 'DOMContentLoaded', function () {
-			new Splide( '#image-slider' ).mount();
-		} );
+			new Splide( '#image-slider', {
+				'cover'      : true,
+				'heightRatio': 0.5,
+			} ).mount();
+		});
 	}
 
 	function previewFile(file, type)
@@ -438,7 +441,7 @@
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
-				reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="${row['photos'][0]['file_path']}">`;
+				// reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="${row['photos'][0]['file_path']}">`;
 				// reportInfo.innerHTML += `<div id="image-slider" class="splide">`;
 				// reportInfo.innerHTML += `<div class="splide__track">`;
 				// reportInfo.innerHTML += `<ul class="splide__list">`;
