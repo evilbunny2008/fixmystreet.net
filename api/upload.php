@@ -101,7 +101,7 @@
             resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
             $file_path = basename($uploads_dir)."/${uuid}.jpg";
             $file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
-            $query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+            $query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
             mysqli_query($link, $query);
 	}
 
