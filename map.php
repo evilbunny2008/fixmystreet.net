@@ -111,10 +111,11 @@
     {
 	if($error == UPLOAD_ERR_OK)
 	{
+	    $uuid = getUUID();
 	    $filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
-	    resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${problem_id}-${key}.jpg", "${uploads_dir}/${problem_id}-${key}-thumb.jpg");
-	    $file_path = basename($uploads_dir)."/${problem_id}-${key}.jpg";
-	    $file_thumb = basename($uploads_dir)."/${problem_id}-${key}-thumb.jpg";
+	    resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
+	    $file_path = basename($uploads_dir)."/${uuid}.jpg";
+	    $file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
 	    $query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
 	    mysqli_query($link, $query);
 	}
