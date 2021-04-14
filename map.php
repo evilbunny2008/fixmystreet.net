@@ -362,7 +362,7 @@
 			let img = document.createElement("img");
 			img.src = photoList[i]['file_path']
 			slide.appendChild(img);
-			carousel.appendChild(slide);
+			l.appendChild(slide);
 		}
 		document.querySelector(".reportInfo").appendChild(carousel);
 		document.addEventListener( 'DOMContentLoaded', function () {
