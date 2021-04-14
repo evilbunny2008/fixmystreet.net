@@ -79,7 +79,7 @@
 	$row = mysqli_fetch_assoc($res);
 	$defect_id = $row['id'];
 
-	$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `site_id`=2 `summary`='$summary', `user_id`=$userid, ";
+	$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `site_id`=2, `summary`='$summary', `user_id`=$userid, ";
 	$query .= "`anonymous`=0, `extra`='$extra', `non_public`=0, `defect_id`=$defect_id";
 
 	mysqli_query($link, $query);
