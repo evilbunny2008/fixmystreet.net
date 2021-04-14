@@ -351,7 +351,7 @@
 		for(let i=0;i<photosList.length-1; i++)
 		{
 			let img = document.createElement("img");
-			img.width = "50%";
+			img.style.width = "50%";
 			img.src = photosList[i]['file_path'];
 			container.appendChild(img);
 		}
