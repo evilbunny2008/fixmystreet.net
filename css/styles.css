@@ -476,12 +476,14 @@ img {
   position: absolute;
   left: 20%;
   top: 49%;
+  font-size: 18px;
 }
 
 .prev {
   position: absolute;
   right: 20%;
   top: 49%;
+  font-size: 18px;
 }
 
 .next:hover,
