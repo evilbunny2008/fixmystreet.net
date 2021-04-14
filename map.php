@@ -149,6 +149,7 @@
 	}
 	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
 	mysqli_query($link, $query);
+	// $filename 
 
   }
 
@@ -335,10 +336,16 @@
 		markers = [];
 	}
 
+	function rm(img)
+	{		
+		img.remove();
+	}
+
 	function previewFile(file, type)
 	{
 		let images = document.querySelector(".images");
 		let img = document.createElement("img");
+		img.setAttribute("onclick","rm(this)");
 		let grid = document.querySelector(".pure-g");
 		if(grid == null)
 		{
@@ -414,6 +421,7 @@
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
+				reportInfo.innerHTML += `<p>HINT: Click on images to remove them!</p>`;
 				reportInfo.innerHTML += `<div class="images">`;
 				reportInfo.innerHTML += `</div>`;
 				reportInfo.innerHTML += `<br /><br/><br/>`;
