@@ -473,11 +473,13 @@ img {
 }
 
 .next {
+  position: absolute;
   left: 20%;
   top: 49%;
 }
 
 .prev {
+  position: absolute;
   right: 20%;
   top: 49%;
 }
