@@ -483,3 +483,8 @@ img {
   right: 20%;
   top: 49%;
 }
+
+.next:hover,
+.prev:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
