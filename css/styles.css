@@ -471,3 +471,13 @@ img {
 .pure-menu {
   font-family: "Lato";
 }
+
+.next {
+  left: 20%;
+  top: 49%;
+}
+
+.prev {
+  right: 20%;
+  top: 49%;
+}
