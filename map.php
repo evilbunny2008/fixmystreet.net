@@ -363,6 +363,8 @@
 			new Splide( '#image-slider', {
 				'cover'      : true,
 				'heightRatio': 0.5,
+				width : '100px',
+				height: '100px'
 			} ).mount();
 		});
 	}
