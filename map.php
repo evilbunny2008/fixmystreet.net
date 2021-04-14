@@ -127,14 +127,28 @@
 
   if(isset($_POST['submit']) && $_POST['submit'] === "submit")
   {
-		$extra = is_null($_POST['update-extra']) ? NULL : cleanup($_POST['update-extra']);
-		//DON'T FORGET PHOTOS CODE
-		if(is_null($extra))
-		{
-			$msg = "Update field cannot be empty";
-			exit;
-		}
-		//ADD SQL STUFF HERE
+	$problem_id = is_null($_POST['problemID']) ? NULL : cleanup($_POST['problemID']);
+	$extra = is_null($_POST['update-extra']) ? NULL : cleanup($_POST['update-extra']);
+	$email = $_SESSION['email'];
+    $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
+    $userid = $row['id'];
+
+    if($userid <= 0)
+    {
+		$arr['status'] = "FAIL";
+        $arr['errmsg'] = "Invalid user.";
+        echo json_encode($arr);
+        exit;
+    }
+	//DON'T FORGET PHOTOS CODE
+	if(is_null($extra))
+	{
+		$msg = "Update field cannot be empty";
+		exit;
+	}
+	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
+	mysqli_query($link, $query);
+
   }
 
 	$lat = -34.397;
@@ -388,6 +402,7 @@
 				}
 				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
+				reportInfo.innerHTML += `<input type="hidden" name="problemID" value=${id}>`
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
