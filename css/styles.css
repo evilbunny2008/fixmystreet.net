@@ -477,6 +477,7 @@ img {
   left: 20%;
   top: 49%;
   font-size: 18px;
+  color: white;
 }
 
 .prev {
@@ -484,6 +485,7 @@ img {
   right: 20%;
   top: 49%;
   font-size: 18px;
+  color: white;
 }
 
 .next:hover,
