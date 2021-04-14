@@ -348,6 +348,12 @@
 		let carousel = document.createElement("div");
 		carousel.className = "splide";
 		carousel.setAttribute("id", "image-slider");
+		let track = document.createElement("div");
+		track.className = "splide__track";
+		let l = document.createElement("ul");
+		l.className = "splide__list";
+		track.appendChild(l);
+		carousel.appendChild(track);
 		console.log(photoList[0]);
 		for(let i=0; i<photoList.length; i++)
 		{
