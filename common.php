@@ -251,12 +251,12 @@
 		echo json_encode($arr);
 	}
 
-        function cleanup($str)
-        {
-                global $link;
+	function cleanup($str)
+	{
+			global $link;
 
-                return mysqli_real_escape_string($link, trim(strip_tags($str)));
-        }
+			return mysqli_real_escape_string($link, trim(strip_tags($str)));
+	}
 
 	function resizeAndStrip($filename, $output, $outputThumb)
 	{
