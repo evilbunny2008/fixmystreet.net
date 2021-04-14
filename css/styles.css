@@ -474,7 +474,7 @@ img {
 
 .next {
   position: absolute;
-  left: 20%;
+  left: 15%;
   top: 49%;
   font-size: 40px;
   color: white !important;
@@ -482,7 +482,7 @@ img {
 
 .prev {
   position: absolute;
-  right: 20%;
+  right: 15%;
   top: 49%;
   font-size: 40px;
   color: white !important;
