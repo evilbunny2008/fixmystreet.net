@@ -171,8 +171,10 @@
     <link rel="stylesheet" href="./css/pure/pure-min.css" />
     <link rel="stylesheet" href="./css/styles.css" />
     <link rel="stylesheet" href="./css/sidebar.css" />
+	<link rel="stylesheet" href="./css/splide.min.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
     <script src="./js/ui.js"></script>
+	<script src="./js/splide.min.js"></script>
     <script src="./js/index.php"></script>
     <script>
       let map;
@@ -341,6 +343,27 @@
 		img.remove();
 	}
 
+	function createCarousel(photoList)
+	{
+		let carousel = document.createElement("div");
+		carousel.className = "splide";
+		carousel.setAttribute("id", "image-slider");
+		console.log(photoList[0]);
+		for(let i=0; i<photoList.length; i++)
+		{
+			let slide = document.createElement("li");
+			slide.className = "splide__slide";
+			let img = document.createElement("img");
+			img.src = photoList[i]['file_path']
+			slide.appendChild(img);
+			carousel.appendChild(slide);
+		}
+		document.querySelector(".reportInfo").appendChild(carousel);
+		document.addEventListener( 'DOMContentLoaded', function () {
+			new Splide( '#image-slider' ).mount();
+		} );
+	}
+
 	function previewFile(file, type)
 	{
 		let images = document.querySelector(".images");
@@ -416,6 +439,15 @@
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
 				reportInfo.innerHTML += `<img class="img1" height="100px" width="100px" src="${row['photos'][0]['file_path']}">`;
+				// reportInfo.innerHTML += `<div id="image-slider" class="splide">`;
+				// reportInfo.innerHTML += `<div class="splide__track">`;
+				// reportInfo.innerHTML += `<ul class="splide__list">`;
+				// for(let i=0; i<row['photos'].length; i++)
+				// {
+				// 	reportInfo.innerHTML += `<li class="splide__slide">`;
+				// 	reportInfo.innerHTML += `<img src="${row['photos'][i]['file_path']}">`;
+				// }
+				createCarousel(row['photos']);
 				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
@@ -432,6 +464,7 @@
 				reportInfo.innerHTML += `<br /><br/>`;
 				reportInfo.innerHTML += `<textarea name="update" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
+				console.log(row['photos']);
 				<?php
 					if(isset($_SESSION['loggedin']))
 					{
