@@ -399,7 +399,7 @@
 				else
 				{
 					let img = document.querySelector(".slide");
-					img.src = photoList[0]['file_path'];
+					img.src = photoList[0]['thumb'];
 					console.log(i);
 					return img;
 				}
