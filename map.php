@@ -353,7 +353,7 @@
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
-		img.src = photosList[cur]['thumb'];
+		// img.src = photosList[cur]['thumb'];
 		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);
 		document.querySelector(".reportInfo").appendChild(container);
