@@ -345,18 +345,67 @@
 
 	function createCarousel(photosList)
 	{
+		let len = photosList.length;
 		let container = document.createElement("div");
+		let cur = 0; 
 		container.className = "container";
-		container.innerHTML += `<a class="next">&#10094;</a>`;
-		for(let i=0;i<photosList.length-1; i++)
-		{
-			let img = document.createElement("img");
-			img.style.width = "50%";
-			img.src = photosList[i]['file_path'];
-			container.appendChild(img);
-		}
-		container.innerHTML += `<a class="prev">&#10095;</a>`;
+		console.log(photosList);
+		container.innerHTML += `<a class="prev" onclick="switchImage(1)">&#10095;</a>`;
+		let img = document.createElement("img");
+		img.className = "slide";
+		img.style.width = "50%";
+		// img.src = photosList[cur]['file_path'];
+		img.src = switchImage(3);
+		container.innerHTML += `<a class="next" onclick="switchImage(0)">&#10094;</a>`;
+		container.appendChild(img);
 		document.querySelector(".reportInfo").appendChild(container);
+		// console.log(photosList);
+	}
+
+	function switchImage(type)
+	{
+		let problemID = document.getElementById("problemID").value;
+		http.open('GET', '/extra.php?id=' + problemID, true);
+		http.onreadystatechange = function()
+		{
+			if(http.readyState == 4 && http.status == 200)
+			{
+				if(http.responseText.trim() == "")
+					return;
+				let row = JSON.parse(http.responseText.trim());
+				let i = 0;
+				// do something with row...
+				photoList = row['photos'];
+				if(type == 0)
+				{
+					i-=1;
+					if(i<0)
+						console.log("get out ffs");
+					console.log(i);
+					let img = document.querySelector(".slide");
+					img.src = photoList[i]['file_path'];
+					console.log(img);
+					return img;
+				}
+				else if(type == 1)
+				{
+					i+=1;
+					console.log(i);
+					let img = document.querySelector(".slide");
+					img.src = photoList[i]['file_path'];
+					console.log(img);
+					return img;
+				}
+				else
+				{
+					let img = document.querySelector(".slide");
+					img.src = photoList[0]['file_path'];
+					console.log(i);
+					return img;
+				}
+			}
+		}
+		http.send();
 	}
 
 	function previewFile(file, type)
@@ -428,7 +477,7 @@
 				}
 				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
-				reportInfo.innerHTML += `<input type="hidden" name="problemID" value=${id}>`
+				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value=${id}>`
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
@@ -451,7 +500,6 @@
 				reportInfo.innerHTML += `<br /><br/>`;
 				reportInfo.innerHTML += `<textarea name="update" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
-				console.log(row['photos']);
 				<?php
 					if(isset($_SESSION['loggedin']))
 					{
