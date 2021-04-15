@@ -353,7 +353,6 @@
 		container.innerHTML += `<a class="prev" onclick="switchImage(1)">&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
-		img.style.width = "50%";
 		// img.src = photosList[cur]['file_path'];
 		img.src = switchImage(3);
 		container.innerHTML += `<a class="next" onclick="switchImage(0)">&#10094;</a>`;
