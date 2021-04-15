@@ -472,7 +472,7 @@ img {
   font-family: "Lato";
 }
 
-.next {
+.prev {
   position: absolute;
   left: 15%;
   top: 49%;
@@ -480,7 +480,7 @@ img {
   color: white !important;
 }
 
-.prev {
+.next {
   position: absolute;
   right: 15%;
   top: 49%;

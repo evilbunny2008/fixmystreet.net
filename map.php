@@ -350,12 +350,14 @@
 		let cur = 0; 
 		container.className = "container";
 		console.log(photosList);
-		container.innerHTML += `<a class="prev" onclick="switchImage(1)">&#10095;</a>`;
+		container.innerHTML += `<a class="next" >&#10095;</a>`;
+		// container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
 		// img.src = photosList[cur]['file_path'];
 		img.src = switchImage(3);
-		container.innerHTML += `<a class="next" onclick="switchImage(0)">&#10094;</a>`;
+		// container.innerHTML += `<a class="next" >&#10095;</a>`;
+		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);
 		document.querySelector(".reportInfo").appendChild(container);
 		// console.log(photosList);
@@ -372,36 +374,30 @@
 				if(http.responseText.trim() == "")
 					return;
 				let row = JSON.parse(http.responseText.trim());
-				let i = 0;
-				// do something with row...
 				photoList = row['photos'];
-				if(type == 0)
-				{
-					i-=1;
-					if(i<0)
-						console.log("negative value");
-					console.log(i);
+				let i = 0;
+				const length = photoList.length;
+				let next = document.querySelector(".next");
+				next.addEventListener("click", function() {
+					if(i+1 < length)
+						i++;
+					else
+						i=0;
+
 					let img = document.querySelector(".slide");
 					img.src = photoList[i]['thumb'];
-					console.log(img);
-					return img;
-				}
-				else if(type == 1)
-				{
-					i+=1;
-					console.log(i);
+				});
+				let prev = document.querySelector(".prev");
+				prev.addEventListener("click", function() {
+					if(i-1 >= 0)
+						i--;
+					else
+						i=length-1;
+
 					let img = document.querySelector(".slide");
 					img.src = photoList[i]['thumb'];
-					console.log(img);
-					return img;
-				}
-				else
-				{
-					let img = document.querySelector(".slide");
-					img.src = photoList[0]['thumb'];
-					console.log(i);
-					return img;
-				}
+				});
+
 			}
 		}
 		http.send();
