@@ -351,19 +351,15 @@
 		container.className = "container";
 		console.log(photosList);
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
-		// container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
-		// img.src = photosList[cur]['file_path'];
-		img.src = switchImage(3);
-		// container.innerHTML += `<a class="next" >&#10095;</a>`;
+		img.src = photosList[cur]['thumb'];
 		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);
 		document.querySelector(".reportInfo").appendChild(container);
-		// console.log(photosList);
 	}
 
-	function switchImage(type)
+	function switchImage()
 	{
 		let problemID = document.getElementById("problemID").value;
 		http.open('GET', '/extra.php?id=' + problemID, true);
