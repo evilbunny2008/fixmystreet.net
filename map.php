@@ -353,7 +353,7 @@
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
-		// img.src = photosList[cur]['thumb'];
+		img.src = switchImage();
 		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);
 		document.querySelector(".reportInfo").appendChild(container);
@@ -373,6 +373,8 @@
 				photoList = row['photos'];
 				let i = 0;
 				const length = photoList.length;
+				let img = document.querySelector(".slide");
+				img.src = photoList[0]['thumb'];
 				let next = document.querySelector(".next");
 				next.addEventListener("click", function() {
 					if(i+1 < length)
@@ -387,6 +389,7 @@
 				prev.addEventListener("click", function() {
 					if(i-1 >= 0)
 						i--;
+
 					else
 						i=length-1;
 
