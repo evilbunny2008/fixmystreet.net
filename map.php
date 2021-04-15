@@ -383,7 +383,7 @@
 						console.log("negative value");
 					console.log(i);
 					let img = document.querySelector(".slide");
-					img.src = photoList[i]['file_path'];
+					img.src = photoList[i]['thumb'];
 					console.log(img);
 					return img;
 				}
@@ -392,7 +392,7 @@
 					i+=1;
 					console.log(i);
 					let img = document.querySelector(".slide");
-					img.src = photoList[i]['file_path'];
+					img.src = photoList[i]['thumb'];
 					console.log(img);
 					return img;
 				}
