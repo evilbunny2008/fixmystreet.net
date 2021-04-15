@@ -380,7 +380,7 @@
 				{
 					i-=1;
 					if(i<0)
-						console.log("get out ffs");
+						console.log("negative value");
 					console.log(i);
 					let img = document.querySelector(".slide");
 					img.src = photoList[i]['file_path'];
