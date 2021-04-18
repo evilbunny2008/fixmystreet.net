@@ -200,7 +200,17 @@
 			method: "POST", 
 			body: formData
 		}); 
-			alert('The file has been uploaded successfully.');
+		let http1 = getHTTPObject();
+		http1.onreadystatechange = function() {
+			if (http1.readyState == 4 && http1.status == 200) {
+				//ONLY FOR TESTING
+				let response = JSON.stringify(http1.responseText);
+				console.log(response);
+				//ALERT/MODAL IF RESPONSE VAR CONTAINS SUCCESS+UUID
+			}
+		}
+		http1.open("GET", "upload.php", true);
+		http1.send();
 	}
 
 	function loadProblems()

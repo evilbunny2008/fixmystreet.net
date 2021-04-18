@@ -8,7 +8,7 @@
 		echo json_encode($arr);
 		exit;
 	}
-	header("Content-Type: text/plain");
+	// header("Content-Type: text/plain");
 
 	$file_count = 0;
 	if($_FILES["file"]["error"] == UPLOAD_ERR_OK)
@@ -22,7 +22,10 @@
 
 	if($file_count != 1)
 	{
-		echo 'Failed|Invalid file, or file too small.';
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "No files received";
+		echo json_encode($arr);
+		// echo 'Failed|Invalid file, or file too small.';
 	}
 
 	$uuid = getUUID();
@@ -30,4 +33,7 @@
 	resizeAndStrip($_FILES["file"]["tmp_name"], "/tmp/${uuid}.jpg", "/tmp/${uuid}_thumb.jpg");
 	$file_path = "/tmp/${uuid}.jpg";
 	$file_thumb = "/tmp/${uuid}_thumb.jpg";
-	echo 'Success|'.$uuid;
+	// echo 'Success|'.$uuid;
+	$arr['status'] = "SUCCESS";
+	$arr['uuid'] = $uuid;
+	echo json_encode($arr);
