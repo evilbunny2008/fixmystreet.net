@@ -506,7 +506,7 @@
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
 				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
 				createCarousel(row['photos']);
-				reportInfo.innerHTML += `<form method="post" action="<?= $_SERVER['PHP_SELF']?>" >`
+				reportInfo.innerHTML += `<form method="post" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
