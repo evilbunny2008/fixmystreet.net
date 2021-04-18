@@ -670,9 +670,9 @@
                   Select the type of problem and add it's details
                 </p>
 		<label class="step">Address:</label>
-		<input type="text" id="address" name="address" value="<?=cleanup($_POST['address'])?>" readonly /><br/>
+		<input type="text" id="address" name="address" value="<?if(isset($_POST['address']))echo cleanup($_POST['address'])?>" readonly /><br/>
 		<label class="step">Council:</label>
-		<input type="text" id="council" name="council" value="<?=cleanup($_POST['council'])?>" readonly /><br/>
+		<input type="text" id="council" name="council" value="<?if(isset($_POST['council']))echo cleanup($_POST['council'])?>" readonly /><br/>
                 <label for="p-type" class="step"> Choose a problem type</label>
                 <select name="problem-type" id="p-type">
 <?php
@@ -691,7 +691,7 @@
 ?>
                 </select>
                 <p class="is-center">Add a summary of the problem</p>
-	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" value="<?=cleanup($_POST['summary'])?>" />
+	        <input name="summary" onchange="validate()" type="text" id="summary" size="86" value="<?if(isset($_POST['summary']))echo cleanup($_POST['summary'])?>" />
                 <p class="is-center">Add a description for the problem</p>
                 <textarea onchange="validate()"
                   name="extra"
@@ -699,7 +699,7 @@
                   cols="89"
                   rows="10"
                   placeholder="Enter a problem description"
-                ><?=cleanup($_POST['extra'])?></textarea>
+                ><?if(isset($_POST['extra']))echo cleanup($_POST['extra'])?></textarea>
                 <br>
               </div>
             </li>
