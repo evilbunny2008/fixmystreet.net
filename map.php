@@ -209,7 +209,7 @@
 				//ALERT/MODAL IF RESPONSE VAR CONTAINS SUCCESS+UUID
 			}
 		}
-		http1.open("GET", "upload.php", true);
+		http1.open("POST", "upload.php", true);
 		http1.send();
 	}
 
