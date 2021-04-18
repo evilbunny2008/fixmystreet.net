@@ -195,11 +195,11 @@
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
-		formData.append("file[]", lastPreview);
+		formData.append("file", lastPreview);
 		await fetch('/upload.php', {
-			method: "POST",
+			method: "POST", 
 			body: formData
-		});
+		}); 
 			alert('The file has been uploaded successfully.');
 	}
 
@@ -350,7 +350,7 @@
 	}
 
 	function rm(img)
-	{
+	{		
 		img.remove();
 	}
 
@@ -358,7 +358,7 @@
 	{
 		let len = photosList.length;
 		let container = document.createElement("div");
-		let cur = 0;
+		let cur = 0; 
 		container.className = "container";
 		console.log(photosList);
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
@@ -425,7 +425,7 @@
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "file[]")
+		img.setAttribute("name", "file")
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
@@ -439,18 +439,22 @@
 
 		switch (type)
 		{
+			//IF FILES ARE DRAGGED
 			case 1:
+				// console.log(file);
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
+				// console.log(file);
 				uploadFile(file);
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
 				break;
+			//IF FILES ARE CHOSEN THROUGH INPUT	
 			case 2:
 				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
-				uploadFile(img.src);
+				uploadFile(event.target.files[0]);
 				img.onload = function() {
 					URL.revokeObjectURL(img.src);
 				}
@@ -711,7 +715,7 @@
                   <br>
                   <br> -->
 				<div class="file-drop" ondrop=""> Drag or click here to choose files
-					<input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)">
+					<input type="file" accept="image/jpeg" id="myFiles" name="file" multiple style="display:none;" onchange="previewFile(event,2)">
 				</div>
 				<br /><br/><br/>
 				<div class="images">
