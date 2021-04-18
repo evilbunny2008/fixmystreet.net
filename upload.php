@@ -26,7 +26,7 @@
 	}
 
 	$uuid = getUUID();
-	$filename = cleanup(urldecode(basename($_FILES["file"]["name"]));
+	$filename = cleanup(urldecode(basename($_FILES["file"]["name"])));
 	resizeAndStrip($_FILES["file"]["tmp_name"], "/tmp/${uuid}.jpg", "/tmp/${uuid}_thumb.jpg");
 	$file_path = "/tmp/${uuid}.jpg";
 	$file_thumb = "/tmp/${uuid}_thumb.jpg";
