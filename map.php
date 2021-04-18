@@ -197,9 +197,9 @@
 		let formData = new FormData();
 		formData.append("file", lastPreview);
 		await fetch('/upload.php', {
-			method: "POST", 
+			method: "POST",
 			body: formData
-		}); 
+		});
 			alert('The file has been uploaded successfully.');
 	}
 
@@ -350,7 +350,7 @@
 	}
 
 	function rm(img)
-	{		
+	{
 		img.remove();
 	}
 
@@ -358,7 +358,7 @@
 	{
 		let len = photosList.length;
 		let container = document.createElement("div");
-		let cur = 0; 
+		let cur = 0;
 		container.className = "container";
 		console.log(photosList);
 		container.innerHTML += `<a class="next" >&#10095;</a>`;

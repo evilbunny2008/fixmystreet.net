@@ -10,17 +10,24 @@
 	}
 	header("Content-Type: text/plain");
 
-	/* Get the name of the uploaded file */
-	$filename = $_FILES['file']['name'];
-
-	/* Choose where to save the uploaded file */
-	$location = "upload/".$filename;
-
-	/* Save the uploaded file to the local filesystem */
-	if ( move_uploaded_file($_FILES['file']['tmp_name'], $location) ) { 
-	echo 'Success'; 
-	} else { 
-	echo 'Failure'; 
+	$file_count = 0;
+	if($_FILES["file"]["error"] == UPLOAD_ERR_OK)
+	{
+		if(is_uploaded_file($_FILES["file"]["tmp_name"]) &&
+			filesize($_FILES["file"]["tmp_name"]) > 50000)
+		{
+			$file_count++;
+		}
 	}
 
-?>
+	if($file_count != 1)
+	{
+		echo 'Failed|Invalid file, or file too small.';
+	}
+
+	$uuid = getUUID();
+	$filename = cleanup(urldecode(basename($_FILES["file"]["name"]));
+	resizeAndStrip($_FILES["file"]["tmp_name"], "/tmp/${uuid}.jpg", "/tmp/${uuid}_thumb.jpg");
+	$file_path = "/tmp/${uuid}.jpg";
+	$file_thumb = "/tmp/${uuid}_thumb.jpg";
+	echo 'Success|'.$uuid;
