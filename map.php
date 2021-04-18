@@ -192,6 +192,17 @@
 		google.maps.event.addListener(map, 'tilesloaded', loadProblems);
 	}
 
+	async function uploadFile(lastPreview)
+	{
+		let formData = new FormData();
+		formData.append("file", lastPreview);
+		await fetch('/upload.php', {
+			method: "POST", 
+			body: formData
+		}); 
+			alert('The file has been uploaded successfully.');
+	}
+
 	function loadProblems()
 	{
 		let http1 = getHTTPObject();
@@ -414,7 +425,7 @@
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "photos[]")
+		img.setAttribute("name", "file")
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
@@ -429,8 +440,9 @@
 		switch (type)
 		{
 			case 1:
-				let reader = new FileReader()
-				reader.readAsDataURL(file)
+				let reader = new FileReader();
+				reader.readAsDataURL(file);
+				uploadFile(file);
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
@@ -438,6 +450,7 @@
 			case 2:
 				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
+				uploadFile(img.src);
 				img.onload = function() {
 					URL.revokeObjectURL(img.src);
 				}
