@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Apr 07, 2021 at 02:56 PM
+-- Generation Time: Apr 18, 2021 at 08:24 PM
 -- Server version: 10.3.27-MariaDB-0+deb10u1
 -- PHP Version: 7.3.27-1~deb10u1
 
@@ -173,15 +173,26 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL,
   `problem_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `anonymous` tinyint(1) NOT NULL DEFAULT 0,
+  `anonymous` tinyint(1) NOT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp(),
-  `confirmed` timestamp NULL DEFAULT NULL,
-  `text` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `state` tinyint(3) NOT NULL DEFAULT 1,
-  `mark_fixed` tinyint(1) NOT NULL,
-  `mark_open` tinyint(1) DEFAULT NULL,
-  `extra` longtext COLLATE utf8mb4_unicode_ci NOT NULL
+  `text` longtext COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `comment_photos`
+--
+
+CREATE TABLE `comment_photos` (
+  `id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment` varchar(255) NOT NULL,
+  `file_path` varchar(255) NOT NULL,
+  `thumb` varchar(255) NOT NULL,
+  `views` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- --------------------------------------------------------
 
@@ -932,6 +943,7 @@ CREATE TABLE `partial_user` (
 CREATE TABLE `photos` (
   `id` int(11) NOT NULL,
   `problem_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `comment` varchar(255) NOT NULL,
   `file_path` varchar(255) NOT NULL,
   `thumb` varchar(255) NOT NULL,
@@ -941,7 +953,6 @@ CREATE TABLE `photos` (
 --
 -- Dumping data for table `photos`
 --
-
 
 
 -- --------------------------------------------------------
@@ -962,62 +973,6 @@ CREATE TABLE `poi` (
 --
 -- Dumping data for table `poi`
 --
-
-INSERT INTO `poi` (`poi`, `search`, `lat`, `lng`, `address`, `council`) VALUES
-('ChIJ-3pOOTLVo2sR1Gk_rbHN_gU', '-29.538941,150.57746', -29.538567, 150.577408, '140-142 Long St, Warialda NSW 2402, Australia', 'Gwydir Shire Council'),
-('ChIJ0XPdpM4CE2sRxnsODvKOd2Q', '-34.292542,150.752662', -34.288647, 150.761551, 'Unnamed Road, Cataract NSW 2560, Australia', 'Wollondilly Shire Council'),
-('ChIJ21ok8U_3oWsRm200Mz8HIqw', '-29.774921,151.127589', -29.774994, 151.127731, '72 Greaves St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJ32rtuzX3oWsRfFXdsHx89HI', '-29.778728,151.115254', -29.778679, 151.115158, '149 Otho St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJ53mjG1keE2sRgCUuKvKmRP8', '-34.325297,150.893596', -34.333111, 150.892456, 'Unnamed Road, Woonona NSW 2517, Australia', 'Wollongong City Council'),
-('ChIJ5U-UID8OE2sR6AwtJCswlkg', '-34.481378,150.7494', -34.478901, 150.747253, 'Unnamed Road, Wongawilli NSW 2530, Australia', 'Wollongong City Council'),
-('ChIJ625JicCKoWsRbntJJH1oGa4', '-29.675956,150.933075', -29.676428, 150.933975, '1443 Oakwood Rd, Mount Russell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJ718okRQPE2sRphgBLmytovQ', '-34.438067,150.694812', -34.431480, 150.702530, 'Unnamed Road, Avon NSW 2574, Australia', 'Wollongong City Council'),
-('ChIJ7Ye3tLsHE2sR8g1e304iayM', '-34.364415,150.628207', -34.360523, 150.615219, 'Firetrail No 1, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJ90ArF7N7FGsRbGezFVVK7Uk', '-34.936894,150.444186', -34.935745, 150.443771, 'Yalwal Rd, Yalwal NSW 2540, Australia', 'City of Shoalhaven'),
-('ChIJ9_PoWYMEE2sRxPifNmLyv6Q', '-34.343158,150.730861', -34.341927, 150.732254, 'Firetrail No 6, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJA34hGF0EE2sR9GmZpq6NJ5k', '-34.355063,150.708888', -34.357582, 150.715866, 'Firetrail No 6, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJATZ837iJoWsRmf-cIUPGfBk', '28 Burnett St, Delungra NSW', -29.653366, 150.830612, '28 Burnett St, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJAWBssCf3oWsR7eIU1rRqF0I', '-29.764679,151.096642', -29.765154, 151.095963, '94 Vernon St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJb8Lys1yPoWsRqD7ZQh35nes', '-29.716739,150.782485', -29.718664, 150.779297, 'Bingara Rd, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJBWMWErgFE2sR_BewPAB9vFo', '-34.3749,150.703738', -34.380035, 150.698990, 'Fire Rd No 6a, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJbzzGhLVsE2sRTwwsV6sM43Q', '-34.611741,150.837291', -34.610958, 150.838348, '31 Princes Hwy, Dunmore NSW 2529, Australia', 'Shellharbour City Council'),
-('ChIJCfyBjujHEmsRVNfAkoNzW4g', '-34.049251,151.127742', -34.049324, 151.127579, '120 Yathong Rd, Caringbah South NSW 2229, Australia', 'Sutherland Shire'),
-('ChIJcxhJ74UKE2sR7CLzUbEnlvM', '-34.49298,150.593875', -34.512241, 150.593430, 'Firetrail No 1d, East Kangaloon NSW 2576, Australia', 'Wingecarribee Shire Council'),
-('ChIJd5sNLk_3oWsRVJmNz_OLPw4', '-29.775219,151.123318', -29.775589, 151.123245, '51 Granville St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJDW5ZYH0GE2sRtDw8b83pJMk', '-34.377451,150.660823', -34.360302, 150.666000, 'Firetrail No 6y, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJf-te5WProWsRUMcMFhfk9p0', '-29.916984,150.995903', -29.924606, 150.983841, 'Unnamed Road, Bundarra NSW 2359, Australia', 'Gwydir Shire Council'),
-('ChIJfTlsEckFE2sRSJYcATCs4X8', '-34.3715,150.691035', -34.375053, 150.693115, 'Fire Rd No 6a, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJFVA4jUb3oWsRuST2t-ueY80', '-29.770712,151.122374', -29.769888, 151.121445, '160 Evans St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJG0hUuswFE2sReMYPybXGyMg', '-34.366399,150.691722', -34.367630, 150.691391, 'Fire Rd No 6a, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJg3Da6DkdE2sRdAq-Qsi1V9Q', '-34.296372,150.778926', -34.291447, 150.782532, 'Firetrail No 8, Cataract NSW 2560, Australia', 'Wollondilly Shire Council'),
-('ChIJGRV72VqPoWsRZjN4ty84rNE', '-29.712732,150.777721', -29.713921, 150.778534, 'Unnamed Road, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJh2IoebsIE2sRUK_000xvPIk', '-34.417961,150.674556', -34.411629, 150.659164, 'Firetrail No 1f, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJhUIuY5SgE2sRoGW7crQJBhM', '-34.485623,150.560573', -34.481243, 150.560684, 'Firetrail No 2, Mount Lindsey NSW 2575, Australia', 'Wingecarribee Shire Council'),
-('ChIJI3GedE9jFGsRsOH1Vq57Cd0', '-35.003008,150.505298', -35.015240, 150.512009, 'Hell Hole Firetrail, Yerriyong NSW 2540, Australia', 'City of Shoalhaven'),
-('ChIJJ2xhn1r3oWsRbeH13kczvCk', '47 Mulligan St', -29.774940, 151.130142, '47 Mulligan St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJj5UAlxyAFGsRG2Jg8TLzfx0', '-34.871008,150.595248', -34.871845, 150.595291, '14 North St, Nowra NSW 2541, Australia', 'City of Shoalhaven'),
-('ChIJkVgrgaMfE2sRkKuW5Wd9ARM', '-34.343158,150.946467', -34.339195, 150.925095, 'Unnamed Road, Bulli NSW 2516, Australia', 'Wollongong City Council'),
-('ChIJlbWKv-IEE2sRlK38MWzCzZw', '-34.374334,150.721248', -34.375423, 150.732376, 'Unnamed Road, Cordeaux NSW 2526, Australia', 'Wollongong City Council'),
-('ChIJp9J_k0KuEmsRUOXv-Wh9AQ8', '140 george st, sydney nsw', -33.859695, 151.209061, '140 George St, The Rocks NSW 2000, Australia', 'Council of the City of Sydney'),
-('ChIJPx0fFtIHE2sR8iiHL7f5Fzo', '-34.391,150.6442', -34.380829, 150.621933, 'Firetrail No 1, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJPZAvhOIGE2sRNFTGeUBFuh4', '-34.343441,150.631297', -34.339966, 150.627609, 'Avon Dam Rd, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJQ06_6hMFE2sRfmUP52Fghz8', '-34.3953,150.732234', -34.395252, 150.737137, 'Firetrail No 6f, Cordeaux NSW 2526, Australia', 'Wollongong City Council'),
-('ChIJQ6LTFpAIE2sRpuBVAui1GHM', '-34.397,150.644', -34.406200, 150.638138, 'Firetrail No 1, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJqWxqNp4cE2sRNgqZgWu_BVA', '-34.352795,150.794032', -34.350639, 150.795074, 'Unnamed Road, Cordeaux NSW 2526, Australia', 'Wollongong City Council'),
-('ChIJRVZFKbmJoWsRFCAZUNPtSoE', '-29.653798,150.83145', -29.653877, 150.831451, '38 Burnett St, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJt1JtIT-uEmsRC0b2e2VCR6o', 'george st, sydney nsw', -33.870178, 151.206955, 'George St, Sydney NSW, Australia', 'Council of the City of Sydney'),
-('ChIJT4Wq4biJoWsRJUVI6J9g-w8', '-29.653043,150.83059', -29.653145, 150.830200, '26 Burnett St, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJTV_lZyUEE2sRjjAVPUznN5A', '-34.355063,150.690692', -34.354424, 150.684738, 'Firetrail No 6b, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJv0jmKLmJoWsRn5uV-VvaqxI', '-29.653791,150.831404', -29.653788, 150.831284, '36 Burnett St, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJW-7IWHIPE2sRerZH-gHh9uY', '-34.429571,150.709918', -34.430202, 150.711807, 'Unnamed Road, Avon NSW 2574, Australia', 'Wollongong City Council'),
-('ChIJwd07DbmJoWsR5j4wIM8JUxc', '-29.653925,150.829654', -29.653790, 150.829727, '8 Gunnee St, Delungra NSW 2403, Australia', 'Inverell Shire Council'),
-('ChIJwXfOJhYHE2sRFtJNOa5SJMs', '-34.331534,150.612414', -34.325748, 150.614868, 'Firetrail No 5e, Bargo NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJxWe4vEX3oWsRRXMm877MhJ0', '-29.772481,151.125293', -29.772348, 151.124954, '120 Henderson St, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJX_uY6X_AEmsRRiu_HGnP5VA', '-34,151', -34.000172, 150.999557, 'Unnamed Road, Menai NSW 2234, Australia', 'Sutherland Shire'),
-('ChIJYf-CyBAJE2sRSiTMa_rOrLQ', '-34.436934,150.636104', -34.452106, 150.647461, 'Firetrail No 1, Avon NSW 2574, Australia', 'Wingecarribee Shire Council'),
-('ChIJyTbciyT3oWsRrXmpB7bPqks', '-29.764223,151.102983', -29.764324, 151.102768, '131 Yetman Rd, Inverell NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJZ2x9RlbsoWsR4Ilkx0EdlFY', '-29.896449,151.006546', -29.889769, 151.003204, 'Auburn Vale Rd, Copeton NSW 2360, Australia', 'Inverell Shire Council'),
-('ChIJz85cII0PE2sRZXTF57n1uM0', '-34.473736,150.752833', -34.472607, 150.755585, '30 Vista Pkwy, Wongawilli NSW 2530, Australia', 'Wollongong City Council');
 
 -- --------------------------------------------------------
 
@@ -1048,7 +1003,6 @@ CREATE TABLE `problem` (
 --
 -- Dumping data for table `problem`
 --
-
 
 
 -- --------------------------------------------------------
@@ -1248,7 +1202,6 @@ CREATE TABLE `users` (
 --
 
 
-
 -- --------------------------------------------------------
 
 --
@@ -1343,6 +1296,14 @@ ALTER TABLE `comment`
   ADD KEY `comment_ibfk_2` (`problem_id`);
 
 --
+-- Indexes for table `comment_photos`
+--
+ALTER TABLE `comment_photos`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `problem_id` (`comment_id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `contacts`
 --
 ALTER TABLE `contacts`
@@ -1415,7 +1376,8 @@ ALTER TABLE `partial_user`
 --
 ALTER TABLE `photos`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `problem_id` (`problem_id`);
+  ADD KEY `problem_id` (`problem_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `poi`
@@ -1550,6 +1512,11 @@ ALTER TABLE `body`
 ALTER TABLE `comment`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `comment_photos`
+--
+ALTER TABLE `comment_photos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
@@ -1598,12 +1565,12 @@ ALTER TABLE `partial_user`
 -- AUTO_INCREMENT for table `photos`
 --
 ALTER TABLE `photos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `problem`
 --
 ALTER TABLE `problem`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `questionnaire`
 --
@@ -1688,6 +1655,13 @@ ALTER TABLE `comment`
   ADD CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
+-- Constraints for table `comment_photos`
+--
+ALTER TABLE `comment_photos`
+  ADD CONSTRAINT `comment_photos_ibfk_1` FOREIGN KEY (`comment_id`) REFERENCES `comment` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `comment_photos_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+
+--
 -- Constraints for table `contact_defect_types`
 --
 ALTER TABLE `contact_defect_types`
@@ -1717,7 +1691,8 @@ ALTER TABLE `moderation_original_data`
 -- Constraints for table `photos`
 --
 ALTER TABLE `photos`
-  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
+  ADD CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`problem_id`) REFERENCES `problem` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `photos_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `problem`
