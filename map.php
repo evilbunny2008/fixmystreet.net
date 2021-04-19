@@ -195,11 +195,11 @@
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
-		formData.append("file", lastPreview);
+		formData.append("file", lastPreview, "dummy.jpg");
 		await fetch('/upload.php', {
-			method: "POST", 
+			method: "POST",
 			body: formData
-		}); 
+		});
 		let http1 = getHTTPObject();
 		http1.onreadystatechange = function() {
 			if (http1.readyState == 4 && http1.status == 200) {
@@ -360,7 +360,7 @@
 	}
 
 	function rm(img)
-	{		
+	{
 		img.remove();
 	}
 
@@ -368,7 +368,7 @@
 	{
 		let len = photosList.length;
 		let container = document.createElement("div");
-		let cur = 0; 
+		let cur = 0;
 		container.className = "container";
 		console.log(photosList);
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
@@ -460,7 +460,7 @@
 					img.src = reader.result;
 				}
 				break;
-			//IF FILES ARE CHOSEN THROUGH INPUT	
+			//IF FILES ARE CHOSEN THROUGH INPUT
 			case 2:
 				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
@@ -499,14 +499,14 @@
 				}
 				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
-				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value=${id}>`
+				reportInfo.innerHTML += `<form method="post" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`
+				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value="${id}">`
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
 				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
 				createCarousel(row['photos']);
-				reportInfo.innerHTML += `<form method="post" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
@@ -534,6 +534,7 @@
 				<?php
 					}
 				?>
+				reportInfo.innerHTML += `</form>`;
 				// const menu = document.getElementById("menu");
 				// menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
