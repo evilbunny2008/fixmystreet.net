@@ -196,21 +196,12 @@
 	{
 		let formData = new FormData();
 		formData.append("file", lastPreview, "dummy.jpg");
-		await fetch('/upload.php', {
+		let response = await fetch('/upload.php', {
 			method: "POST",
 			body: formData
 		});
-		let http1 = getHTTPObject();
-		http1.onreadystatechange = function() {
-			if (http1.readyState == 4 && http1.status == 200) {
-				//ONLY FOR TESTING
-				let response = JSON.stringify(http1.responseText);
-				console.log(response);
-				//ALERT/MODAL IF RESPONSE VAR CONTAINS SUCCESS+UUID
-			}
-		}
-		http1.open("POST", "upload.php", true);
-		http1.send();
+		let result = await response.json();
+		alert(result.message);
 	}
 
 	function loadProblems()

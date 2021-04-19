@@ -11,10 +11,10 @@
 	// header("Content-Type: text/plain");
 
 	$file_count = 0;
-	if($_FILES["file"]["error"] == UPLOAD_ERR_OK)
+	if($_FILES["photo"]["error"] == UPLOAD_ERR_OK)
 	{
-		if(is_uploaded_file($_FILES["file"]["tmp_name"]) &&
-			filesize($_FILES["file"]["tmp_name"]) > 50000)
+		if(is_uploaded_file($_FILES["photo"]["tmp_name"]) &&
+			filesize($_FILES["photo"]["tmp_name"]) > 50000)
 		{
 			$file_count++;
 		}
@@ -29,8 +29,8 @@
 	}
 
 	$uuid = getUUID();
-	$filename = cleanup(urldecode(basename($_FILES["file"]["name"])));
-	resizeAndStrip($_FILES["file"]["tmp_name"], "/tmp/${uuid}.jpg", "/tmp/${uuid}_thumb.jpg");
+	$filename = cleanup(urldecode(basename($_FILES["photo"]["name"])));
+	resizeAndStrip($_FILES["photo"]["tmp_name"], "/tmp/${uuid}.jpg", "/tmp/${uuid}_thumb.jpg");
 	$file_path = "/tmp/${uuid}.jpg";
 	$file_thumb = "/tmp/${uuid}_thumb.jpg";
 	// echo 'Success|'.$uuid;
