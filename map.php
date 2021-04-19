@@ -201,7 +201,9 @@
 			body: formData
 		});
 		let result = await response.json();
+		let uuid = result['uuid'];
 		alert(result['status']);
+		return uuid;
 	}
 
 	function loadProblems()
@@ -414,6 +416,15 @@
 		http.send();
 	}
 
+	// function createElement(uuid)
+	// {
+	// 	let uuidField = document.createElement("input");
+	// 	uuidField.setAttribute("type", "hidden");
+	// 	uuidField.className = "UUID";
+	// 	uuidField.value = uuid;
+	// 	// uuidField.appendChild(document.querySelector(".images"));
+	// }
+
 	function previewFile(file, type)
 	{
 		let images = document.querySelector(".images");
@@ -437,6 +448,7 @@
 			img.style.marginTop = "5%";
 		images.appendChild(grid);
 		grid.appendChild(img);
+		let uuid;
 
 		switch (type)
 		{
@@ -446,7 +458,13 @@
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
 				// console.log(file);
-				uploadFile(file);
+				uuid = uploadFile(file).then(function(result) {
+					let uuidField = document.createElement("input");
+					uuidField.setAttribute("type", "hidden");
+					uuidField.name = "uuid[]";
+					uuidField.value = result;
+					images.appendChild(uuidField);
+				});
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
@@ -455,7 +473,13 @@
 			case 2:
 				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
-				uploadFile(event.target.files[0]);
+				uuid = uploadFile(event.target.files[0]).then(function (result) {
+					let uuidField = document.createElement("input");
+					uuidField.setAttribute("type", "hidden");
+					uuidField.name = "uuid[]";
+					uuidField.value = result;
+					images.appendChild(uuidField);
+				});
 				img.onload = function() {
 					URL.revokeObjectURL(img.src);
 				}
@@ -490,7 +514,7 @@
 				}
 				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
-				reportInfo.innerHTML += `<form method="post" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`
+				reportInfo.innerHTML += `<form method="post" id="report" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`
 				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value="${id}">`
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
