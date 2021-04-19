@@ -195,7 +195,7 @@
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
-		formData.append("file", lastPreview, "dummy.jpg");
+		formData.append("photo", lastPreview, "dummy.jpg");
 		let response = await fetch('/upload.php', {
 			method: "POST",
 			body: formData
@@ -426,7 +426,7 @@
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "file")
+		img.setAttribute("name", "photo")
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
@@ -717,7 +717,7 @@
                   <br>
                   <br> -->
 				<div class="file-drop" ondrop=""> Drag or click here to choose files
-					<input type="file" accept="image/jpeg" id="myFiles" name="file" multiple style="display:none;" onchange="previewFile(event,2)">
+					<input type="file" accept="image/jpeg" id="myFiles" name="photo" multiple style="display:none;" onchange="previewFile(event,2)">
 				</div>
 				<br /><br/><br/>
 				<div class="images">
