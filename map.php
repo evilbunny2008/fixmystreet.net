@@ -15,50 +15,50 @@
 
     if(is_null($lat) || is_null($lng) || $lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid latitude or longitude.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid latitude or longitude.";
+		echo json_encode($arr);
+		exit;
     }
 
     if(is_null($address) || $address == "")
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid Address.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid Address.";
+		echo json_encode($arr);
+		exit;
     }
 
     if(is_null($council) || $council == "")
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid Council.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid Council.";
+		echo json_encode($arr);
+		exit;
     }
 
     if(is_null($defect) || $defect == "")
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid Defect.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid Defect.";
+		echo json_encode($arr);
+		exit;
     }
 
     if(is_null($summary) || $summary == "")
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid Summary.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid Summary.";
+		echo json_encode($arr);
+		exit;
     }
 
     if(is_null($extra) || $extra == "")
     {
-	$arr['status'] = "FAIL";
-	$arr['errmsg'] = "Invalid Description.";
-	echo json_encode($arr);
-	exit;
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid Description.";
+		echo json_encode($arr);
+		exit;
     }
 
     $email = $_SESSION['email'];
@@ -67,32 +67,33 @@
 
     if($userid <= 0)
     {
-	$arr['status'] = "FAIL";
+		$arr['status'] = "FAIL";
         $arr['errmsg'] = "Invalid user.";
         echo json_encode($arr);
         exit;
     }
 
-    $file_count = 0;
-    foreach($_FILES["photos"]["error"] as $key => $error)
-    {
-        if($error == UPLOAD_ERR_OK)
-        {
-            if(is_uploaded_file($_FILES["photos"]["tmp_name"][$key]) &&
-                       filesize($_FILES["photos"]["tmp_name"][$key]) > 50000)
-            {
-                $file_count++;
-            }
-        }
-    }
-
-    if($file_count < 2)
+	if(count($_POST["uuid"]) < 2)
     {
         $arr['status'] = "FAIL";
         $arr['errmsg'] = "You failed to upload enough photos of the problem, or the photos were low quality.";
         echo json_encode($arr);
         exit;
     }
+	
+	foreach($_POST["uuid"] as $file)
+	{
+		$file = basename($file);
+		if(file_exists("/tmp/$file.jpg"))
+			echo "file exists";
+		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg"))
+			echo "files moved! to $uploads_dir/";
+			//MOVED FILES
+		else
+			echo "failed";
+			//FAILED
+	}
+
 
     $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
     $query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
@@ -109,16 +110,16 @@
 
     foreach($_FILES["photos"]["error"] as $key => $error)
     {
-	if($error == UPLOAD_ERR_OK)
-	{
-	    $uuid = getUUID();
-	    $filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
-	    resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
-	    $file_path = basename($uploads_dir)."/${uuid}.jpg";
-	    $file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
-	    $query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
-	    mysqli_query($link, $query);
-	}
+		if($error == UPLOAD_ERR_OK)
+		{
+			$uuid = getUUID();
+			$filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
+			resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
+			$file_path = basename($uploads_dir)."/${uuid}.jpg";
+			$file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
+			$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+			mysqli_query($link, $query);
+		}
     }
 
     //PROBLEM HAS BEEN ADDED
