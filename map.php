@@ -354,7 +354,12 @@
 
 	function rm(img)
 	{
+		const submit = document.getElementById("submit");
+		let exists = document.querySelectorAll(".pure-u-1-4");
+		if(exists.length <= 2)
+			submit.setAttribute("disabled","");
 		img.remove();
+		
 	}
 
 	function createCarousel(photosList)
@@ -363,7 +368,6 @@
 		let container = document.createElement("div");
 		let cur = 0;
 		container.className = "container";
-		console.log(photosList);
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
@@ -441,8 +445,7 @@
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
-		// console.log(exists.length);
-		if(exists.length == 0 || exists.length % 3 === 0 && exists.length != 1)
+		if(exists.length == 0 || exists.length % 3 === 0)
 			img.style.marginLeft = "5%";
 		if(exists.length > 2)
 			img.style.marginTop = "5%";
@@ -487,7 +490,7 @@
 		}
 		img.removeAttribute("hidden");
 		const submit = document.getElementById("submit");
-		if(exists.length > 2 && submit != null)
+		if(exists.length >= 1 && submit != null)
 		{
 			submit.removeAttribute("disabled");
 		}
