@@ -86,7 +86,7 @@
 		$file = basename($file);
 		if(file_exists("/tmp/$file.jpg"))
 			echo "file exists";
-		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg"))
+		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 			echo "files moved! to $uploads_dir/";
 			//MOVED FILES
 		else
