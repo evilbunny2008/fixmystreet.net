@@ -1,4 +1,5 @@
 <?php
+
   require_once('common.php');
 
   $uploads_dir = "photos";
