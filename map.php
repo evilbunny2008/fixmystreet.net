@@ -358,7 +358,8 @@
 		const submit = document.getElementById("submit");
 		let exists = document.querySelectorAll(".pure-u-1-4");
 		if(exists.length <= 2)
-			submit.setAttribute("disabled","");
+			if(submit!=undefined)
+				submit.setAttribute("disabled","");
 		img.remove();
 		
 	}
