@@ -204,7 +204,8 @@
 		});
 		let result = await response.json();
 		let uuid = result['uuid'];
-		alert(result['status']);
+		// alert(result['status']);
+		showModal(result['status']);
 		return uuid;
 	}
 
@@ -588,7 +589,7 @@
 							{
 								// console.log(event.dataTransfer.items[i].type);
 								//REPLACE WITH MODAL
-								alert("Only jpegs/jpgs are allowed");
+								showModal("Only jpegs/jpgs are allowed");
 								break;
 							}
     					}
@@ -638,7 +639,7 @@
 					{
 						// console.log(event.dataTransfer.items[i].type);
 						//REPLACE WITH MODAL
-						alert("Only jpegs/jpgs are allowed");
+						showModal("Only jpegs/jpgs are allowed");
 						break;
 					}
 				}
@@ -667,8 +668,8 @@
       <div id="menu">
         <div class="pure-menu">
           <a class="pure-menu-heading" href="/">Go home</a>
+	  <p id="reportProblem" <?php /*if(isset($_SESSION['loggedin'])) {*/?>onClick="hideShowReport()"<?php /*}*/?>>Click here to report a problem</p>
 
-	  <p id="reportProblem" onClick="hideShowReport()">Click here to report a problem</p>
           <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
           <ul class="pure-menu-list">
@@ -778,6 +779,13 @@
         <div class="content">
           <div class="splash-container" style="top: 0; width: 66%; left:34%">
             <div id="map"></div>
+			<div id="myModal" class="modal">
+			<!-- Modal content -->
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<p class="modal-text"></p>
+				</div>
+			</div>
             <div class="splash"></div>
           </div>
         </div>

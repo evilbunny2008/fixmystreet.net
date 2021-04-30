@@ -22,6 +22,22 @@ function showSteps() {
   }
 }
 
+function showModal(text) {
+  let modal = document.querySelector(".modal");
+  let modalText = document.querySelector(".modal-text");
+  console.log(text);
+  modalText.innerHTML = text;
+  modal.style.display = "flex";
+  document.querySelector(".close").addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+    window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+
 function checkEmpty(field) {
   for (let i = 0; i < field.length; i++) {
 //    alert(field[i]);
