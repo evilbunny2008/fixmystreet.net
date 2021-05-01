@@ -366,6 +366,24 @@
 		
 	}
 
+	function positionArrows()
+	{
+		let img = document.querySelector(".slide");
+		let h = img.height;
+		let w = img.width;
+		let next = document.querySelector(".next");
+		let prev = document.querySelector(".prev");
+		if(w > h)
+			console.log("this");
+		else
+		{
+			next.style.bottom = w-40+"px";
+			next.style.left = h-40+"px";
+			prev.style.bottom = w-40+"px";
+			prev.style.right = "20px";
+		}
+	}
+
 	function createCarousel(photosList)
 	{
 		let len = photosList.length;
@@ -375,6 +393,7 @@
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
+		img.setAttribute("onload","positionArrows()")
 		img.src = switchImage();
 		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);

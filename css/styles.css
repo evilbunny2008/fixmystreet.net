@@ -472,16 +472,9 @@ img {
   font-family: "Lato";
 }
 
-.prev {
-  position: relative;
-  top: -30%;
-  font-size: 40px;
-  color: white !important;
-}
-
+.prev,
 .next {
   position: relative;
-  top: -30%;
   font-size: 40px;
   color: white !important;
 }
@@ -530,4 +523,10 @@ img {
   color: #000;
   text-decoration: none;
   cursor: pointer;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
