@@ -410,6 +410,9 @@
 				const length = photoList.length;
 				let img = document.querySelector(".slide");
 				img.src = photoList[0]['thumb'];
+				img.addEventListener("click", function() {
+					showImage(img.src);
+				});
 				let next = document.querySelector(".next");
 				next.addEventListener("click", function() {
 					if(i+1 < length)
@@ -797,6 +800,7 @@
 				<div class="modal-content">
 					<span class="close">&times;</span>
 					<p class="modal-text"></p>
+					<img class="modal-img"></img>
 				</div>
 			</div>
             <div class="splash"></div>

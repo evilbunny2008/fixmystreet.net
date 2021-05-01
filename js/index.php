@@ -25,8 +25,23 @@ function showSteps() {
 function showModal(text) {
   let modal = document.querySelector(".modal");
   let modalText = document.querySelector(".modal-text");
-  console.log(text);
   modalText.innerHTML = text;
+  modal.style.display = "flex";
+  document.querySelector(".close").addEventListener("click", function() {
+    modal.style.display = "none";
+  });
+    window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+}
+
+function showImage(src) {
+  let modal = document.querySelector(".modal");
+  let modalImg = document.querySelector(".modal-img");
+  src = src.replace('_thumb','');
+  modalImg.src = src;
   modal.style.display = "flex";
   document.querySelector(".close").addEventListener("click", function() {
     modal.style.display = "none";
