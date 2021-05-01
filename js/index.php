@@ -40,8 +40,12 @@ function showModal(text) {
 function showImage(src) {
   let modal = document.querySelector(".modal");
   let modalImg = document.querySelector(".modal-img");
+  let content = document.querySelector(".modal-content");
+  content.style.width = "50%";
   src = src.replace('_thumb','');
   modalImg.src = src;
+  modalImg.style.height = "100%";
+  modalImg.style.width = "100%";
   modal.style.display = "flex";
   document.querySelector(".close").addEventListener("click", function() {
     modal.style.display = "none";
