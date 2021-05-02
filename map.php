@@ -545,6 +545,10 @@
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
 				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
 				createCarousel(row['photos']);
+				<?php
+					if(isset($_SESSION['loggedin']))
+					{
+				?>
 				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
 				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
 				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
@@ -560,10 +564,7 @@
 				reportInfo.innerHTML += `<br /><br/>`;
 				reportInfo.innerHTML += `<textarea name="update" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
-				<?php
-					if(isset($_SESSION['loggedin']))
-					{
-				?>
+
 						reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
 				<?php
 					} else {
