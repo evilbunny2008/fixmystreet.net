@@ -718,6 +718,10 @@
 
           <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
+	  <?php
+	if(isset($_SESSION['loggedin']))
+	{
+?>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 1</a>
@@ -773,26 +777,12 @@
               </div>
             </li>
 
-            <!-- <li class="pure-menu-item menu-item-divided pure-menu-selected">
-              <a href="#" class="pure-menu-link">Services</a>
-            </li> -->
             <li class="pure-menu-item">
               <a onclick="init()" href="#" class="pure-menu-link">Step 3</a>
               <div id="step-three" hidden>
                 <p class="is-center">
                   Add photos that clearly show the problem
                 </p>
-                  <!-- <img id="preview1" alt="Image 1 Preview" width="100" height="100" style="display:none" />
-                  <input onchange="showPic(this, '1');" type="file" id="myFile1" name="photos[]" /><br/>
-                  <img id="preview2" alt="Image 2 Preview" width="100" height="100" style="display:none" />
-                  <input onchange="showPic(this, '2');" type="file" id="myFile2" name="photos[]" /> -->
-				  <!-- <div class="file-drop" ondrop=""> Drag or click here to choose files</div>
-				  <input type="file" accept="image/jpeg" id="myFiles" multiple onchange="previewFile(event,2)">
-				  <br /><br/>
-				  <div class="images">
-				  </div>
-                  <br>
-                  <br> -->
 				<div class="file-drop" ondrop=""> Drag or click here to choose files
 					<input type="file" accept="image/jpeg" id="myFiles" name="photo" multiple style="display:none;" onchange="previewFile(event,2)">
 				</div>
@@ -803,11 +793,9 @@
             </li>
 
             <li class="pure-menu-item">
-<?php
-	if(isset($_SESSION['loggedin']))
-	{
-?>
               <button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>
+            </li>
+          </ul>
 <?php
 	} else {
 ?>
@@ -815,8 +803,6 @@
 <?php
 	}
 ?>
-            </li>
-          </ul>
           </form>
         </div>
       </div>
