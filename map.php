@@ -590,18 +590,6 @@
 				reportInfo.innerHTML += `<br /><br/>`;
 				reportInfo.innerHTML += `<textarea name="update" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
 				reportInfo.innerHTML += `<br /><br/>`;
-
-						reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
-				<?php
-					} else {
-				?>
-						reportInfo.innerHTML += `<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>`;
-				<?php
-					}
-				?>
-				reportInfo.innerHTML += `</form>`;
-				// const menu = document.getElementById("menu");
-				// menu.scrollTop = menu.scrollHeight;
 				const fileDrag = document.querySelector(".file-drop");
 				const fileChoose = document.getElementById("myFiles");
 
@@ -639,6 +627,17 @@
 					}
 					// document.querySelector(".img1").src = files[0]
 				});
+				reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
+				<?php
+					} else {
+				?>
+						reportInfo.innerHTML += `<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>`;
+				<?php
+					}
+				?>
+				reportInfo.innerHTML += `</form>`;
+				// const menu = document.getElementById("menu");
+				// menu.scrollTop = menu.scrollHeight;
 				// reportInfo.innerHTML += ``;
 				title = document.querySelector(".title");
 				title.style.fontWeight = "bold";
@@ -718,10 +717,6 @@
 
           <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
-	  <?php
-	if(isset($_SESSION['loggedin']))
-	{
-?>
           <ul class="pure-menu-list">
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 1</a>
@@ -793,9 +788,11 @@
             </li>
 
             <li class="pure-menu-item">
+<?php
+	if(isset($_SESSION['loggedin']))
+	{
+?>
               <button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>
-            </li>
-          </ul>
 <?php
 	} else {
 ?>
@@ -803,6 +800,8 @@
 <?php
 	}
 ?>
+            </li>
+          </ul>
           </form>
         </div>
       </div>
