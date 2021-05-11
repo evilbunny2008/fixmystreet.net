@@ -718,6 +718,10 @@
           <form action="<?= $_SERVER['PHP_SELF']?>" id="reportForm" method="post" enctype="multipart/form-data" style="display:none">
 	  <p style="margin: 0;padding: 16px;background: #00bd08;" onClick="hideShowReport()"> &#10096; Go back to the list of problems</p>
           <ul class="pure-menu-list">
+		  <?php
+	if(isset($_SESSION['loggedin']))
+	{
+?>
             <li class="pure-menu-item">
               <a href="#" class="pure-menu-link">Step 1</a>
               <div id="step-one">
@@ -788,10 +792,6 @@
             </li>
 
             <li class="pure-menu-item">
-<?php
-	if(isset($_SESSION['loggedin']))
-	{
-?>
               <button href="#" name="submit" type="submit" value="Submit" class="pure-button" id="submit" disabled>Submit</buttons>
 <?php
 	} else {
