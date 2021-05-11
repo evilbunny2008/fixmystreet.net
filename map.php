@@ -175,14 +175,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Report your problem</title>
-    <link rel="stylesheet" href="./css/pure/pure-min.css" />
-    <link rel="stylesheet" href="./css/styles.css" />
-    <link rel="stylesheet" href="./css/sidebar.css" />
-	<link rel="stylesheet" href="./css/splide.min.css" />
+    <link rel="stylesheet" href="/css/pure/pure-min.css" />
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/css/sidebar.css" />
+	<link rel="stylesheet" href="/css/splide.min.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
-    <script src="./js/ui.js"></script>
-	<script src="./js/splide.min.js"></script>
-    <script src="./js/index.php"></script>
+    <script src="/js/ui.js"></script>
+	<script src="/js/splide.min.js"></script>
+    <script src="/js/index.php"></script>
     <script>
       let map;
       let marker;
@@ -414,7 +414,7 @@
 				let i = 0;
 				const length = photoList.length;
 				let img = document.querySelector(".slide");
-				img.src = photoList[0]['thumb'];
+				img.src = '/'+photoList[0]['thumb'];
 				img.addEventListener("click", function() {
 					showImage(img.src);
 				});
@@ -426,7 +426,7 @@
 						i=0;
 
 					let img = document.querySelector(".slide");
-					img.src = photoList[i]['thumb'];
+					img.src = '/'+photoList[i]['thumb'];
 				});
 				let prev = document.querySelector(".prev");
 				prev.addEventListener("click", function() {
@@ -437,7 +437,7 @@
 						i=length-1;
 
 					let img = document.querySelector(".slide");
-					img.src = photoList[i]['thumb'];
+					img.src = '/'+photoList[i]['thumb'];
 				});
 
 			}
@@ -622,6 +622,9 @@
 				title = document.querySelector(".title");
 				title.style.fontWeight = "bold";
 				reportInfo.style.textAlign = "center";
+				title = title.innerHTML;
+				window.history.pushState({},title,`/problems/${id}`);
+				document.title = title;
 			}
 		}
 
