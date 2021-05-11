@@ -348,8 +348,10 @@
 			const lng = document.getElementById("lng");
 			window.history.pushState({},'','/map.php');
 			document.title = "Report a problem";
-			lat.value = map.getCenter().lat().toFixed(6);
-			lng.value = map.getCenter().lng().toFixed(6);
+			if(lat != null && lng != null) {
+				lat.value = map.getCenter().lat().toFixed(6);
+				lng.value = map.getCenter().lng().toFixed(6);
+			}
 			const markerloc = { lat: map.getCenter().lat(), lng: map.getCenter().lng() };
 			marker = new google.maps.Marker({ position: markerloc, map: map, draggable:true });
 			google.maps.event.addListener(marker, 'dragend', function() { dragEnd(marker.getPosition()); });
@@ -364,7 +366,8 @@
 			let reportInfo = document.querySelector(".reportInfo");
 			if(reportInfo != undefined)
 				reportInfo.removeAttribute("hidden");
-			marker.setMap(null);
+			if (marker != undefined)
+				marker.setMap(null);
 		}
 	}
 
