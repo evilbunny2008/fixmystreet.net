@@ -245,15 +245,15 @@
 				{
 					let bits = ret[i].split("|");
 					let loc = { lat: parseFloat(bits[1].trim()), lng: parseFloat(bits[2].trim()) };
-					let icon = "markers/red_marker.png";
+					let icon = "/markers/red_marker.png";
 					if(bits[6] == "orange")
-						icon = "markers/orange_marker.png";
+						icon = "/markers/orange_marker.png";
 					else if(bits[6] == "yellow")
-						icon = "markers/yellow_marker.png";
+						icon = "/markers/yellow_marker.png";
 					else if(bits[6] == "grey")
-						icon = "markers/grey_marker.png";
+						icon = "/markers/grey_marker.png";
 					else if(bits[6] == "green")
-						icon = "markers/green_marker.png";
+						icon = "/markers/green_marker.png";
 					let mark = new google.maps.Marker({ position: loc, map: map, title: bits[4] + ": " + bits[3], icon: icon, });
 					google.maps.event.addListener(mark, 'click', function()
 					{
@@ -623,7 +623,7 @@
 				title.style.fontWeight = "bold";
 				reportInfo.style.textAlign = "center";
 				title = title.innerHTML;
-				window.history.pushState({},title,`/problems/${id}`);
+				window.history.pushState({},title,`/problems?id=${id}`);
 				document.title = title;
 			}
 		}
