@@ -4,6 +4,8 @@
 
   $uploads_dir = "photos";
 
+  
+
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
     $lat = is_null($_POST['lat']) ? NULL : floatval($_POST['lat']);
@@ -153,6 +155,24 @@
 	{
 		$msg = "Update field cannot be empty";
 		exit;
+	}
+
+	foreach($_POST["uuid"] as $file)
+	{
+		$file = basename($file);
+		if(file_exists("/tmp/$file.jpg"))
+			echo "file exists";
+		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
+		{
+			//UPDATE WORKED; REDIRECT TO UPDATE PAGE
+
+		}
+		else
+		{
+			//UPDATE FAILED
+			echo "An error occurred. If this issue persists, please contact us at ";
+			exit;
+		}
 	}
 	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
 	mysqli_query($link, $query);
@@ -326,7 +346,8 @@
 
 			const lat = document.getElementById("lat");
 			const lng = document.getElementById("lng");
-
+			window.history.pushState({},'','/map.php');
+			document.title = "Report a problem";
 			lat.value = map.getCenter().lat().toFixed(6);
 			lng.value = map.getCenter().lng().toFixed(6);
 			const markerloc = { lat: map.getCenter().lat(), lng: map.getCenter().lng() };
@@ -623,7 +644,7 @@
 				title.style.fontWeight = "bold";
 				reportInfo.style.textAlign = "center";
 				title = title.innerHTML;
-				window.history.pushState({},title,`/problems?id=${id}`);
+				window.history.pushState({},title,`/reports/${id}`);
 				document.title = title;
 			}
 		}
