@@ -362,7 +362,7 @@
 
 			const lat = document.getElementById("lat");
 			const lng = document.getElementById("lng");
-			window.history.pushState({},'','/map.php');
+			history.replaceState({}, '', '/map.php');
 			document.title = "Report a problem";
 			if(lat != null && lng != null) {
 				lat.value = map.getCenter().lat().toFixed(6);
@@ -653,7 +653,7 @@
 				title.style.fontWeight = "bold";
 				reportInfo.style.textAlign = "center";
 				title = title.innerHTML;
-				window.history.pushState({},title,`/reports/${id}`);
+				history.replaceState({}, title, `/reports/${id}`);
 				document.title = title;
 			}
 		}
