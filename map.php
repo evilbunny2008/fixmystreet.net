@@ -96,7 +96,7 @@
 			$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
 			mysqli_query($link, $query);
 			$problem_id = mysqli_insert_id($link);
-		
+
 			if($problem_id <= 0)
 			{
 				$arr['status'] = "FAIL";
@@ -105,12 +105,13 @@
 				exit;
 			}
 
+			$file_path = "$uploads_dir/$file"."jpg";
+			$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
+
 			// FIX THIS QUERY
 
 			$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
 			mysqli_query($link, $query);
-			header("Location: map.php?lat=$lat&lng=$lng");
-			exit;
 		}
 		else
 		{
@@ -120,6 +121,8 @@
 		}
 	}
 
+	header("Location: map.php?lat=$lat&lng=$lng");
+	exit;
     // foreach($_FILES["photos"]["error"] as $key => $error)
     // {
 	// 	if($error == UPLOAD_ERR_OK)
