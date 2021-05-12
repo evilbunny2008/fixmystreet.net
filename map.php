@@ -91,8 +91,26 @@
 			echo "file exists";
 		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 		{
-			//UPDATE WORKED; REDIRECT TO UPDATE PAGE
+			//CREATED PROBLEM; REDIRECT TO PAGE
+			$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
+			$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
+			mysqli_query($link, $query);
+			$problem_id = mysqli_insert_id($link);
+		
+			if($problem_id <= 0)
+			{
+				$arr['status'] = "FAIL";
+				$arr['errmsg'] = "Error inserting into database...";
+				echo json_encode($arr);
+				exit;
+			}
 
+			// FIX THIS QUERY
+
+			$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+			mysqli_query($link, $query);
+			header("Location: map.php?lat=$lat&lng=$lng");
+			exit;
 		}
 		else
 		{
@@ -102,37 +120,21 @@
 		}
 	}
 
-
-    $query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
-    $query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
-    mysqli_query($link, $query);
-    $problem_id = mysqli_insert_id($link);
-
-    if($problem_id <= 0)
-    {
-        $arr['status'] = "FAIL";
-        $arr['errmsg'] = "Error inserting into database...";
-        echo json_encode($arr);
-        exit;
-    }
-
-    foreach($_FILES["photos"]["error"] as $key => $error)
-    {
-		if($error == UPLOAD_ERR_OK)
-		{
-			$uuid = getUUID();
-			$filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
-			resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
-			$file_path = basename($uploads_dir)."/${uuid}.jpg";
-			$file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
-			$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
-			mysqli_query($link, $query);
-		}
-    }
+    // foreach($_FILES["photos"]["error"] as $key => $error)
+    // {
+	// 	if($error == UPLOAD_ERR_OK)
+	// 	{
+	// 		$uuid = getUUID();
+	// 		$filename = cleanup(urldecode(basename($_FILES["photos"]["name"][$key])));
+	// 		resizeAndStrip($_FILES["photos"]["tmp_name"][$key], "${uploads_dir}/${uuid}.jpg", "${uploads_dir}/${uuid}_thumb.jpg");
+	// 		$file_path = basename($uploads_dir)."/${uuid}.jpg";
+	// 		$file_thumb = basename($uploads_dir)."/${uuid}_thumb.jpg";
+	// 		$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+	// 		mysqli_query($link, $query);
+	// 	}
+    // }
 
     //PROBLEM HAS BEEN ADDED
-    header("Location: map.php?lat=$lat&lng=$lng");
-    exit;
   }
 
   if(isset($_POST['submit']) && $_POST['submit'] === "submit")
@@ -176,7 +178,7 @@
 	}
 	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
 	mysqli_query($link, $query);
-	// $filename 
+	// $file stuff here
 
   }
 
