@@ -35,5 +35,6 @@
 	$file_thumb = "/tmp/${uuid}_thumb.jpg";
 	// echo 'Success|'.$uuid;
 	$arr['status'] = "SUCCESS";
+	$arr['filename'] = $filename;
 	$arr['uuid'] = $uuid;
 	echo json_encode($arr);

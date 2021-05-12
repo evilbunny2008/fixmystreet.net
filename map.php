@@ -83,41 +83,49 @@
         echo json_encode($arr);
         exit;
     }
-	
-	foreach($_POST["uuid"] as $file)
+
+	$var = array();
+	foreach($_POST["uuid"] as $str)
+	{
+		$filename = explode("|",$str)[1];
+		$var[$filename] = explode("|", $str)[0];
+	}
+
+	foreach($var[$filename] as $file)
 	{
 		$file = basename($file);
 		if(file_exists("/tmp/$file.jpg"))
-			echo "file exists";
-		if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 		{
-			//CREATED PROBLEM; REDIRECT TO PAGE
-			$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
-			$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
-			mysqli_query($link, $query);
-			$problem_id = mysqli_insert_id($link);
-
-			if($problem_id <= 0)
+			if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 			{
-				$arr['status'] = "FAIL";
-				$arr['errmsg'] = "Error inserting into database...";
-				echo json_encode($arr);
+				//CREATED PROBLEM; REDIRECT TO PAGE
+				$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
+				$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
+				mysqli_query($link, $query);
+				$problem_id = mysqli_insert_id($link);
+
+				if($problem_id <= 0)
+				{
+					$arr['status'] = "FAIL";
+					$arr['errmsg'] = "Error inserting into database...";
+					echo json_encode($arr);
+					exit;
+				}
+
+				$file_path = "$uploads_dir/$file"."jpg";
+				$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
+
+				// FIX THIS QUERY
+
+				$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+				mysqli_query($link, $query);
+			}
+			else
+			{
+				//UPDATE FAILED
+				echo "An error occurred. If this issue persists, please contact us at ";
 				exit;
 			}
-
-			$file_path = "$uploads_dir/$file"."jpg";
-			$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
-
-			// FIX THIS QUERY
-
-			$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
-			mysqli_query($link, $query);
-		}
-		else
-		{
-			//UPDATE FAILED
-			echo "An error occurred. If this issue persists, please contact us at ";
-			exit;
 		}
 	}
 
@@ -234,9 +242,12 @@
 		});
 		let result = await response.json();
 		let uuid = result['uuid'];
+		let filename = result['filename'];
 		// alert(result['status']);
 		showModal(result['status']);
-		return uuid;
+		return {
+			uuid, filename
+		};
 	}
 
 	function loadProblems()
@@ -474,15 +485,6 @@
 		http.send();
 	}
 
-	// function createElement(uuid)
-	// {
-	// 	let uuidField = document.createElement("input");
-	// 	uuidField.setAttribute("type", "hidden");
-	// 	uuidField.className = "UUID";
-	// 	uuidField.value = uuid;
-	// 	// uuidField.appendChild(document.querySelector(".images"));
-	// }
-
 	function previewFile(file, type)
 	{
 		let images = document.querySelector(".images");
@@ -519,7 +521,7 @@
 					let uuidField = document.createElement("input");
 					uuidField.setAttribute("type", "hidden");
 					uuidField.name = "uuid[]";
-					uuidField.value = result;
+					uuidField.value = result.uuid+"|"+result.filename;
 					images.appendChild(uuidField);
 				});
 				reader.onloadend = function() {
@@ -534,7 +536,7 @@
 					let uuidField = document.createElement("input");
 					uuidField.setAttribute("type", "hidden");
 					uuidField.name = "uuid[]";
-					uuidField.value = result;
+					uuidField.value = result.uuid+"|"+result.filename;
 					images.appendChild(uuidField);
 				});
 				img.onload = function() {
