@@ -85,8 +85,7 @@ function validate() {
   ];
   let res = checkEmpty(field);
   let exists = document.querySelectorAll(".pure-u-1-4");
-  console.log(exists.length);
-  if (res === true) {
+  if (res === true && exists.length >= 2) {
     sumbitButton.removeAttribute("disabled");
     sumbitButton.style.backgroundColor = "";
   } else {
