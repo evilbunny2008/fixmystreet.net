@@ -16,82 +16,18 @@
     $summary = is_null($_POST['summary']) ? NULL : ucfirst(cleanup($_POST['summary']));
     $extra = is_null($_POST['extra']) ? NULL : ucfirst(cleanup($_POST['extra']));
 
-    if(is_null($lat) || is_null($lng) || $lat == 0 || $lat < -90 || $lat > 90 || $lng == 0 || $lng < -180 || $lng > 180)
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid latitude or longitude.";
-		echo json_encode($arr);
-		exit;
-    }
 
-    if(is_null($address) || $address == "")
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid Address.";
-		echo json_encode($arr);
-		exit;
-    }
-
-    if(is_null($council) || $council == "")
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid Council.";
-		echo json_encode($arr);
-		exit;
-    }
-
-    if(is_null($defect) || $defect == "")
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid Defect.";
-		echo json_encode($arr);
-		exit;
-    }
-
-    if(is_null($summary) || $summary == "")
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid Summary.";
-		echo json_encode($arr);
-		exit;
-    }
-
-    if(is_null($extra) || $extra == "")
-    {
-		$arr['status'] = "FAIL";
-		$arr['errmsg'] = "Invalid Description.";
-		echo json_encode($arr);
-		exit;
-    }
-
-    $email = $_SESSION['email'];
-    $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
-    $userid = $row['id'];
-
-    if($userid <= 0)
-    {
-		$arr['status'] = "FAIL";
-        $arr['errmsg'] = "Invalid user.";
-        echo json_encode($arr);
-        exit;
-    }
-
-	if(count($_POST["uuid"]) < 2)
-    {
-        $arr['status'] = "FAIL";
-        $arr['errmsg'] = "You failed to upload enough photos of the problem, or the photos were low quality.";
-        echo json_encode($arr);
-        exit;
-    }
+	createProblem($lat, $lng, $address, $council, $defect, $summary, $extra);
 
 	$var = array();
 	foreach($_POST["uuid"] as $str)
 	{
 		$filename = explode("|",$str)[1];
 		$var[$filename] = explode("|", $str)[0];
+		echo $var[$filename];
 	}
 
-	foreach($var[$filename] as $file)
+	foreach($var as $filename=>$file)
 	{
 		$file = basename($file);
 		if(file_exists("/tmp/$file.jpg"))
