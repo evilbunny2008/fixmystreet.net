@@ -323,7 +323,7 @@
 			echo json_encode($arr);
 			exit;
 		}
-	
+
 		if(is_null($address) || $address == "")
 		{
 			$arr['status'] = "FAIL";
@@ -331,7 +331,7 @@
 			echo json_encode($arr);
 			exit;
 		}
-	
+
 		if(is_null($council) || $council == "")
 		{
 			$arr['status'] = "FAIL";
@@ -339,7 +339,7 @@
 			echo json_encode($arr);
 			exit;
 		}
-	
+
 		if(is_null($defect) || $defect == "")
 		{
 			$arr['status'] = "FAIL";
@@ -347,7 +347,7 @@
 			echo json_encode($arr);
 			exit;
 		}
-	
+
 		if(is_null($summary) || $summary == "")
 		{
 			$arr['status'] = "FAIL";
@@ -355,7 +355,7 @@
 			echo json_encode($arr);
 			exit;
 		}
-	
+
 		if(is_null($extra) || $extra == "")
 		{
 			$arr['status'] = "FAIL";
@@ -363,11 +363,11 @@
 			echo json_encode($arr);
 			exit;
 		}
-		
+
 		$email = $_SESSION['email'];
 		$row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
 		$userid = $row['id'];
-	
+
 		if($userid <= 0)
 		{
 			$arr['status'] = "FAIL";

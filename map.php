@@ -4,8 +4,6 @@
 
   $uploads_dir = "photos";
 
-  
-
   if(isset($_POST['submit']) && $_POST['submit'] === "Submit")
   {
     $lat = is_null($_POST['lat']) ? NULL : floatval($_POST['lat']);
@@ -344,7 +342,6 @@
 			if(submit!=undefined)
 				submit.setAttribute("disabled","");
 		img.remove();
-		
 	}
 
 	function positionArrows()
