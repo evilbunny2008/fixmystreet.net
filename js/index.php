@@ -313,7 +313,7 @@ function getExtra(id)
 				<?php
 					} else {
 				?>
-						reportInfo.innerHTML += `<p>You <a href='https://fixmystreet.net/signup.php'>need an account</a> and to be <a href='https://fixmystreet.net/login.php'>logged in</a> to make reports</p>`;
+						reportInfo.innerHTML += `<p>You <a href='<?= $refererurl ?>signup.php'>need an account</a> and to be <a href='<?= $refererurl ?>login.php'>logged in</a> to make reports</p>`;
 				<?php
 					}
 				?>
