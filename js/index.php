@@ -110,7 +110,6 @@ function initialize()
   });
   fileDrag.addEventListener("drop", function() {
     //GET THE FILE DATA;
-    console.log("drag1");
     event.preventDefault();
     if(event.dataTransfer.items)
     {

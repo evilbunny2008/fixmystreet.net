@@ -351,6 +351,13 @@
 		if(exists.length <= 2)
 			if(submit!=undefined)
 				submit.setAttribute("disabled","");
+		let uuid = img.getAttribute("uuid");
+		let uuids = document.getElementsByName("uuid[]");
+		for(let i = 0; i<uuids.length; i++) {
+			if(uuids[i].value.split("|")[0] == uuid) {
+				uuids[i].remove();
+			}
+		}
 		img.remove();
 	}
 
