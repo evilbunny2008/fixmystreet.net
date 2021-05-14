@@ -282,42 +282,70 @@ function getExtra(id)
 				}
 				const reportInfo = document.querySelector(".reportInfo");
 				reportInfo.innerHTML = '';
-				reportInfo.innerHTML += `<form method="post" id="report" enctype="multipart/form-data" action="<?= $_SERVER['PHP_SELF']?>" >`;
-				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value="${id}">`;
+        let form = document.createElement("form");
+        form.setAttribute("method", "post");
+        form.setAttribute("enctype","multipart/form-data");
+        form.setAttribute("action","/map.php");
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
 				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
+				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value="${id}">`;
 				createCarousel(row['photos']);
 				<?php
 					if(isset($_SESSION['loggedin']))
 					{
 				?>
-				reportInfo.innerHTML += `<h3>Have an update?</h3>`;
-				reportInfo.innerHTML += `<label>Photos (if any)</label>`;
-				reportInfo.innerHTML += `<div class="file-drop" ondrop=""> Drag or click here to choose files <input type="file" accept="image/jpeg" id="myFiles" multiple style="display:none;" onchange="previewFile(event,2)"></div>`;
-				reportInfo.innerHTML += `<br /><br/><br/>`;
-				reportInfo.innerHTML += `<p>HINT: Click on images to remove them!</p>`;
-				reportInfo.innerHTML += `<div class="images">`;
-				reportInfo.innerHTML += `</div>`;
-				reportInfo.innerHTML += `<br /><br/><br/>`;
+				let problemID = document.createElement("input");
+        problemID.type = "hidden";
+        problemID.name = "problemID";
+        problemID.value = id;
+        console.log(problemID);
+        form.appendChild(problemID);
+				form.innerHTML += `<h3>Have an update?</h3>`;
+				form.innerHTML += `<label>Photos (if any)</label>`;
+        let dragNdrop = document.createElement("div");
+        dragNdrop.className = "file-drop";
+        dragNdrop.innerHTML = "Drag or click here to choose files";
+        let fileInput = document.createElement("input");
+        fileInput.type = "file";
+        fileInput.setAttribute("accept","image/jpeg");
+        fileInput.setAttribute("onchange","previewFile(event,2)");
+        fileInput.setAttribute("multiple","");
+        fileInput.style.display = "none";
+        fileInput.id = "myFiles";
+        dragNdrop.appendChild(fileInput);
+        form.appendChild(dragNdrop);
+				form.innerHTML += `<br /><br/><br/>`;
+				form.innerHTML += `<p>HINT: Click on images to remove them!</p>`;
+				form.innerHTML += `<div class="images">`;
+				form.innerHTML += `</div>`;
+				form.innerHTML += `<br /><br/><br/>`;
 				<?php if(isset($msg)){?>
 				reportInfo.innerHTML += `<p><?=$msg?></p>`;
 				<?php } ?>
-				reportInfo.innerHTML += `<label for="update-text">Update</label>`;
-				reportInfo.innerHTML += `<br /><br/>`;
-				reportInfo.innerHTML += `<textarea name="update-extra" oninput="isValid([this.id])" id="update-text" cols="40"rows="10" style="border-radius: 8px; resize:none;"></textarea>`;
-				reportInfo.innerHTML += `<br /><br/>`;
-				reportInfo.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
-				<?php
+				form.innerHTML += `<label for="update-text">Update</label>`;
+        let update = document.createElement("textarea");
+        update.name = "update-extra";
+        update.setAttribute("oninput","isValid([this.id])");
+        update.id = "update-text";
+        update.cols = "40";
+        update.rows = "10";
+        update.style.borderRadius = "8px";
+        update.style.resize = "none";
+        form.appendChild(update);
+				form.innerHTML += `<br /><br/>`;
+				form.innerHTML += `<br /><br/>`;
+				form.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
+        reportInfo.appendChild(form);
+        <?php
 					} else {
 				?>
 						reportInfo.innerHTML += `<p>You <a href='<?= $refererurl ?>signup.php'>need an account</a> and to be <a href='<?= $refererurl ?>login.php'>logged in</a> to make reports</p>`;
 				<?php
 					}
 				?>
-				reportInfo.innerHTML += `</form>`;
         <?php if(isset($_SESSION['loggedin'])) { ?>
           initialize();
         <?php 
