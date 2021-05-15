@@ -11,7 +11,7 @@
         {
           $email = empty(trim($_POST['email'])) ? NULL : mysqli_real_escape_string($link, $_POST['email']);
           $password = empty(trim($_POST['password'])) ? NULL : mysqli_real_escape_string($link, $_POST['password']);
-          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($Link, $_POST['cpassword']);
+          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($link, $_POST['cpassword']);
           $phoneNo = empty(trim($_POST['number'])) ? NULL : mysqli_real_escape_string($link, $_POST['number']);
           $name = empty(trim($_POST['name'])) ? NULL : mysqli_real_escape_string($link, $_POST['name']);
 
