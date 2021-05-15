@@ -174,7 +174,7 @@
 	{
 		global $link;
 		$number = mysqli_real_escape_string($link, trim(strip_tags($phoneNo)));
-		$query = "SELECT 1 FROM `users` WHERE `phone` = '$phoneNo'";
+		$query = "SELECT 1 FROM `users` WHERE `phone` = '$number'";
 		$res = mysqli_query($link, $query);
 		if(mysqli_num_rows($res) >= 1)
 			return true;
