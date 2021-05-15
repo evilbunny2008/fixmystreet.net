@@ -8,7 +8,7 @@
 	}
 	else
 	{
-		$sql = "SELECT * FROM `token` WHERE `user_id`=$uid AND `token`='$hash' AND `token`='signup'";
+		$sql = "SELECT * FROM `token` WHERE `user_id`=$uid AND `token`='$hash' AND `type`='signup'";
 		$res = mysqli_query($link, $sql);
 		if(mysqli_num_rows($res) === 1)
 		{
