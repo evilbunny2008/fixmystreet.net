@@ -27,27 +27,24 @@
 
 
 
-	createProblem($lat, $lng, $address, $council, $defect, $summary, $extra);
+	$problem_id = createProblem($lat, $lng, $address, $council, $defect, $summary, $extra);
 
 	$filenames = array();
 	foreach($_POST["uuid"] as $str)
 	{
 		$filename = explode("|", $str)[0];
-		array_push($filenames[$filename], $filename);
+		// array_push($filenames[$filename], $filename);
 		$filenames[$filename] = explode("|", $str)[1];
 	}
 
 	foreach($filenames as $uuid=>$filename)
 	{
 		$file = basename($uuid);
+		
 		if(file_exists("/tmp/$file.jpg"))
 		{
 			if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 			{
-				$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
-				$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
-				mysqli_query($link, $query);
-				$problem_id = mysqli_insert_id($link);
 
 				if($problem_id <= 0)
 				{
