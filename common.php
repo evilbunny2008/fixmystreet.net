@@ -383,6 +383,11 @@
 			echo json_encode($arr);
 			exit;
 		}
+		$query  = "INSERT INTO `problem` SET `latitude`=$lat, `longitude`=$lng, `address`='$address', `council`='$council', `summary`='$summary', `user_id`=$userid, ";
+		$query .= "`site_id`=1,`extra`='$extra', `defect_id`=$defect";
+		mysqli_query($link, $query);
+		$problem_id = mysqli_insert_id($link);
+		return $problem_id;
 	}
 
 	$header = '    <div class="flex-wrapper">
