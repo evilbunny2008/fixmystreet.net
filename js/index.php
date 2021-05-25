@@ -37,19 +37,9 @@ function previewFile(file, type)
 		{
 			//IF FILES ARE DRAGGED
 			case 1:
-				// console.log(file);
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
-				// console.log(file);
-				uuid = uploadFile(file).then(function(result) {
-					let uuidField = document.createElement("input");
-					uuidField.setAttribute("type", "hidden");
-					uuidField.name = "uuid[]";
-					uuidField.value = result.uuid+"|"+result.filename;
-					images.appendChild(uuidField);
-          img.setAttribute("uuid",result.uuid);
-
-				});
+        uploadFile(file);
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
@@ -58,14 +48,7 @@ function previewFile(file, type)
 			case 2:
 				// console.log(file);
 				img.src = URL.createObjectURL(event.target.files[0]);
-				uuid = uploadFile(event.target.files[0]).then(function (result) {
-					let uuidField = document.createElement("input");
-					uuidField.setAttribute("type", "hidden");
-					uuidField.name = "uuid[]";
-					uuidField.value = result.uuid+"|"+result.filename;
-					images.appendChild(uuidField);
-          img.setAttribute("uuid",result.uuid);
-				});
+        uploadFile(event.target.files[0])
 				img.onload = function() {
 					URL.revokeObjectURL(img.src);
 				}
