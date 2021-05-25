@@ -184,20 +184,42 @@
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
+		let images = document.querySelector(".images");
 		formData.append("photo", lastPreview);
-		let response = await fetch('/upload.php', {
-			method: "POST",
-			body: formData
-		});
-		let result = await response.json();
-		let uuid = result['uuid'];
-		let filename = result['filename'];
-		// alert(result['status']);
-		showModal(result['status']);
-		validate();
-		return {
-			uuid, filename
+		// let response = await fetch('/upload.php', {
+		// 	method: "POST",
+		// 	body: formData
+		// });
+		let req = getHTTPObject();
+		req.open("POST","/upload.php", true);
+		req.onload = async function (e) {
+		if (req.readyState === 4) {
+			if (req.status === 200) {
+				let result = JSON.parse(req.responseText);
+				console.log(result); 
+				let uuid = result['uuid'];
+				let filename = result['filename'];
+				let uuidField = document.createElement("input");
+				uuidField.setAttribute("type", "hidden");
+				uuidField.name = "uuid[]";
+				uuidField.value = uuid+"|"+filename;
+				console.log(uuidField);
+				images.appendChild(uuidField);
+				showModal(result['status']);
+				validate();
+				return {
+					uuid, filename
+				};
+			} else {
+				showModal("An unexpected error occurred");
+			}
+		}
 		};
+		req.send(formData);
+		// console.log(result);
+		// let result = await req.json();
+
+		// alert(result['status']);
 	}
 
 	function loadProblems()
