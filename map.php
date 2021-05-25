@@ -40,7 +40,7 @@
 	foreach($filenames as $uuid=>$filename)
 	{
 		$file = basename($uuid);
-		
+
 		if(file_exists("/tmp/$file.jpg"))
 		{
 			if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
@@ -113,7 +113,7 @@
 				$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
 				mysqli_query($link, $query);
 				$update_id = mysqli_insert_id($link);
-				
+
 				if($update_id <= 0)
 				{
 					$arr['status'] = "FAIL";
@@ -252,6 +252,7 @@
 				for(let i = 0; i < ret.length; i++)
 				{
 					let bits = ret[i].split("|");
+					console.log(bits)
 					let loc = { lat: parseFloat(bits[1].trim()), lng: parseFloat(bits[2].trim()) };
 					let icon = "/markers/red_marker.png";
 					if(bits[6] == "orange")

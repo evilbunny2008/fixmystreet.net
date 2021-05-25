@@ -1,4 +1,11 @@
 <?php
+	$host = strtolower($_SERVER['HTTP_HOST']);
+	if($host != strtolower("fixmystreet.net"))
+	{
+		header("Location: https://fixmystreet.net", TRUE, 301);
+		exit;
+	}
+
 	session_start();
 	$database = "database";
 	$username = "username";
