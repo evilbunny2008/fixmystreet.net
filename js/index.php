@@ -220,6 +220,13 @@ function showImage(src) {
   }
 }
 
+async function loading() {
+  let modal = document.querySelector(".modal");
+  let modalImg = document.querySelector(".modal-img");
+  modalImg.src = "/images/spinner.gif";
+  modal.style.display = "flex";
+}
+
 function checkEmpty(field) {
   for (let i = 0; i < field.length; i++) {
 //    alert(field[i]);
@@ -284,7 +291,7 @@ function getExtra(id)
         problemID.type = "hidden";
         problemID.name = "problemID";
         problemID.value = id;
-        console.log(problemID);
+        //console.log(problemID);
         form.appendChild(problemID);
 				form.innerHTML += `<h3>Have an update?</h3>`;
 				form.innerHTML += `<label>Photos (if any)</label>`;
