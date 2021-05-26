@@ -33,7 +33,6 @@
 	foreach($_POST["uuid"] as $str)
 	{
 		$filename = explode("|", $str)[0];
-		// array_push($filenames[$filename], $filename);
 		$filenames[$filename] = explode("|", $str)[1];
 	}
 
@@ -88,7 +87,7 @@
         echo json_encode($arr);
         exit;
     }
-	//DON'T FORGET PHOTOS CODE
+
 	if(is_null($extra))
 	{
 		$msg = "Update field cannot be empty";
@@ -138,7 +137,6 @@
 			}
 		}
 	}
-	// $file stuff here
 
   }
 
@@ -162,9 +160,9 @@
     <link rel="stylesheet" href="/css/sidebar.css" />
 	<link rel="stylesheet" href="/css/splide.min.css" />
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon" />
-    <script src="/js/ui.js"></script>
-	<script src="/js/splide.min.js"></script>
-    <script src="/js/index.php"></script>
+    <script async src="/js/ui.js"></script>
+	<script async src="/js/splide.min.js"></script>
+    <script async src="/js/index.php"></script>
     <script>
       let map;
       let marker;
@@ -181,6 +179,13 @@
 		google.maps.event.addListener(map, 'tilesloaded', loadProblems);
 	}
 
+	function updateProgress(evt)
+	{
+		if(evt.lengthComputable) {
+			loading();
+		}
+	}
+
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
@@ -191,35 +196,32 @@
 		// 	body: formData
 		// });
 		let req = getHTTPObject();
+		if(req.upload)
+			req.upload.onprogress = updateProgress;
 		req.open("POST","/upload.php", true);
 		req.onload = async function (e) {
 		if (req.readyState === 4) {
 			if (req.status === 200) {
 				let result = JSON.parse(req.responseText);
-				console.log(result); 
 				let uuid = result['uuid'];
 				let filename = result['filename'];
 				let uuidField = document.createElement("input");
 				uuidField.setAttribute("type", "hidden");
 				uuidField.name = "uuid[]";
 				uuidField.value = uuid+"|"+filename;
-				console.log(uuidField);
 				images.appendChild(uuidField);
 				showModal(result['status']);
-				validate();
-				return {
-					uuid, filename
-				};
+				if(result['status'] == "SUCCESS") {
+					validate();
+					let modalImg = document.querySelector(".modal-img");
+					modalImg.src = "";
+				}
 			} else {
 				showModal("An unexpected error occurred");
 			}
 		}
 		};
 		req.send(formData);
-		// console.log(result);
-		// let result = await req.json();
-
-		// alert(result['status']);
 	}
 
 	function loadProblems()
@@ -252,7 +254,6 @@
 				for(let i = 0; i < ret.length; i++)
 				{
 					let bits = ret[i].split("|");
-					console.log(bits)
 					let loc = { lat: parseFloat(bits[1].trim()), lng: parseFloat(bits[2].trim()) };
 					let icon = "/markers/red_marker.png";
 					if(bits[6] == "orange")
