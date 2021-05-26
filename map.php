@@ -125,6 +125,7 @@
 					$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
 
 					$query = "INSERT INTO `comment_photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+					mysqli_query($link, $query);
 
 
 				}
