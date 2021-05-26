@@ -94,6 +94,10 @@
 		exit;
 	}
 
+	//UPDATE WORKED; REDIRECT TO UPDATE PAGE
+	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
+	mysqli_query($link, $query);
+	$update_id = mysqli_insert_id($link);
 	if(isset($_POST["uuid"]))
 	{
 		foreach($_POST["uuid"] as $str)
@@ -109,11 +113,6 @@
 			{
 				if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 				{
-					//UPDATE WORKED; REDIRECT TO UPDATE PAGE
-					$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
-					mysqli_query($link, $query);
-					$update_id = mysqli_insert_id($link);
-
 					if($update_id <= 0)
 					{
 						$arr['status'] = "FAIL";
