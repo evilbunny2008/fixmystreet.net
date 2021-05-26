@@ -103,7 +103,6 @@
 		foreach($_POST["uuid"] as $str)
 		{
 			$filename = explode("|", $str)[0];
-			array_push($filenames[$filename], $filename);
 			$filenames[$filename] = explode("|", $str)[1];
 		}
 		foreach($filenames as $filename=>$uuid)
