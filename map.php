@@ -105,7 +105,7 @@
 			$filename = explode("|", $str)[0];
 			$filenames[$filename] = explode("|", $str)[1];
 		}
-		foreach($filenames as $filename=>$uuid)
+		foreach($filenames as $uuid=>$filename)
 		{
 			$file = basename($uuid);
 			if(file_exists("/tmp/$file.jpg"))
