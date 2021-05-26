@@ -94,46 +94,48 @@
 		exit;
 	}
 
-	foreach($_POST["uuid"] as $str)
+	if(isset($_POST["uuid"]))
 	{
-		$filename = explode("|", $str)[0];
-		array_push($filenames[$filename], $filename);
-		$filenames[$filename] = explode("|", $str)[1];
-	}
-
-	foreach($filenames as $filename=>$uuid)
-	{
-		$file = basename($uuid);
-		if(file_exists("/tmp/$file.jpg"))
+		foreach($_POST["uuid"] as $str)
 		{
-			if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
+			$filename = explode("|", $str)[0];
+			array_push($filenames[$filename], $filename);
+			$filenames[$filename] = explode("|", $str)[1];
+		}
+		foreach($filenames as $filename=>$uuid)
+		{
+			$file = basename($uuid);
+			if(file_exists("/tmp/$file.jpg"))
 			{
-				//UPDATE WORKED; REDIRECT TO UPDATE PAGE
-				$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
-				mysqli_query($link, $query);
-				$update_id = mysqli_insert_id($link);
-
-				if($update_id <= 0)
+				if(rename("/tmp/$file.jpg", "$uploads_dir/$file.jpg") && rename("/tmp/$file"."_thumb.jpg", "$uploads_dir/$file"."_thumb.jpg"))
 				{
-					$arr['status'] = "FAIL";
-					$arr['errmsg'] = "Error inserting into database...";
-					echo json_encode($arr);
+					//UPDATE WORKED; REDIRECT TO UPDATE PAGE
+					$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
+					mysqli_query($link, $query);
+					$update_id = mysqli_insert_id($link);
+
+					if($update_id <= 0)
+					{
+						$arr['status'] = "FAIL";
+						$arr['errmsg'] = "Error inserting into database...";
+						echo json_encode($arr);
+						exit;
+					}
+
+
+					$file_path = "$uploads_dir/$file"."jpg";
+					$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
+
+					$query = "INSERT INTO `comment_photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
+
+
+				}
+				else
+				{
+					//UPDATE FAILED
+					echo "An error occurred. If this issue persists, please contact us at ";
 					exit;
 				}
-
-
-				$file_path = "$uploads_dir/$file"."jpg";
-				$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
-
-				$query = "INSERT INTO `comment_photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
-
-
-			}
-			else
-			{
-				//UPDATE FAILED
-				echo "An error occurred. If this issue persists, please contact us at ";
-				exit;
 			}
 		}
 	}
