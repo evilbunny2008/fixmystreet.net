@@ -209,6 +209,8 @@
 				let uuidField = document.createElement("input");
 				uuidField.setAttribute("type", "hidden");
 				uuidField.name = "uuid[]";
+				let lastImage = document.querySelector(".preview:last-child");
+				lastImage.setAttribute("uuid",uuid);
 				uuidField.value = uuid+"|"+filename;
 				images.appendChild(uuidField);
 				showModal(result['status']);
@@ -219,6 +221,9 @@
 				}
 			} else {
 				showModal("An unexpected error occurred");
+				let modalImg = document.querySelector(".modal-img");
+				modalImg.src = "";
+				document.querySelector(".preview:last-child").remove();
 			}
 		}
 		};
