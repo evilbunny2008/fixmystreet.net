@@ -11,7 +11,35 @@
 
 function previewFile(file, type)
 	{
-		let images = document.querySelector(".images");
+		//let images = document.querySelector(".images");
+    //console.log(images)
+		//let img = document.createElement("img");
+		//img.setAttribute("onclick","rm(this)");
+		//let grid = document.querySelector(".pure-g");
+		//if(grid == null)
+		//{
+		//	grid = document.createElement("div");
+		//	grid.className = "pure-g";
+		//}
+		//img.className = "preview pure-u-1-4 is-center";
+		//img.setAttribute("name", "photo");
+		// img.style.width = "200px";
+		//img.style.marginRight = "5%";
+		//let exists = document.querySelectorAll(".pure-u-1-4");
+		//if(exists.length == 0 || exists.length % 3 === 0)
+			//img.style.marginLeft = "5%";
+		//if(exists.length > 2)
+			//img.style.marginTop = "5%";
+		//images.appendChild(grid);
+		//grid.appendChild(img);
+		let uuid;
+
+		switch (type)
+		{
+			//IF FILES ARE DRAGGED
+			case 1:
+        let images = document.querySelector(".images");
+    console.log(images)
 		let img = document.createElement("img");
 		img.setAttribute("onclick","rm(this)");
 		let grid = document.querySelector(".pure-g");
@@ -21,7 +49,7 @@ function previewFile(file, type)
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "photo")
+		img.setAttribute("name", "photo");
 		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
@@ -31,30 +59,64 @@ function previewFile(file, type)
 			img.style.marginTop = "5%";
 		images.appendChild(grid);
 		grid.appendChild(img);
-		let uuid;
+		img.removeAttribute("hidden");
 
-		switch (type)
-		{
-			//IF FILES ARE DRAGGED
-			case 1:
 				let reader = new FileReader();
 				reader.readAsDataURL(file);
-        uploadFile(file);
+        res = uploadFile(file);
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
+        //res.then(function(result){
+        //  console.log(result);
+        //});
 				break;
 			//IF FILES ARE CHOSEN THROUGH INPUT
 			case 2:
 				// console.log(file);
-				img.src = URL.createObjectURL(event.target.files[0]);
-        uploadFile(event.target.files[0])
-				img.onload = function() {
-					URL.revokeObjectURL(img.src);
-				}
+        console.log(event.target.files.length);
+        for(let i = 0; i < event.target.files.length; i++) {
+          let images = document.querySelector(".images");
+    console.log(images)
+		let img = document.createElement("img");
+		img.setAttribute("onclick","rm(this)");
+		let grid = document.querySelector(".pure-g");
+		if(grid == null)
+		{
+			grid = document.createElement("div");
+			grid.className = "pure-g";
+		}
+		img.className = "preview pure-u-1-4 is-center";
+		img.setAttribute("name", "photo");
+		// img.style.width = "200px";
+		img.style.marginRight = "5%";
+		let exists = document.querySelectorAll(".pure-u-1-4");
+		if(exists.length == 0 || exists.length % 3 === 0)
+			img.style.marginLeft = "5%";
+		if(exists.length > 2)
+			img.style.marginTop = "5%";
+		images.appendChild(grid);
+		grid.appendChild(img);
+		img.removeAttribute("hidden");
+
+          //let img = document.createElement("img");
+          //img.className = "preview pure-u-1-4 is-center";
+          //img.setAttribute("name", "photo");
+          //img.setAttribute("onclick","rm(this)");
+          img.src = URL.createObjectURL(event.target.files[i]);
+          //images.appendChild(grid);
+          //grid.appendChild(img);
+          images.appendChild(grid);
+          grid.appendChild(img);
+          //images.append(img);
+          //console.log(img);
+          uploadFile(event.target.files[i]);
+          img.onload = function() {
+					  URL.revokeObjectURL(img.src);
+				  }
+        }
 				break;
 		}
-		img.removeAttribute("hidden");
 	}
 
 function validate() {
@@ -196,6 +258,7 @@ function showModal(text) {
     window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+
       modalText.innerHTML = "";
     }
   }
@@ -213,10 +276,12 @@ function showImage(src) {
   modal.style.display = "flex";
   document.querySelector(".close").addEventListener("click", function() {
     modal.style.display = "none";
+    content.style.width = "";
   });
     window.onclick = function(event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      content.style.width = "";
     }
   }
 }
@@ -317,6 +382,7 @@ function getExtra(id)
 				reportInfo.innerHTML += `<p><?=$msg?></p>`;
 				<?php } ?>
 				form.innerHTML += `<label for="update-text">Update</label>`;
+        form.innerHTML += `<br /><br/>`;
         let update = document.createElement("textarea");
         update.name = "update-extra";
         update.setAttribute("oninput","isValid([this.id])");

@@ -186,7 +186,7 @@
 			loading();
 		}
 	}
-
+	window.count = -1;
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
@@ -206,18 +206,25 @@
 				let result = JSON.parse(req.responseText);
 				let uuid = result['uuid'];
 				let filename = result['filename'];
-				let uuidField = document.createElement("input");
-				uuidField.setAttribute("type", "hidden");
-				uuidField.name = "uuid[]";
-				let lastImage = document.querySelector(".preview:last-child");
-				lastImage.setAttribute("uuid",uuid);
-				uuidField.value = uuid+"|"+filename;
-				images.appendChild(uuidField);
+				// let uuidField = document.createElement("input");
+				// uuidField.setAttribute("type", "hidden");
+				// uuidField.name = "uuid[]";
+				// lastImage.setAttribute("uuid",uuid);
+				// uuidField.value = uuid+"|"+filename;
+				// images.appendChild(uuidField);
+				// fillUUID(uuid,filename);
 				showModal(result['status']);
 				if(result['status'] == "SUCCESS") {
 					validate();
 					let modalImg = document.querySelector(".modal-img");
 					modalImg.src = "";
+					console.log(uuid,filename);
+					let img = document.querySelectorAll(".preview");
+					console.log(img);
+					window.count++;
+					console.log(window['count']);
+					img[window.count].setAttribute("uuid", uuid);
+					img[window.count].setAttribute("filename",filename);
 				}
 			} else {
 				showModal("An unexpected error occurred");
@@ -228,6 +235,17 @@
 		}
 		};
 		req.send(formData);
+	}
+
+	function fillUUID(uuid,filename)
+	{
+		let images = document.querySelectorAll(".preview");
+		// lastImage.setAttribute("uuid", uuid);
+		// lastImage.setAttribute("filename", filename);
+		for(let i = 0; i < images.length-1; i++) {
+			images[i].setAttribute("uuid", uuid);
+			images[i].setAttribute("filename", filename);
+		}
 	}
 
 	function loadProblems()
@@ -403,6 +421,7 @@
 				uuids[i].remove();
 			}
 		}
+		window.count--;
 		img.remove();
 	}
 
