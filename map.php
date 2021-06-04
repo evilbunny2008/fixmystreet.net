@@ -25,12 +25,10 @@
         exit;
     }
 
-
-
 	$problem_id = createProblem($lat, $lng, $address, $council, $defect, $summary, $extra);
 
 	$filenames = array();
-	foreach($_POST["uuid"] as $str)
+	foreach($_POST["images"] as $str)
 	{
 		$filename = explode("|", $str)[0];
 		$filenames[$filename] = explode("|", $str)[1];
@@ -98,9 +96,9 @@
 	$query = "INSERT INTO `comment` SET `problem_id`=$problem_id, `user_id`=$userid, `text`='$extra', `anonymous`=0";
 	mysqli_query($link, $query);
 	$update_id = mysqli_insert_id($link);
-	if(isset($_POST["uuid"]))
+	if(isset($_POST["images"]))
 	{
-		foreach($_POST["uuid"] as $str)
+		foreach($_POST["images"] as $str)
 		{
 			$filename = explode("|", $str)[0];
 			$filenames[$filename] = explode("|", $str)[1];
@@ -192,10 +190,6 @@
 		let formData = new FormData();
 		let images = document.querySelector(".images");
 		formData.append("photo", lastPreview);
-		// let response = await fetch('/upload.php', {
-		// 	method: "POST",
-		// 	body: formData
-		// });
 		let req = getHTTPObject();
 		if(req.upload)
 			req.upload.onprogress = updateProgress;
@@ -206,25 +200,17 @@
 				let result = JSON.parse(req.responseText);
 				let uuid = result['uuid'];
 				let filename = result['filename'];
-				// let uuidField = document.createElement("input");
-				// uuidField.setAttribute("type", "hidden");
-				// uuidField.name = "uuid[]";
-				// lastImage.setAttribute("uuid",uuid);
-				// uuidField.value = uuid+"|"+filename;
-				// images.appendChild(uuidField);
-				// fillUUID(uuid,filename);
 				showModal(result['status']);
 				if(result['status'] == "SUCCESS") {
 					validate();
 					let modalImg = document.querySelector(".modal-img");
 					modalImg.src = "";
-					console.log(uuid,filename);
-					let img = document.querySelectorAll(".preview");
-					console.log(img);
-					window.count++;
-					console.log(window['count']);
-					img[window.count].setAttribute("uuid", uuid);
-					img[window.count].setAttribute("filename",filename);
+					let uuidField = document.createElement("input");
+					uuidField.setAttribute("hidden","");
+					uuidField.value = uuid + "|" + filename;
+					uuidField.setAttribute("name", "images[]");
+					uuidField.setAttribute("value", uuid + "|" + filename);
+					images.appendChild(uuidField);
 				}
 			} else {
 				showModal("An unexpected error occurred");
@@ -235,17 +221,6 @@
 		}
 		};
 		req.send(formData);
-	}
-
-	function fillUUID(uuid,filename)
-	{
-		let images = document.querySelectorAll(".preview");
-		// lastImage.setAttribute("uuid", uuid);
-		// lastImage.setAttribute("filename", filename);
-		for(let i = 0; i < images.length-1; i++) {
-			images[i].setAttribute("uuid", uuid);
-			images[i].setAttribute("filename", filename);
-		}
 	}
 
 	function loadProblems()
@@ -349,8 +324,6 @@
 		const reportProblem = document.getElementById("reportProblem");
 		const reportForm = document.getElementById("reportForm");
 
-		// let reportInfo = document.querySelector(".reportInfo");
-		// reportInfo.innerHTML = "";
 		if(reportForm.style.display == 'none')
 		{
 			reportForm.style.display = 'block';
