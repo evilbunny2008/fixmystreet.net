@@ -376,7 +376,7 @@
 			exit;
 		}
 	
-		if(count($_POST["uuid"]) < 2)
+		if(count($_POST["images"]) < 2)
 		{
 			$arr['status'] = "FAIL";
 			$arr['errmsg'] = "You failed to upload enough photos of the problem, or the photos were low quality.";
