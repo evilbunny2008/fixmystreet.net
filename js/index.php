@@ -49,8 +49,6 @@ function previewFile(file, type)
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "photo");
-		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
 		if(exists.length == 0 || exists.length % 3 === 0)
@@ -67,13 +65,9 @@ function previewFile(file, type)
 				reader.onloadend = function() {
 					img.src = reader.result;
 				}
-        //res.then(function(result){
-        //  console.log(result);
-        //});
 				break;
 			//IF FILES ARE CHOSEN THROUGH INPUT
 			case 2:
-				// console.log(file);
         console.log(event.target.files.length);
         for(let i = 0; i < event.target.files.length; i++) {
           let images = document.querySelector(".images");
@@ -87,8 +81,6 @@ function previewFile(file, type)
 			grid.className = "pure-g";
 		}
 		img.className = "preview pure-u-1-4 is-center";
-		img.setAttribute("name", "photo");
-		// img.style.width = "200px";
 		img.style.marginRight = "5%";
 		let exists = document.querySelectorAll(".pure-u-1-4");
 		if(exists.length == 0 || exists.length % 3 === 0)
@@ -98,26 +90,19 @@ function previewFile(file, type)
 		images.appendChild(grid);
 		grid.appendChild(img);
 		img.removeAttribute("hidden");
-
-          //let img = document.createElement("img");
-          //img.className = "preview pure-u-1-4 is-center";
-          //img.setAttribute("name", "photo");
-          //img.setAttribute("onclick","rm(this)");
-          img.src = URL.createObjectURL(event.target.files[i]);
-          //images.appendChild(grid);
-          //grid.appendChild(img);
-          images.appendChild(grid);
-          grid.appendChild(img);
-          //images.append(img);
-          //console.log(img);
-          uploadFile(event.target.files[i]);
-          img.onload = function() {
-					  URL.revokeObjectURL(img.src);
-				  }
-        }
-				break;
-		}
-	}
+    img.src = URL.createObjectURL(event.target.files[i]);
+    images.appendChild(grid);
+    grid.appendChild(img);
+    images.append(img);
+    console.log(img);
+    uploadFile(event.target.files[i]);
+    img.onload = function() {
+        URL.revokeObjectURL(img.src);
+      }
+    }
+	    break;
+    }
+  }
 
 function validate() {
   let submitButton = document.getElementById("submit");
@@ -171,14 +156,12 @@ function initialize()
         }
         else
         {
-          // console.log(event.dataTransfer.items[i].type);
           //REPLACE WITH MODAL
           showModal("Only jpegs/jpgs are allowed");
           break;
         }
       }
     }
-    // document.querySelector(".img1").src = files[0]
   });
 }
 
@@ -213,14 +196,12 @@ function init()
         }
         else
         {
-          // console.log(event.dataTransfer.items[i].type);
           //REPLACE WITH MODAL
           showModal("Only jpegs/jpgs are allowed");
           break;
         }
       }
     }
-    // document.querySelector(".img1").src = files[0]
   });
   validate();
 }
@@ -233,9 +214,6 @@ function showSteps() {
   for (let i = 0; i < step.length; i++) {
     step[i].addEventListener("click", function () {
       step[i].nextElementSibling.removeAttribute("hidden");
-      // if(!step[i].nextElementSibling.hasAttribute("hidden")) {
-      // 	step[i].setAttribute("hidden", "");
-      // }
       for (let j = 0; j < divs.length; j++) {
         if (step[i].nextElementSibling.id != divs[j]) {
           if (!document.getElementById(divs[j]).hasAttribute("hidden")) {
@@ -295,7 +273,6 @@ async function loading() {
 
 function checkEmpty(field) {
   for (let i = 0; i < field.length; i++) {
-//    alert(field[i]);
     if (document.getElementById(field[i]).value.trim() == "") {
       return false;
     }
@@ -346,7 +323,6 @@ function getExtra(id)
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
 				reportInfo.innerHTML += `<p class="summary">${row['extra']}</p> `;
-				// reportInfo.innerHTML += `<img class="img1" height="200px" width="200px" src="${row['photos'][0]['file_path']}">`;
 				reportInfo.innerHTML += `<input type="hidden" id="problemID" name="problemID" value="${id}">`;
 				createCarousel(row['photos']);
 				<?php
@@ -357,7 +333,6 @@ function getExtra(id)
         problemID.type = "hidden";
         problemID.name = "problemID";
         problemID.value = id;
-        //console.log(problemID);
         form.appendChild(problemID);
 				form.innerHTML += `<h3>Have an update?</h3>`;
 				form.innerHTML += `<label>Photos (if any)</label>`;
@@ -408,9 +383,6 @@ function getExtra(id)
         <?php 
         }
         ?>
-				// const menu = document.getElementById("menu");
-				// menu.scrollTop = menu.scrollHeight;
-				// reportInfo.innerHTML += ``;
 				title = document.querySelector(".title");
 				title.style.fontWeight = "bold";
 				reportInfo.style.textAlign = "center";
