@@ -269,6 +269,7 @@
 						// alert("You clicked on " + bits[0]);
 						//ONLY NEED id, DON'T NEED ANYTHING ELSE
 						getExtra(bits[0]);
+						getComments(bits[0]);
 						if(reportProblem.style.display == 'none')
 							hideShowReport();
 					});
@@ -291,6 +292,39 @@
 	}
 
 	let http = getHTTPObject();
+
+	function getComments(id)
+	{
+		let http3 = getHTTPObject();
+		http3.open('GET', '/comments.php?pid=' + id, true);
+		http3.onreadystatechange = function()
+		{
+			if(http3.readyState == 4 && http3.status == 200)
+			{
+				let comments = JSON.parse(http3.responseText.split("\n"));
+				console.log(comments);
+				const btn = document.getElementById("submit");
+				const commentDiv = document.createElement("div");
+				commentDiv.classList.add("commentDiv");
+
+				comments.forEach(comment => {
+					//CREATE ELEMENTS HERE TO POPULATE DIV
+					console.log(comment);
+					let commentTag = document.createElement("p");
+					commentTag.classList.add("comment")
+					console.log(commentTag);
+					commentTag.innerHTML = comment["text"];
+					commentDiv.append(commentTag);
+				});
+				setTimeout(function () {
+					const reportInfo = document.querySelector(".reportInfo");
+					reportInfo.appendChild(commentDiv);
+				}, 2000)
+			}
+		}
+		http3.send();
+	}
+
 
 	function revgeocode()
 	{
