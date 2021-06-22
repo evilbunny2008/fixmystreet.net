@@ -1,13 +1,13 @@
 <?php
 	require_once('common.php');
 
-        // if(!isset($_SERVER['HTTP_REFERER']) || strtolower(substr($_SERVER['HTTP_REFERER'], 0, strlen($refererurl))) != $refererurl)
-        // {
-        //         $arr['status'] = "FAIL";
-        //         $arr['errmsg'] = "Invalid latitude or longitude";
-        //         echo json_encode($arr);
-        //         exit;
-        // }
+        if(!isset($_SERVER['HTTP_REFERER']) || strtolower(substr($_SERVER['HTTP_REFERER'], 0, strlen($refererurl))) != $refererurl)
+        {
+                $arr['status'] = "FAIL";
+                $arr['errmsg'] = "Invalid latitude or longitude";
+                echo json_encode($arr);
+                exit;
+        }
 
 	header("Content-Type: text/plain");
 
