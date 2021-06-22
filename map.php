@@ -311,10 +311,13 @@
 					//CREATE ELEMENTS HERE TO POPULATE DIV
 					console.log(comment);
 					let commentTag = document.createElement("p");
-					commentTag.classList.add("comment")
+					commentTag.classList.add("comment");
 					console.log(commentTag);
 					commentTag.innerHTML = comment["text"];
+					let lnbreak = document.createElement("br");
+					commentTag.appendChild(lnbreak);
 					commentDiv.append(commentTag);
+					commentTag.append(`\t- ${comment["name"]} on ${comment["created"]}`);
 				});
 				setTimeout(function () {
 					const reportInfo = document.querySelector(".reportInfo");
