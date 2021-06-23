@@ -15,7 +15,7 @@
           $phoneNo = empty(trim($_POST['number'])) ? NULL : mysqli_real_escape_string($link, $_POST['number']);
           $name = empty(trim($_POST['name'])) ? NULL : mysqli_real_escape_string($link, $_POST['name']);
 
-          if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
+          if($email == "" || $password == "" || $name == "" || !filter_var($email,FILTER_VALIDATE_EMAIL))
           {
               $msg = _("An error ocurred.");
           }
