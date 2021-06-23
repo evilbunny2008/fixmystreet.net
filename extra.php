@@ -23,6 +23,13 @@
 	$query = "SELECT * FROM `problem` WHERE `id`=$id";
 	$res = mysqli_query($link, $query);
 	$row = mysqli_fetch_assoc($res);
+	if ($row == false)
+	{
+		$arr['status'] = "FAIL";
+		$arr['errmsg'] = "Invalid ID number.";
+		echo json_encode($arr);
+		exit;
+	}
 	$row['lastupdate'] = date("F j, Y, g:i a", strtotime($row['lastupdate']));
 	$row['created'] = date("F j, Y, g:i a", strtotime($row['created']));
 

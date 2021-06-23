@@ -208,6 +208,15 @@ function init()
 <?php } ?>
 
 function showSteps() {
+  const pathArray = window.location.pathname.split("/");
+  if (pathArray[1].toUpperCase() == "reports".toUpperCase())
+  {
+    if(!isNaN(parseInt(pathArray[2])))
+    {
+      getExtra(parseInt(pathArray[2]));
+      getComments(pathArray[2]));
+    }
+  }
   const step = document.querySelectorAll(".pure-menu-link");
   const divs = ["step-one", "step-two", "step-three"];
 
@@ -305,6 +314,11 @@ function getExtra(id)
 					return;
 
 				let row = JSON.parse(http.responseText.trim());
+        if(row['status'] == "FAIL")
+        {
+          alert(row['errmsg']);
+          return;
+        }
 				// do something with row...
 				let parent = document.getElementById('reportProblem');
 				if(parent.nextElementSibling.tagName != "DIV")

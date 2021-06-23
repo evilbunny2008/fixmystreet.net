@@ -303,6 +303,8 @@
 			{
 				let comments = JSON.parse(http3.responseText.split("\n"));
 				console.log(comments);
+				if(comments['status'] == "FAIL")
+					return;
 				const btn = document.getElementById("submit");
 				const commentDiv = document.createElement("div");
 				commentDiv.classList.add("commentDiv");
