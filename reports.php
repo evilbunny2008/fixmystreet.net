@@ -14,15 +14,15 @@
     />
     <title>Dashboard</title>
     <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
-    <link rel="stylesheet" href="./css/pure/pure-min.css" />
-    <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
+    <link rel="stylesheet" href="css/pure/pure-min.css" />
+    <link rel="stylesheet" href="css/pure/grids-responsive-min.css" />
     <!-- <script defer src="/js/Chart.bundle.min.js"></script> -->
-    <script defer src="./fontawesome-free-5.15.2-web/js/all.min.js"></script>
+    <script defer src="fontawesome-free-5.15.2-web/js/all.min.js"></script>
     <link
       rel="stylesheet"
-      href="./fontawesome-free-5.15.2-web/css/all.min.css"
+      href="fontawesome-free-5.15.2-web/css/all.min.css"
     />
-    <link rel="stylesheet" href="./css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
       <?= $header?>

@@ -15,12 +15,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Report problems in your area so they can be fixed." />
   <title>FixMyStreet.net</title>
-  <link rel="stylesheet" href="./css/pure/pure-min.css" />
-  <link rel="stylesheet" href="./css/pure/grids-responsive-min.css" />
-  <script defer src="./fontawesome-free-5.15.2-web/js/all.min.js"></script>
-  <link rel="stylesheet" href="./fontawesome-free-5.15.2-web/css/all.min.css" />
+  <link rel="stylesheet" href="/css/pure/pure-min.css" />
+  <link rel="stylesheet" href="/css/pure/grids-responsive-min.css" />
+  <script defer src="/fontawesome-free-5.15.2-web/js/all.min.js"></script>
+  <link rel="stylesheet" href="/fontawesome-free-5.15.2-web/css/all.min.css" />
   <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
-  <link rel="stylesheet" href="./css/styles.css" />
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
