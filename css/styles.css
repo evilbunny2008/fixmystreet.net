@@ -470,6 +470,7 @@ img {
 
 .pure-menu {
   font-family: "Lato";
+  overflow: auto;
 }
 
 .prev,
