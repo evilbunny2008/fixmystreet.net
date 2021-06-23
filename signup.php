@@ -9,17 +9,17 @@
     {
         if(isset($_POST['hiddenval']) && $_POST['hiddenval'] === '1')
         {
-          $email = empty(trim($_POST['email'])) ? NULL : mysqli_real_escape_string($link, $_POST['email']);
-          $password = empty(trim($_POST['password'])) ? NULL : mysqli_real_escape_string($link, $_POST['password']);
-          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($link, $_POST['cpassword']);
-          $phoneNo = empty(trim($_POST['number'])) ? NULL : mysqli_real_escape_string($link, $_POST['number']);
-          $name = empty(trim($_POST['name'])) ? NULL : mysqli_real_escape_string($link, $_POST['name']);
+          $email = empty(trim($_POST['email'])) ? NULL : mysqli_real_escape_string($link, trim($_POST['email']));
+          $password = empty(trim($_POST['password'])) ? NULL : mysqli_real_escape_string($link, trim($_POST['password']));
+          $cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($link, trim($_POST['cpassword']));
+          $phoneNo = empty(trim($_POST['number'])) ? NULL : mysqli_real_escape_string($link, trim($_POST['number']));
+          $name = empty(trim($_POST['name'])) ? NULL : mysqli_real_escape_string($link, trim($_POST['name']));
 
-          if($email == "" || $password == "" || $name == "" || !filter_var($email,FILTER_VALIDATE_EMAIL))
+          if($email == NULL || $password == NULL || $name == NULL || !filter_var($email,FILTER_VALIDATE_EMAIL))
           {
               $msg = _("An error ocurred.");
           }
-          if(isEmailInDB($email))
+          else if(isEmailInDB($email))
           {
               $msg = _("This email is already present in our database!");
           }
