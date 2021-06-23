@@ -214,7 +214,7 @@ function showSteps() {
     if(!isNaN(parseInt(pathArray[2])))
     {
       getExtra(parseInt(pathArray[2]));
-      getComments(pathArray[2]));
+      getComments((parseIntpathArray[2]));
     }
   }
   const step = document.querySelectorAll(".pure-menu-link");
