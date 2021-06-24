@@ -333,6 +333,7 @@ function getExtra(id)
         form.setAttribute("method", "post");
         form.setAttribute("enctype","multipart/form-data");
         form.setAttribute("action","/map.php");
+        map.setCenter(new google.maps.LatLng(row['latitude'], row['longitude']) );
 				reportInfo.innerHTML += `<p class="title">${row['summary']}</p>`;
 				reportInfo.innerHTML += `<p class="created">Created on ${row['created']}</p>`;
 				reportInfo.innerHTML += `<p class="updated">Last updated on ${row['lastupdate']}</p>`;
