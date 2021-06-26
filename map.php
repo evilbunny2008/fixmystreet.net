@@ -326,7 +326,7 @@
 					// reportInfo.appendChild(commentDiv);
 					const container = document.querySelector(".container");
 					const comments = document.querySelector(".commentDiv");
-					commentDiv.insertAdjacentElement('afterend', comments);
+					container.insertAdjacentElement('afterend', comments);
 				}, 2000)
 			}
 		}
