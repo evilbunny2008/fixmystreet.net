@@ -322,11 +322,8 @@
 					commentTag.append(`\t- ${comment["name"]} on ${comment["created"]}`);
 				});
 				setTimeout(function () {
-					// const reportInfo = document.querySelector(".reportInfo");
-					// reportInfo.appendChild(commentDiv);
 					const container = document.querySelector(".container");
-					const comments = document.querySelector(".commentDiv");
-					container.insertAdjacentElement('afterend', comments);
+					container.insertAdjacentElement('afterend', commentDiv);
 				}, 2000)
 			}
 		}
