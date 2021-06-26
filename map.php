@@ -51,7 +51,7 @@
 					exit;
 				}
 
-				$file_path = "$uploads_dir/$file"."jpg";
+				$file_path = "$uploads_dir/$file".".jpg";
 				$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
 
 				$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
