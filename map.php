@@ -325,8 +325,8 @@
 					// const reportInfo = document.querySelector(".reportInfo");
 					// reportInfo.appendChild(commentDiv);
 					const container = document.querySelector(".container");
+					const comments = document.querySelector(".commentDiv");
 					commentDiv.insertAdjacentElement('afterend', comments);
-					// const comments = document.querySelector(".commentDiv");
 				}, 2000)
 			}
 		}
