@@ -25,6 +25,17 @@
         }
         $rows = array();
         while($row = mysqli_fetch_assoc($res)) {
+                $images = array();
+                $cid = $row['id'];
+                $query = "SELECT * FROM `comment_photos` WHERE `comment_id`= $cid";
+                $re = mysqli_query($link, $query);
+                while($img = mysqli_fetch_assoc($re)) {
+                        // var_dump($img);
+                        if($cid == $row['id']) {
+                                array_push($images, $img['file_path']);
+                        }
+                }
+                array_push($row,$images);
                 array_push($rows, $row);
         }
         echo json_encode($rows);
