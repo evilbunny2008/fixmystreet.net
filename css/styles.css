@@ -35,20 +35,49 @@
       url("../fonts/bree-serif-v10-latin-regular.svg#BreeSerif") format("svg"); /* Legacy iOS */
 }
 
-* {
+/* * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
+} */
 
 /*
  * -- BASE STYLES --
  * Most of these are inherited from Base, but I want to change a few.
  */
-body {
+/* body {
   line-height: 1.7em;
   color: black;
   font-size: 13px;
+} */
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  scrollbar-width: thick;
+  scrollbar-color: rgb(255, 255, 255) rgb(90, 90, 90);
+}
+
+html {
+  font-size: 62.5%;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  /* min-height: 100%; */
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  font-family: "Lato", sans-serif;
+  font-weight: 400;
+  font-size: 2rem;
+  line-height: 1.7;
+  color: rgb(0, 0, 0);
+  box-sizing: border-box;
 }
 
 h1,
@@ -88,6 +117,7 @@ label {
  * Style the form inputs and labels
  */
 .pure-form label {
+  letter-spacing: 1px;
   margin: 1em 0 0;
   font-weight: bold;
   font-size: 100%;
@@ -117,7 +147,7 @@ a.pure-button-primary {
   background: #ffc30b;
   color: #002d13;
   border-radius: 5px;
-  font-size: 120%;
+  font-size: 3rem;
 }
 
 /*
@@ -126,7 +156,7 @@ a.pure-button-primary {
  */
 
 .home-menu {
-  padding: 0.5em;
+  padding: 1rem;
   text-align: center;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   font-family: "Lato";
@@ -143,7 +173,7 @@ a.pure-button-primary {
   font-family: "Lato";
   color: #ffc30b;
   font-weight: 400;
-  font-size: 120%;
+  font-size: 2rem;
   text-transform: none;
 }
 
@@ -187,8 +217,8 @@ a.pure-button-primary {
   /* overflow: hidden; */
   /* The following styles are required for the "scroll-over" effect */
   width: 100%;
-  height: 100%;
-  top: -15%;
+  height: 100vh;
+  /* top: -18%; */
   left: 0;
   position: fixed !important;
   font-family: "Bree Serif";
@@ -197,10 +227,25 @@ a.pure-button-primary {
 .splash {
   /* absolute center .splash within .splash-container */
   width: 80%;
-  height: 50%;
+  height: 100%;
   margin: auto;
-  position: absolute;
-  top: 100px;
+  position: relative;
+  /* top: 20rem; */
+  margin-top: 24.5rem;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+
+.main {
+  /* absolute center .splash within .splash-container */
+  width: 80%;
+  /* height: 100%; */
+  margin: auto;
+  position: relative;
+  /* top: 20rem; */
+  margin-top: 20.5rem;
   left: 0;
   bottom: 0;
   right: 0;
@@ -209,12 +254,12 @@ a.pure-button-primary {
 
 /* This is the main heading that appears on the blue section */
 .splash-head {
-  font-size: 20px;
+  font-size: 3rem;
   font-weight: bold;
   color: black;
   margin-top: -8px;
   /* border: 3px solid #ffc30b; */
-  padding: 1em 1.6em;
+  padding: 1rem 1.6rem;
   font-weight: 100;
   /* border-radius: 5px; */
   line-height: 1em;
@@ -223,7 +268,7 @@ a.pure-button-primary {
 /* This is the subheading that appears on the blue section */
 .splash-subhead {
   color: black;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.05rem;
   opacity: 0.8;
   font-size: x-large;
   position: relative;
@@ -236,35 +281,45 @@ a.pure-button-primary {
 .content-wrapper {
   /* These styles are required for the "scroll-over" effect */
   position: absolute;
-  top: 70%;
+  top: 70vh;
   width: 100%;
   min-height: 12%;
   z-index: 2;
   background: #ffc30b;
+  overflow: hidden;
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .content-wrapper {
-    top: 80%;
+    top: 90vh;
   }
-}
-
-@media (max-width: 740px) {
-  .content-wrapper {
-    top: 100% !important;
-  }
-
   .splash {
     height: 85%;
+  } 
+} */
+
+@media (max-width: 417px) {
+  .main {
+    margin-top: 8.5rem;
+  }
+}
+
+@media (max-width: 812px) {
+  /* .content-wrapper {
+    top: 100% !important;
+  } */
+
+  .pure-menu {
+    overflow: auto;
   }
 
-  .content-subhead {
-    font-size: 3.5vh !important;
-  }
+  /* .content-subhead {
+    font-size: 4rem !important;
+  } */
 
-  .splash-container {
+  /* .splash-container {
     top: 0;
-  }
+  } */
 }
 /* 
 @media (max-width: 812px) {
@@ -302,7 +357,7 @@ a.pure-button-primary {
   color: #039741;
   text-align: center;
   font-family: "Bree Serif";
-  font-size: 2.5vh;
+  font-size: 2.5rem;
 }
 
 .content-subhead i {
@@ -334,14 +389,15 @@ a.pure-button-primary {
  */
 @media (min-width: 48em) {
   /* We increase the body font size */
-  body {
+  /* body {
     font-size: 16px;
-  }
+  } */
 
   /* We can align the menu header to the left, but float the
     menu items to the right. */
   .home-menu {
     text-align: left;
+    /* padding: 0; */
   }
   .home-menu ul {
     float: right;
@@ -354,13 +410,13 @@ a.pure-button-primary {
 
   /* We decrease the width of the .splash, since we have more width
     to work with */
-  .splash {
+  /* .splash {
     width: 50%;
     height: 50%;
-  }
+  } */
 
   .splash-head {
-    font-size: 250%;
+    font-size: 3rem;
   }
 
   /* We remove the border-separator assigned to .l-box-lrg */
@@ -377,7 +433,7 @@ a.pure-button-primary {
 @media (min-width: 78em) {
   /* We increase the header font size even more */
   .splash-head {
-    font-size: 300%;
+    font-size: 3rem;
   }
 }
 
@@ -394,15 +450,15 @@ a.pure-button-primary {
   overflow: hidden;
   /* The following styles are required for the "scroll-over" effect */
   width: 100%;
-  height: 20%;
+  height: 100%;
   top: 0;
   left: 0;
-  position: absolute !important;
+  position: fixed;
   font-family: "Bree Serif";
 }
 
 .dash-content-wrapper {
-  position: absolute;
+  position: fixed;
   top: 20%;
   height: 90%;
   width: 100%;
@@ -420,6 +476,20 @@ hr {
   z-index: 40;
 }
 
+.hint:visited,
+.hint:link {
+  text-decoration: underline black;
+  color: black;
+}
+
+.pure-form-message-inline {
+  color: black;
+}
+
+#sign-up {
+  position: relative;
+  bottom: 12.5rem;
+}
 /* @media screen and (max-width: 815px) {
   .pure-menu-heading {
     display: none;
@@ -431,13 +501,38 @@ hr {
   background-color: #039741;
 }
 
-#signup-form {
+/* #signup-form {
   margin: 10%;
-}
+} */
 
 #signup-form form {
   position: relative;
-  top: -16%;
+  bottom: 15rem;
+  /* overflow: auto; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#login-form form {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 12rem;
+  /* overflow: auto; */
+}
+
+#signup-form form input,
+#login-form form input {
+  width: 40vh;
+  border-radius: 2rem;
+}
+
+@media screen and (max-height: 924px) {
+  .signup {
+    position: inherit;
+  }
 }
 
 fieldset {
@@ -445,9 +540,13 @@ fieldset {
   color: #000;
 }
 
-@media screen and (min-width: 1200px) {
-  #main-message {
-    top: -28%;
+@media screen and (max-width: 1200px) {
+  .main {
+    margin-top: 10rem;
+  }
+
+  .content-wrapper {
+    top: 90vh;
   }
 }
 
@@ -470,13 +569,12 @@ img {
 
 .pure-menu {
   font-family: "Lato";
-  overflow: auto;
 }
 
 .prev,
 .next {
   position: relative;
-  font-size: 40px;
+  font-size: 4rem;
   color: white !important;
 }
 
@@ -515,7 +613,7 @@ img {
 .close {
   color: #aaaaaa;
   float: right;
-  font-size: 28px;
+  font-size: 3rem;
   font-weight: bold;
 }
 
