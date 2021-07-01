@@ -14,7 +14,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Report problems in your area so they can be fixed." />
-  <title>FixMyStreet.net</title>
+  <title><?= $plainurl ?></title>
   <link rel="stylesheet" href="/css/pure/pure-min.css" />
   <link rel="stylesheet" href="/css/pure/grids-responsive-min.css" />
   <script defer src="/fontawesome-free-5.15.2-web/js/all.min.js"></script>
@@ -84,7 +84,7 @@
   ?>
   <div class="header">
     <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-      <a class="pure-menu-heading" href="">FixMyStreet.net</a>
+      <a class="pure-menu-heading" href=""><?= $plainurl ?></a>
       <ul class="pure-menu-list">
         <li class="pure-menu-item pure-menu-selected">
           <a href="./index.php" class="pure-menu-link">Report a problem</a>
@@ -108,10 +108,10 @@
               else
               {
                   echo '        <li class="pure-menu-item">
-                  <a href="./login.php" class="pure-menu-link">Sign in</a>
+                  <a href="/login.php" class="pure-menu-link">Sign in</a>
                 </li>
                 <li class="pure-menu-item">
-                  <a href="./signup.php" class="pure-menu-link">Sign up</a>
+                  <a href="/signup.php" class="pure-menu-link">Sign up</a>
                 </li>';
               }
         ?>
@@ -119,7 +119,7 @@
     </div>
   </div>
   <div class="splash-container">
-    <div class="splash">
+    <div class="splash main">
       <h1 id="main-message" class="splash-head">Report, view, or discuss local problems</h1>
       <p class="splash-subhead">
         (like graffiti, illegal dumping, broken paving slabs, or street
@@ -183,7 +183,7 @@
     </div>
     <hr />
     <div class="content">
-      <h2 class="content-head is-center">FixMyStreet.net</h2>
+      <h2 class="content-head is-center"> FixMyStreet.net </h2>
       <p class="is-center">
         This version of FixMyStreet is written in PHP and runs on a MySQL
         database!
