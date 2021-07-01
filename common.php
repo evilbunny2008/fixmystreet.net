@@ -202,19 +202,21 @@
 
 	function sendMail($type, $hash, $id, $email)
 	{
+		global $plainurl, $refererurl;
 		switch($type)
 		{
 			case 1:
-				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("just signed up with FixMyStreet.net")."\n\n";
+				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("just signed up with $refererurl")."\n\n";
 				$body .= _("Please click on the following URL to confirm your email address:")."\n\n";
-				$body .= "https:/"."/fixmystreet.net/verify.php?hash=$hash&uid=$id\n\n";
-				mail($email, "[FixMyStreet.net]: "._("Email Verification Check"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
+				$body .= "{$refererurl}verify.php?hash=$hash&uid=$id\n\n";
+				mail($email, "[{$plainurl}]: "._("Email Verification Check"), $body, "From: noreply@{$plainurl}\nReturn-Path: noreply@{$plainurl}","-f noreply@{$plainurl}");
 				break;
 			case 2:
-				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("requested to reset your password on FixMyStreet.net")."\n\n";
+				$body = ("Hello").",\n\n"._("You, or someone that knows your email address,")."\n"._("requested to reset your password on {$refererurl}")."\n\n";
 				$body .= _("Please click on the following URL to reset your password:")."\n\n";
-				$body .= "https:/"."/fixmystreet.net/reset.php?hash=$hash&uid=$id\n\n";
-				mail($email, "[FixMyStreet.net]: "._("Password Reset"), $body, "From: noreply@fixmystreet.net\nReturn-Path: noreply@fixmystreet.net","-f noreply@fixmystreet.net");
+				$body .= "{$refererurl}reset.php?hash=$hash&uid=$id\n\n";
+				mail($email, "[{$plainurl}]: "._("Password Reset"), $body, "From: noreply@{$plainurl}\nReturn-Path: noreply@{$plainurl}","-f noreply@{$plainurl}");
+				break;
 		}
 	}
 
@@ -390,10 +392,11 @@
 		return $problem_id;
 	}
 
+
 	$header = '    <div class="flex-wrapper">
 	<div class="header">
 	  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-		<a class="pure-menu-heading" href="index.php">FixMyStreet.net</a>
+		<a class="pure-menu-heading" href="index.php">'.$plainurl.'</a>
 		<ul class="pure-menu-list">
 		  <li class="pure-menu-item">
 			<a href="index.php" class="pure-menu-link">Report a problem</a>
