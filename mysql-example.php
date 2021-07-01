@@ -19,4 +19,4 @@
 	$link = new mysqli($hostname, $username, $password, $database);
 
 	$refererurl = "https://fixmystreet.net/";
-	$plainurl = "fixmystreet.net";
+	$plainurl = "FixMyStreet.net";
