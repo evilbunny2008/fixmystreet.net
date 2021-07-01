@@ -61,18 +61,13 @@
 </head>
 
   <body>
-    <?=$header?>
-      <div class="dash-header">
+  <?=$header?>
+      <div class="dash-header signup">
         <div class="splash">
-          <h1 class="splash-head">Sign up</h1>
-        </div>
-      </div>
-      <div class="dash-content-wrapper">
-        <div id="signup-content" class="content">
-          <div class="pure-g" id="signup-form">
-            <div class="pure-u-1-3"></div>
-            <div class="pure-u-1-3">
-              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
+          <h1 id="sign-up">Sign Up</h1>
+          <div id="" class="">
+          <div id="signup-form">
+          <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
                   if(isset($msg) && $msg != '')
@@ -112,11 +107,13 @@
                   </div>
                 </fieldset>
               </form>
-            </div>
-            <div class="pure-u-1-3"></div>
           </div>
         </div>
+        </div>
       </div>
+      <!-- <div class="dash-content-wrapper"> -->
+        <!-- <div id="signup-content" class="content"> -->
+      <!-- </div> -->
     </div>
     <?=$footer?>
   </body>

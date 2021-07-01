@@ -54,21 +54,11 @@
     <?=$header?>
       <div class="dash-header">
         <div class="splash">
-          <h1 class="splash-head">Login</h1>
-        </div>
-      </div>
-      <div class="dash-content-wrapper">
-        <div id="signup-content" class="content">
-          <div class="pure-g" id="signup-form">
-            <div class="pure-u-1-3"></div>
-            <div class="pure-u-1-3">
+          <h1 id="sign-up">Login</h1>
+          <div id="" class="">
+          <div id="login-form">
               <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
-                <?php
-                  if (isset($msg) && $msg != '')
-                  { 
-                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
-            <?php } ?>
                   <input type="hidden" value="1" name="hiddenval">
                   <div class="pure-control-group">
                     <label for="aligned-email">Email Address</label>
@@ -83,14 +73,21 @@
                       Submit
                     </button>
                   </div>
-                  <a href="./reset.php">Forgot password?</a>
+                  <?php
+                  if (isset($msg) && $msg != '')
+                  { 
+                      ?><div style='text-align:center; color:black'><?= $msg ?></div>
+            <?php } ?>
+                  <a class="hint" href="reset.php">Forgot password?</a>
                 </fieldset>
               </form>
-            </div>
-            <div class="pure-u-1-3"></div>
           </div>
         </div>
+        </div>
       </div>
+      <!-- <div class="dash-content-wrapper"> -->
+        <!-- <div id="signup-content" class="content"> -->
+      <!-- </div> -->
     </div>
     <?=$footer?>
   </body>

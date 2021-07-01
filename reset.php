@@ -28,12 +28,17 @@
 			$cpassword = empty(trim($_POST['cpassword'])) ? NULL : mysqli_real_escape_string($link, $_POST['cpassword']);
 			$uid = intval(trim(strip_tags($_REQUEST['uid'])));
 
-			if($password !== $cpassword)
+      if(is_null($password) || is_null($cpassword))
+      {
+        $msg = _("Password cannot be empty!");
+      }
+
+			else if($password !== $cpassword)
 			{
 				$msg = _("The passwords you entered didn't match");
 			}
 
-      if($password === $cpassword)
+      else if($password === $cpassword)
       {
         $password = getPasswordHash($cpassword);
         $sql = "UPDATE `users` SET `password` = '$password' WHERE `id`= $uid";
@@ -78,17 +83,9 @@
     <?= $header ?>
 	  <div class="dash-header">
         <div class="splash">
-          <h1 class="splash-head">Reset your password</h1>
-        </div>
-      </div>
-      <div class="dash-content-wrapper">
-        <div id="signup-content" class="content">
-          <div class="pure-g" id="signup-form">
-            <div class="pure-u-1-3"></div>
-            <div class="pure-u-1-3">
-	
-
-<?php
+          <h1 id="sign-up">Reset your password</h1>
+          <div id="login-form">
+          <?php
 	$hash = isset($_REQUEST['hash']) ? mysqli_real_escape_string($link, trim(strip_tags($_REQUEST['hash']))) : "";
 	$uid = isset($_REQUEST['uid']) ? intval(trim(strip_tags($_REQUEST['uid']))) : NULL;
 	if ($hash == "" || is_null($uid))
@@ -115,14 +112,12 @@
                       Submit
                     </button>
                   </div>
+                  </div>
                 </fieldset>
               </form>
             </div>
-            <div class="pure-u-1-3"></div>
           </div>
-        </div>
       </div>
-    </div>
     <?=$footer?>
   </body>
 </html>
@@ -135,8 +130,9 @@
 		$res = mysqli_query($link, $sql);
 		if(mysqli_num_rows($res) === 1)
 		{
+      $protocol = ((!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 			?>
-              <form action="<?= $_SERVER['PHP_SELF'] ?>" method="post" class="pure-form pure-form-stacked">
+              <form action="<?= $protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'] ?>" method="post" class="pure-form pure-form-stacked">
                 <fieldset>
                   <?php
                   if (isset($msg) && $msg != '')
@@ -165,7 +161,6 @@
                 </fieldset>
               </form>
             </div>
-            <div class="pure-u-1-3"></div>
           </div>
         </div>
       </div>
