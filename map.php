@@ -51,8 +51,8 @@
 					exit;
 				}
 
-				$file_path = "$uploads_dir/$file".".jpg";
-				$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
+				$file_path = "/$uploads_dir/$file".".jpg";
+				$file_thumb = "/$uploads_dir/$file"."_thumb.jpg";
 
 				$query = "INSERT INTO `photos` SET `problem_id`=$problem_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
 				mysqli_query($link, $query);
@@ -119,8 +119,8 @@
 					}
 
 
-					$file_path = "$uploads_dir/$file"."jpg";
-					$file_thumb = "$uploads_dir/$file"."_thumb.jpg";
+					$file_path = "/$uploads_dir/$file".".jpg";
+					$file_thumb = "/$uploads_dir/$file"."_thumb.jpg";
 
 					$query = "INSERT INTO `comment_photos` SET `comment_id`=$update_id, `user_id`='$userid', `comment`='$filename', `file_path`='$file_path', `thumb`='$file_thumb'";
 					mysqli_query($link, $query);
@@ -184,7 +184,7 @@
 			loading();
 		}
 	}
-	window.count = -1;
+	
 	async function uploadFile(lastPreview)
 	{
 		let formData = new FormData();
@@ -311,19 +311,53 @@
 
 				comments.forEach(comment => {
 					//CREATE ELEMENTS HERE TO POPULATE DIV
-					console.log(comment);
 					let commentTag = document.createElement("p");
 					commentTag.classList.add("comment");
-					console.log(commentTag);
 					commentTag.innerHTML = comment["text"];
+					commentTag.setAttribute("cid", comment.id);
 					let lnbreak = document.createElement("br");
 					commentTag.appendChild(lnbreak);
 					commentDiv.append(commentTag);
 					commentTag.append(`\t- ${comment["name"]} on ${comment["created"]}`);
 				});
+				console.log(commentDiv);
 				setTimeout(function () {
 					const container = document.querySelector(".container");
 					container.insertAdjacentElement('afterend', commentDiv);
+					for(const comment of comments) {
+						if(comment.images.length != 0) {
+							const c = document.querySelector(`[cid='${comment['id']}']`);
+							const carousel = document.createElement("div");
+							carousel.className = "container";
+							c.insertAdjacentElement("afterend",carousel);
+							const img = document.createElement("img");
+							img.setAttribute("onclick","showImage(this.src)");
+							img.src = comment.images[0];
+							carousel.appendChild(img);
+							if(comment.images.length > 1) {
+								const next = document.querySelector(".next").cloneNode(true);
+								const prev = document.querySelector(".prev").cloneNode(true);
+								img.insertAdjacentElement("afterend", next);
+								img.insertAdjacentElement("beforebegin", prev);
+								next.addEventListener("click", function() {
+									if (img.getAttribute("src") !== comment.images[comment.images.length-1]) {
+										const index = comment.images.indexOf(img.getAttribute("src"));
+										img.src = comment.images[index+1];
+									}
+									else
+										img.src = comment.images[0];
+								});
+								prev.addEventListener("click", function() {
+									if (img.getAttribute("src") !== comment.images[0]) {
+										const index = comment.images.indexOf(img.getAttribute("src"));
+										img.src = comment.images[index-1];
+									}
+									else
+										img.src = comment.images[comment.images.length-1];								
+									});
+							}
+						}
+					}
 				}, 2000)
 			}
 		}
@@ -379,7 +413,7 @@
 			history.replaceState({}, '', '/map.php');
 			<?php if(isset($_SESSION['loggedin'])) { ?>
 				init();
-			<?php 
+			<?php
 			}
 			?>
 			document.title = "Report a problem";
@@ -433,18 +467,15 @@
 				uuids[i].remove();
 			}
 		}
-		window.count--;
 		img.remove();
 	}
 
-	function positionArrows()
+	function positionArrows(img)
 	{
-		let img = document.querySelector(".slide");
-		let h = img.height;
-		let w = img.width;
-		let next = document.querySelector(".next");
-		img.insertAdjacentElement("afterend",next)
-		let prev = document.querySelector(".prev");
+		// let img = document.querySelector(".slide");
+		const next = document.querySelector(".next");
+		img.insertAdjacentElement("afterend",next);
+		const prev = document.querySelector(".prev");
 		next.style.left = "20px";
 		prev.style.right = "20px";
 	}
@@ -458,7 +489,7 @@
 		container.innerHTML += `<a class="next" >&#10095;</a>`;
 		let img = document.createElement("img");
 		img.className = "slide";
-		img.setAttribute("onload","positionArrows()")
+		img.setAttribute("onload","positionArrows(this)");
 		img.src = switchImage();
 		container.innerHTML += `<a class="prev" >&#10094;</a>`;
 		container.appendChild(img);
@@ -480,7 +511,7 @@
 				let i = 0;
 				const length = photoList.length;
 				let img = document.querySelector(".slide");
-				img.src = '/'+photoList[0]['thumb'];
+				img.src = photoList[0]['thumb'];
 				img.addEventListener("click", function() {
 					showImage(img.src);
 				});
@@ -492,7 +523,7 @@
 						i=0;
 
 					let img = document.querySelector(".slide");
-					img.src = '/'+photoList[i]['thumb'];
+					img.src = photoList[i]['thumb'];
 				});
 				let prev = document.querySelector(".prev");
 				prev.addEventListener("click", function() {
@@ -503,7 +534,7 @@
 						i=length-1;
 
 					let img = document.querySelector(".slide");
-					img.src = '/'+photoList[i]['thumb'];
+					img.src = photoList[i]['thumb'];
 				});
 
 			}
