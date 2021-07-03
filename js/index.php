@@ -263,10 +263,12 @@ function showImage(src) {
   modal.style.display = "flex";
   document.querySelector(".close").addEventListener("click", function() {
     modal.style.display = "none";
+    modalImg.src = "";
     content.style.width = "";
   });
     window.onclick = function(event) {
     if (event.target == modal) {
+      modalImg.src = "";
       modal.style.display = "none";
       content.style.width = "";
     }
