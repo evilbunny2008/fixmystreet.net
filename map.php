@@ -302,7 +302,6 @@
 			if(http3.readyState == 4 && http3.status == 200)
 			{
 				let comments = JSON.parse(http3.responseText.split("\n"));
-				console.log(comments);
 				if(comments['status'] == "FAIL")
 					return;
 				const btn = document.getElementById("submit");
@@ -311,14 +310,17 @@
 
 				comments.forEach(comment => {
 					//CREATE ELEMENTS HERE TO POPULATE DIV
-					let commentTag = document.createElement("p");
+					const commentTag = document.createElement("div");
 					commentTag.classList.add("comment");
 					commentTag.innerHTML = comment["text"];
 					commentTag.setAttribute("cid", comment.id);
 					let lnbreak = document.createElement("br");
 					commentTag.appendChild(lnbreak);
 					commentDiv.append(commentTag);
-					commentTag.append(`\t- ${comment["name"]} on ${comment["created"]}`);
+					const date = document.createElement("p");
+					date.setAttribute("cinfo",comment.id);
+					date.innerHTML = `\t- ${comment["name"]} on ${comment["created"]}`;
+					commentTag.appendChild(date);
 				});
 				console.log(commentDiv);
 				setTimeout(function () {
@@ -329,14 +331,21 @@
 							const c = document.querySelector(`[cid='${comment['id']}']`);
 							const carousel = document.createElement("div");
 							carousel.className = "container";
-							c.insertAdjacentElement("afterend",carousel);
+							c.appendChild(carousel);
 							const img = document.createElement("img");
 							img.setAttribute("onclick","showImage(this.src)");
 							img.src = comment.images[0];
+							const date = document.querySelector(`[cinfo='${comment['id']}']`);
+							carousel.insertAdjacentElement("afterend", date);
+							// const date = c.closest(".cinfo");
+							console.log(c);
+							// carousel.insertAdjacentHTML("afterend", date);
 							carousel.appendChild(img);
 							if(comment.images.length > 1) {
 								const next = document.querySelector(".next").cloneNode(true);
+								next.classList.add("comment-btns");
 								const prev = document.querySelector(".prev").cloneNode(true);
+								prev.classList.add("comment-btns");
 								img.insertAdjacentElement("afterend", next);
 								img.insertAdjacentElement("beforebegin", prev);
 								next.addEventListener("click", function() {
