@@ -631,7 +631,13 @@ img {
 }
 
 .comment {
-  margin: 30px;
+  margin: 3rem;
   word-wrap: break-word;
   background: white;
+  padding: 2rem;
+}
+
+.comment-btns {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 10px;
 }
