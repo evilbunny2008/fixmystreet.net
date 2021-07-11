@@ -635,6 +635,7 @@ img {
   word-wrap: break-word;
   background: white;
   padding: 2rem;
+  border-radius: 3px;
 }
 
 .comment-btns {
