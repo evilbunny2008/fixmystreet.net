@@ -237,6 +237,7 @@ function showSteps() {
 function showModal(text) {
   let modal = document.querySelector(".modal");
   let modalText = document.querySelector(".modal-text");
+  modalText.innerHTML = "";
   modalText.innerHTML = text;
   modal.style.display = "flex";
   document.querySelector(".close").addEventListener("click", function() {
