@@ -305,6 +305,22 @@ function checkEmpty(field) {
     }
   }
 
+  function toggleOptions() {
+    const options = document.querySelector(".optionList");
+    const optionsDescription = document.querySelector(".options-description");
+    const toggle = event.target;
+    if(options.hasAttribute("hidden")) {
+      options.removeAttribute("hidden");
+      optionsDescription.removeAttribute("hidden");
+      toggle.innerHTML = `&#9660; Advanced options`;
+    }
+    else {
+      options.setAttribute("hidden", "");
+      optionsDescription.setAttribute("hidden", "");
+      toggle.innerHTML = `&#x25BA; Advanced options`;
+    }
+  }
+
 function getExtra(id)
 	{
 		http.open('GET', '/extra.php?id=' + id, true);
@@ -352,7 +368,7 @@ function getExtra(id)
         problemID.value = id;
         form.appendChild(problemID);
 				form.innerHTML += `<h3>Have an update?</h3>`;
-				form.innerHTML += `<label>Photos (if any)</label>`;
+				form.innerHTML += `<br /><br /><label>Photos (if any)</label>`;
         let dragNdrop = document.createElement("div");
         dragNdrop.className = "file-drop";
         dragNdrop.innerHTML = "Drag or click here to choose files";
@@ -365,7 +381,6 @@ function getExtra(id)
         fileInput.id = "myFiles";
         dragNdrop.appendChild(fileInput);
         form.appendChild(dragNdrop);
-				form.innerHTML += `<br /><br/><br/>`;
 				form.innerHTML += `<p>HINT: Click on images to remove them!</p>`;
 				form.innerHTML += `<div class="images">`;
 				form.innerHTML += `</div>`;
@@ -384,9 +399,39 @@ function getExtra(id)
         update.style.borderRadius = "8px";
         update.style.resize = "none";
         form.appendChild(update);
-				form.innerHTML += `<br /><br/>`;
+        form.innerHTML += `<br /><br/>`;
+        const advancedOptions = document.createElement("a");
+        advancedOptions.innerHTML = `&#x25BA; Advanced options`;
+        const optionsDescription = document.createElement("p");
+        optionsDescription.className = "options-description";
+        optionsDescription.setAttribute("hidden","");
+        optionsDescription.innerHTML = '<br/>Optional - Update the status of this issue<br/>';
+        advancedOptions.setAttribute("onclick","toggleOptions()");
+        form.appendChild(advancedOptions);
+        form.appendChild(optionsDescription);
+        const options = new Map();
+        options.set('Investigating',1);
+        options.set('In progress',2);
+        options.set('Planned', 3);
+        options.set('Action scheduled', 4);
+        options.set('No further action',5);
+        options.set('Not responsible', 6);
+        options.set('Duplicate', 7);
+        options.set('Internal referral', 8);
+        options.set('Fixed', 9);
+        const select = document.createElement("select");
+        select.setAttribute("hidden","");
+        select.className = "optionList";
+        for(const [optionName, value] of options) {
+          const option = document.createElement("option");
+          option.value = value;
+          option.innerHTML = optionName;
+          select.appendChild(option);
+        }
+        form.appendChild(select);
 				form.innerHTML += `<br /><br/>`;
 				form.innerHTML += `<button href="#" name="submit" type="submit" value="submit" class="pure-button" id="submit" disabled>Submit</buttons>`;
+				form.innerHTML += `<br /><br/>`;
         reportInfo.appendChild(form);
         <?php
 					} else {
