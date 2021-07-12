@@ -74,6 +74,7 @@
   {
 	$problem_id = is_null($_POST['problemID']) ? NULL : cleanup($_POST['problemID']);
 	$extra = is_null($_POST['update-extra']) ? NULL : cleanup($_POST['update-extra']);
+	$state = is_null($_POST['state']) ? NULL : cleanup($_POST['state']);
 	$email = $_SESSION['email'];
     $row = mysqli_fetch_assoc(mysqli_query($link, "SELECT `id` FROM `users` WHERE `email`='$email'"));
     $userid = $row['id'];
@@ -135,6 +136,12 @@
 				}
 			}
 		}
+	}
+	if(!is_null($state))
+	{
+		$state = intval($state);
+		$query = "UPDATE `problem` SET `state`=$state WHERE `id`=$problem_id";
+		mysqli_query($link, $query);
 	}
 
   }
