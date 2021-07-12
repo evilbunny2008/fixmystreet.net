@@ -312,10 +312,12 @@ function checkEmpty(field) {
     const toggle = event.target;
     if(options.hasAttribute("hidden")) {
       options.removeAttribute("hidden");
+      options.selectedIndex = -1;
       optionsDescription.removeAttribute("hidden");
       toggle.innerHTML = `&#9660; Advanced options`;
     }
     else {
+      options.selectedIndex = -1;
       options.setAttribute("hidden", "");
       optionsDescription.setAttribute("hidden", "");
       toggle.innerHTML = `&#x25BA; Advanced options`;
@@ -402,6 +404,7 @@ function getExtra(id)
         form.appendChild(update);
         form.innerHTML += `<br /><br/>`;
         const advancedOptions = document.createElement("a");
+        advancedOptions.setAttribute("tabindex","0");
         advancedOptions.innerHTML = `&#x25BA; Advanced options`;
         const optionsDescription = document.createElement("p");
         optionsDescription.className = "options-description";
@@ -421,6 +424,7 @@ function getExtra(id)
         options.set('Internal referral', 8);
         options.set('Fixed', 9);
         const select = document.createElement("select");
+        select.setAttribute("name","state");
         select.setAttribute("hidden","");
         select.className = "optionList";
         for(const [optionName, value] of options) {
