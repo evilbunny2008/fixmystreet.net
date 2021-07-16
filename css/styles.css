@@ -67,6 +67,12 @@ html {
   height: 100%;
 }
 
+@media screen and (max-width: 22.5em) {
+  html {
+    font-size: 50%;
+  }
+}
+
 body {
   /* min-height: 100%; */
   width: 100%;
@@ -298,13 +304,13 @@ a.pure-button-primary {
   } 
 } */
 
-@media (max-width: 417px) {
+@media (max-width: 26.0625em) {
   .main {
     margin-top: 8.5rem;
   }
 }
 
-@media (max-width: 812px) {
+@media (max-width: 50.75em) {
   /* .content-wrapper {
     top: 100% !important;
   } */
@@ -529,7 +535,7 @@ hr {
   border-radius: 2rem;
 }
 
-@media screen and (max-height: 924px) {
+@media screen and (max-height: 57.75em) {
   .signup {
     position: inherit;
   }
@@ -540,7 +546,7 @@ fieldset {
   color: #000;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 75em) {
   .main {
     margin-top: 10rem;
   }
