@@ -144,6 +144,7 @@
 		mysqli_query($link, $query);
 	}
 	header("Location: /reports/$problem_id");
+	exit;
   }
 
 	$lat = -34.397;
