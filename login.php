@@ -78,7 +78,7 @@
                   { 
                       ?><div style='text-align:center; color:black'><?= $msg ?></div>
             <?php } ?>
-                  <a class="hint" href="reset.php">Forgot password?</a>
+                  <a class="hint" href="/reset.php">Forgot password?</a>
                 </fieldset>
               </form>
           </div>

@@ -396,16 +396,16 @@
 	$header = '    <div class="flex-wrapper">
 	<div class="header">
 	  <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-		<a class="pure-menu-heading" href="index.php">'.$plainurl.'</a>
+		<a class="pure-menu-heading" href="/index.php">'.$plainurl.'</a>
 		<ul class="pure-menu-list">
 		  <li class="pure-menu-item">
-			<a href="index.php" class="pure-menu-link">Report a problem</a>
+			<a href="/index.php" class="pure-menu-link">Report a problem</a>
 		  </li>
 		  <li class="pure-menu-item">
 			<a href="#" class="pure-menu-link">Help</a>
 		  </li>
 		  <li class="'. active('reports.php') .'pure-menu-item">
-			<a href="reports.php" class="pure-menu-link">All reports</a>
+			<a href="/reports.php" class="pure-menu-link">All reports</a>
 		  </li>
 		  <li class="pure-menu-item">
 			<a href="#" class="pure-menu-link">Local alerts</a>
@@ -413,7 +413,7 @@
 	if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
 	{
 		$header .= '<li class="pure-menu-item">
-		<a href="logout.php" class="pure-menu-link">Log out</a>
+		<a href="/logout.php" class="pure-menu-link">Log out</a>
 	  </li>
 	  </ul>
 	  </div>
@@ -422,10 +422,10 @@
 	else
 	{
 		$header .= 	'<li class="'. active('login.php') .'pure-menu-item">
-		<a href="login.php" class="pure-menu-link">Sign in</a>
+		<a href="/login.php" class="pure-menu-link">Sign in</a>
 			</li>
 			<li class="'. active('signup.php') .'pure-menu-item">
-				<a href="signup.php" class="pure-menu-link">Sign up</a>
+				<a href="/signup.php" class="pure-menu-link">Sign up</a>
 			</li>
 			</ul>
 		</div>

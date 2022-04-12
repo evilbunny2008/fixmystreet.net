@@ -87,13 +87,13 @@
       <a class="pure-menu-heading" href=""><?= $plainurl ?></a>
       <ul class="pure-menu-list">
         <li class="pure-menu-item pure-menu-selected">
-          <a href="./index.php" class="pure-menu-link">Report a problem</a>
+          <a href="/index.php" class="pure-menu-link">Report a problem</a>
         </li>
         <li class="pure-menu-item">
           <a href="#" class="pure-menu-link">Help</a>
         </li>
         <li class="pure-menu-item">
-          <a href="./reports.php" class="pure-menu-link">All reports</a>
+          <a href="/reports.php" class="pure-menu-link">All reports</a>
         </li>
         <li class="pure-menu-item">
           <a href="#" class="pure-menu-link">Local alerts</a>
@@ -102,7 +102,7 @@
         if(isset( $_SESSION['loggedin']) && $_SESSION['loggedin'] === 1)
               {
                   echo '<li class="pure-menu-item">
-                  <a href="./logout.php" class="pure-menu-link">Log out</a>
+                  <a href="/logout.php" class="pure-menu-link">Log out</a>
                   </li>';
               }
               else
