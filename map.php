@@ -66,7 +66,7 @@
 		}
 	}
 
-	header("Location: map.php?lat=$lat&lng=$lng");
+	header("Location: /map.php?lat=$lat&lng=$lng");
 	exit;
   }
 
@@ -143,7 +143,7 @@
 		$query = "UPDATE `problem` SET `state`=$state WHERE `id`=$problem_id";
 		mysqli_query($link, $query);
 	}
-	header("Location: reports/$problem_id");
+	header("Location: /reports/$problem_id");
   }
 
 	$lat = -34.397;

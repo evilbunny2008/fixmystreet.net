@@ -131,7 +131,7 @@
                         exit;
                 }
 
-                return "<a href='map.php?lat=".$row['lat']."&lng=".$row['lng']."'>".$row['address'].", ".$row['council']."</a>";
+                return "<a href='/map.php?lat=".$row['lat']."&lng=".$row['lng']."'>".$row['address'].", ".$row['council']."</a>";
         }
 
 	function getPasswordHash($password)
